@@ -82,6 +82,7 @@ svg.i { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor;
 .btn.danger:hover { background: var(--danger-tint); }
 .btn.small { height: 30px; padding: 0 10px; font-size: 13.5px; }
 .split { display: inline-flex; }
+.label-short { display: none; }
 .split .btn.primary:first-child { border-radius: var(--r-s) 0 0 var(--r-s); }
 .split .btn.primary.more { border-radius: 0 var(--r-s) var(--r-s) 0; padding: 0 9px; border-left: 1px solid oklch(100% 0 0 / 0.25); }
 .menu { position: fixed; inset: auto; margin: 0; padding: 6px; border: 0; border-radius: var(--r-m); background: var(--paper); box-shadow: var(--shadow-pop); min-width: 300px; }
@@ -136,7 +137,7 @@ svg.i { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor;
 .toggle input::after { content: ""; position: absolute; top: 2px; left: 2px; width: 14px; height: 14px; border-radius: 50%; background: #fff; box-shadow: 0 1px 2px oklch(30% 0.02 262 / 0.3); transition: translate .18s var(--ease); }
 .toggle input:checked { background: var(--navy); }
 .toggle input:checked::after { translate: 12px 0; }
-.stage-scroll { flex: 1; min-height: 0; overflow: auto; display: flex; justify-content: center; align-items: flex-start; padding: 6px 24px 32px; }
+.stage-scroll { flex: 1; min-height: 0; overflow: auto; display: flex; justify-content: safe center; align-items: flex-start; padding: 6px 24px 32px; }
 .sheet-frame { position: relative; flex: none; }
 .sheet-frame > .sheet { position: absolute; left: 0; top: 0; transform-origin: 0 0; box-shadow: var(--shadow-paper); }
 .nav-arrows { display: inline-flex; gap: 2px; }
@@ -204,6 +205,7 @@ svg.i { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor;
 .sheet td { padding: 1.1mm 2mm; text-align: right; border-bottom: 0.25mm solid #d7dce5; white-space: nowrap; }
 .sheet td:first-child { text-align: left; white-space: normal; }
 .sheet tr.total td { font-weight: 700; background: #e3e9f3; border-bottom: 0.3mm solid #1f3864; border-top: 0.3mm solid #1f3864; }
+.sheet sup { font-size: 0.66em; line-height: 0; vertical-align: 0.5em; }
 .sheet .mens { font-size: 8.8pt; font-style: italic; color: #3a4457; margin: 0 0 3.5mm; }
 .sheet .sign { margin: 4mm 0 0 90mm; }
 .sheet .sign b { display: block; }
@@ -215,8 +217,8 @@ svg.i { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor;
 .sheet .fold { position: absolute; left: 0; width: 5mm; border-top: 0.3mm solid #c9ced8; pointer-events: none; }
 .sheet [data-f] { border-radius: 1mm; transition: background-color .18s var(--ease), box-shadow .18s var(--ease); }
 .sheet.live [data-f] { cursor: pointer; }
-.sheet.live [data-f]:hover { background: oklch(96% 0.03 85); }
-.sheet [data-f].hl { background: oklch(93% 0.08 88); box-shadow: 0 0 0 1.2mm oklch(93% 0.08 88); }
+.sheet.live [data-f]:hover { background: oklch(96.5% 0.018 262); }
+.sheet [data-f].hl { background: oklch(91% 0.045 262); box-shadow: 0 0 0 1.2mm oklch(91% 0.045 262); }
 
 /* ---------- Vue Clients ---------- */
 .sheetview { display: flex; flex-direction: column; height: 100%; min-height: 0; }
@@ -225,7 +227,8 @@ svg.i { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor;
 .totals { display: flex; gap: 22px; padding: 12px 20px; font-size: 13.5px; color: var(--ink-2); flex-wrap: wrap; }
 .totals b { color: var(--ink); font-weight: 700; font-size: 15px; }
 .totals .up { color: var(--up); }
-.grid-wrap { flex: 1; min-height: 0; overflow: auto; padding: 0 20px 24px; }
+.grid-wrap { flex: 1; min-height: 0; overflow: auto; padding: 0 20px 24px 0; }
+table.grid { margin-left: 20px; }
 table.grid { border-collapse: separate; border-spacing: 0; font-size: 13.5px; background: var(--paper); border: 1px solid var(--rule); border-radius: var(--r-m); }
 .grid th { position: sticky; top: 0; z-index: 1; background: var(--panel); text-align: left; font-size: 12px; font-weight: 700; color: var(--ink-2); padding: 8px 6px; border-bottom: 1px solid var(--rule); white-space: nowrap; }
 .grid th.r { text-align: right; }
@@ -233,6 +236,12 @@ table.grid { border-collapse: separate; border-spacing: 0; font-size: 13.5px; ba
 .grid th:last-child { border-top-right-radius: var(--r-m); }
 .grid td { padding: 3px 3px; border-bottom: 1px solid var(--rule-soft); white-space: nowrap; }
 .grid tr:last-child td { border-bottom: 0; }
+.grid td:nth-child(-n+3), .grid th:nth-child(-n+3) { position: sticky; background: var(--paper); z-index: 1; }
+.grid th:nth-child(-n+3) { background: var(--panel); z-index: 2; }
+.grid td:nth-child(1), .grid th:nth-child(1) { left: 0; width: 64px; min-width: 64px; }
+.grid td:nth-child(2), .grid th:nth-child(2) { left: 64px; }
+.grid td:nth-child(3), .grid th:nth-child(3) { left: 134px; box-shadow: 6px 0 8px -6px oklch(30% 0.02 262 / 0.22); }
+.grid tr:hover td:nth-child(-n+3) { background: oklch(97.5% 0.004 75); }
 .grid tr:hover td { background: oklch(97.5% 0.004 75); }
 .grid td input, .grid td select { height: 30px; padding: 0 6px; border: 1px solid transparent; border-radius: 5px; background: none; width: 100%; }
 .grid td input:hover, .grid td select:hover { border-color: var(--rule); }
@@ -290,13 +299,15 @@ dialog .d-actions { display: flex; justify-content: flex-end; gap: 8px; padding:
   .topbar .saved { display: none; }
   .topbar .split { margin-left: auto; }
   .topbar .split .label-long { display: none; }
+  .topbar .split .label-short { display: inline; }
   .desk { display: block; height: auto; overflow: visible; }
   .rail { border-right: 0; border-bottom: 1px solid var(--rule); max-height: 46vh; }
   .stage { min-height: 0; }
   .stage-bar { flex-wrap: wrap; padding: 10px 16px; }
   .stage-scroll { padding: 4px 16px 20px; overflow: hidden; }
   .toolbar, .totals { padding-left: 16px; padding-right: 16px; }
-  .grid-wrap { padding: 0 16px 20px; }
+  .grid-wrap { padding: 0 16px 20px 0; }
+  table.grid { margin-left: 16px; }
   .settings-form section { padding: 18px 16px; }
   .f.s2, .f.s3, .f.s4 { grid-column: span 6; }
   .fields .f.s2.keep { grid-column: span 2; }
@@ -344,7 +355,7 @@ dialog .d-actions { display: flex; justify-content: flex-end; gap: 8px; padding:
     <div class="spacer"></div>
     <span class="saved" id="saved"><svg class="i"><use href="#i-check"/></svg>Enregistré sur cet ordinateur</span>
     <div class="split">
-      <button class="btn primary" id="print-main"><svg class="i"><use href="#i-print"/></svg><span><span class="label-long">Imprimer les courriers postaux</span> <span id="print-main-n"></span></span></button>
+      <button class="btn primary" id="print-main"><svg class="i"><use href="#i-print"/></svg><span><span class="label-long">Imprimer les courriers postaux</span><span class="label-short">Imprimer</span> <span id="print-main-n"></span></span></button>
       <button class="btn primary more" id="print-more" aria-haspopup="menu" aria-expanded="false" aria-label="Autres impressions"><svg class="i"><use href="#i-down"/></svg></button>
     </div>
   </header>
@@ -383,6 +394,7 @@ dialog .d-actions { display: flex; justify-content: flex-end; gap: 8px; padding:
           <div class="title" id="stage-title"></div>
           <span id="stage-chips"></span>
           <div class="spacer"></div>
+          <label class="toggle" title="Affiche la lettre à sa taille réelle pour la relire"><input type="checkbox" id="zoom-toggle"> Taille réelle</label>
           <label class="toggle" title="Affiche la fenêtre d'une enveloppe DL pour vérifier que l'adresse y tient"><input type="checkbox" id="window-toggle"> Enveloppe</label>
           <button class="btn small" id="print-one" title="Imprimer ou enregistrer en PDF ce courrier seulement"><svg class="i"><use href="#i-print"/></svg>Cette lettre</button>
         </div>
@@ -564,10 +576,11 @@ function civLongue(c) { return c.civ === "Mme" ? "Madame" : c.civ === "M." ? "Mo
 
 /* ================================================================== rendu de la lettre */
 const esc = s => String(s ?? "").replace(/[&<>"']/g, ch => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch]));
+const sup = html => html.replace(/\b1er\b/g, "1<sup>er</sup>");
 function balises(txt, c, t) {
   const S = state.settings;
   const map = { cabinet: S.cabNom, societe: c.societe, date_effet: dateTexte(S.dateEffet), hausse: t.a ? pctSigned(t.r).replace(/^\+/, "") : "—", civilite: civLongue(c) };
-  return esc(txt || "").replace(/\{(cabinet|societe|date_effet|hausse|civilite)\}/g, (_, k) => esc(map[k]));
+  return sup(esc(txt || "").replace(/\{(cabinet|societe|date_effet|hausse|civilite)\}/g, (_, k) => esc(map[k])));
 }
 function letterHTML(c, opts = {}) {
   const S = state.settings, t = totals(c);
@@ -576,7 +589,7 @@ function letterHTML(c, opts = {}) {
   const cpVille = [c.cp, (c.ville || "").toUpperCase()].filter(Boolean).join(" ");
   const rows = MISSIONS.filter(m => num(c[m.k]) > 0 || nouveau(c, m.k) > 0).map(m => {
     const a = num(c[m.k]), n = nouveau(c, m.k);
-    return `<tr data-f="m-${m.k}"><td>${esc(S.lib[m.k])}</td><td>${eur(a)}</td><td>${a ? pctSigned(n / a - 1) : "—"}</td><td>${eur(n)}</td><td>${n - a ? eur(n - a) : "—"}</td></tr>`;
+    return `<tr data-f="m-${m.k}"><td>${esc(S.lib[m.k])}</td><td>${eur(a)}</td><td>${a ? pctSigned(tauxFor(c, m.k)) : "—"}</td><td>${eur(n)}</td><td>${n - a ? eur(n - a) : "—"}</td></tr>`;
   }).join("");
   const ech = Math.round(num(S.echeances));
   const mens = ech > 0 && t.n > 0
@@ -590,7 +603,7 @@ function letterHTML(c, opts = {}) {
       <div><div class="cab" data-f="s-cab">${esc(S.cabNom)}</div>
         <div class="co" data-f="s-cab">${esc(S.cabAdr1)}<br>${esc(S.cabCPVille)}<br>${esc(S.cabContact)}</div></div>
     </header>
-    <div class="refs"><div data-f="s-date">${esc(S.cabVille)}, le ${esc(dateTexte(S.dateCourrier))}</div><div data-f="code">Réf. client : <b>${esc(c.code || "—")}</b></div></div>
+    <div class="refs"><div data-f="s-date">${esc(S.cabVille)}, le ${sup(esc(dateTexte(S.dateCourrier)))}</div><div data-f="code">Réf. client : <b>${esc(c.code || "—")}</b></div></div>
     <div class="dest">
       <div data-f="societe"><b>${c.societe ? esc(c.societe) : ph("Société")}</b></div>
       ${attn && c.nom ? `<div data-f="contact">À l'attention de ${esc(attn)}</div>` : ""}
@@ -630,6 +643,7 @@ function fitSheet(frame, scroller) {
   const narrow = window.matchMedia("(max-width: 760px)").matches;
   let s = narrow ? availW / W : Math.min(availW / W, Math.max(availH, 480) / H);
   s = Math.max(0.25, Math.min(s, 1.25));
+  if (zoomReal && frame.id === "sheet-frame" && !narrow) s = 1;
   sheet.style.transform = `scale(${s})`;
   frame.style.width = W * s + "px";
   frame.style.height = H * s + "px";
@@ -642,6 +656,8 @@ function overflowOf(sheet) {
 /* ================================================================== vue Courriers */
 const $ = s => document.querySelector(s);
 let filter = "tous", search = "", view = "courriers";
+let zoomReal = false;
+try { zoomReal = sessionStorage.getItem("altho-zoom") === "1"; } catch (e) { /* stockage indisponible */ }
 function norm(s) { return String(s || "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase(); }
 function visibleClients() {
   const q = norm(search);
@@ -887,6 +903,12 @@ document.querySelectorAll("[data-filter]").forEach(b => b.addEventListener("clic
   renderCourriers();
 }));
 $("#window-toggle").addEventListener("change", renderStage);
+$("#zoom-toggle").checked = zoomReal;
+$("#zoom-toggle").addEventListener("change", e => {
+  zoomReal = e.target.checked;
+  try { sessionStorage.setItem("altho-zoom", zoomReal ? "1" : "0"); } catch (err) { /* stockage indisponible */ }
+  fitSheet($("#sheet-frame"), $("#stage-scroll"));
+});
 
 /* ----- fiche : saisie en direct */
 function applyClientField(c, k, el) {
@@ -1016,8 +1038,8 @@ function printClients(list, title, checked) {
     const noFee = list.filter(c => totals(c).a <= 0);
     if (noFee.length) issues.push(`${noFee.length} courrier${noFee.length > 1 ? "s n'ont" : " n'a"} aucun honoraire saisi : ${noFee.slice(0, 4).map(c => esc(c.societe || c.code || "sans nom")).join(", ")}${noFee.length > 4 ? "…" : ""}.`);
     if (issues.length) {
-      showDialog(`<div class="d-body"><h2>À vérifier avant d'imprimer</h2><ul>${issues.map(i => `<li>${i}</li>`).join("")}</ul><p>${list.length} courrier${list.length > 1 ? "s" : ""} prêt${list.length > 1 ? "s" : ""} à imprimer.</p></div>
-        <div class="d-actions"><button class="btn quiet" data-close>Annuler</button>${!state.settings.signataire.trim() ? '<button class="btn" data-imp="settings">Renseigner le signataire</button>' : ""}<button class="btn primary" data-imp="print">Imprimer quand même</button></div>`,
+      showDialog(`<div class="d-body"><h2>À vérifier avant d'imprimer</h2><ul>${issues.map(i => `<li>${i}</li>`).join("")}</ul><p>${list.length} courrier${list.length > 1 ? "s seront imprimés" : " sera imprimé"} tel${list.length > 1 ? "s" : ""} quel${list.length > 1 ? "s" : ""}.</p></div>
+        <div class="d-actions"><button class="btn quiet" data-close>Annuler</button>${!state.settings.signataire.trim() ? '<button class="btn" data-imp="print">Imprimer quand même</button><button class="btn primary" data-imp="settings">Renseigner le signataire</button>' : '<button class="btn primary" data-imp="print">Imprimer quand même</button>'}</div>`,
         b => { if (b.dataset.imp === "print") printClients(list, title, true); if (b.dataset.imp === "settings") { show("reglages"); const f = $("#s-signataire"); if (f) f.focus(); } });
       return;
     }
