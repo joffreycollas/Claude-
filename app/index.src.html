@@ -5,10 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Courriers d'honoraires — ALTHO EXPERTISE</title>
 <style>
-@font-face { font-family: "Source Sans 3"; font-style: normal; font-weight: 200 900; font-display: block;
-  src: url(data:font/woff2;base64,/*FONT_REGULAR*/) format("woff2"); }
-@font-face { font-family: "Source Sans 3"; font-style: italic; font-weight: 400; font-display: block;
-  src: url(data:font/woff2;base64,/*FONT_ITALIC*/) format("woff2"); }
+@font-face { font-family: "Hanken Grotesk"; font-style: normal; font-weight: 400 700; font-display: block;
+  src: url(data:font/woff2;base64,/*FONT_SANS*/) format("woff2"); }
+@font-face { font-family: "Source Serif 4"; font-style: normal; font-weight: 400 700; font-display: block;
+  src: url(data:font/woff2;base64,/*FONT_SERIF*/) format("woff2"); }
+@font-face { font-family: "Source Serif 4"; font-style: italic; font-weight: 400; font-display: block;
+  src: url(data:font/woff2;base64,/*FONT_SERIF_ITALIC*/) format("woff2"); }
 
 :root {
   --desk: oklch(93.5% 0.006 75);
@@ -24,9 +26,7 @@
   --navy-hover: #172b4d;
   --navy-tint: oklch(94.5% 0.022 262);
   --navy-tint-2: oklch(90% 0.035 262);
-  --glow: oklch(88% 0.09 85);
   --up: oklch(45% 0.11 150);
-  --warn: oklch(52% 0.13 60);
   --warn-tint: oklch(95% 0.045 80);
   --danger: oklch(50% 0.17 27);
   --danger-tint: oklch(95.5% 0.03 27);
@@ -35,7 +35,7 @@
   --shadow-paper: 0 1px 2px oklch(30% 0.02 262 / 0.10), 0 8px 24px oklch(30% 0.02 262 / 0.10), 0 24px 60px oklch(30% 0.02 262 / 0.08);
   --shadow-pop: 0 4px 12px oklch(30% 0.02 262 / 0.14), 0 16px 40px oklch(30% 0.02 262 / 0.12);
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
-  font-family: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  font-family: "Hanken Grotesk", "Segoe UI", system-ui, sans-serif;
   font-size: 15px;
   line-height: 1.45;
   color: var(--ink);
@@ -187,20 +187,21 @@ svg.i { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor;
 
 /* ---------- La lettre ---------- */
 .sheet { width: 210mm; height: 297mm; background: var(--paper); color: #111a2b; position: relative; overflow: hidden;
-  font-family: "Source Sans 3", Arial, sans-serif; font-size: 10pt; line-height: 1.34; font-variant-numeric: tabular-nums; }
+  font-family: "Source Serif 4", Georgia, serif; font-size: 9.5pt; line-height: 1.33; font-optical-sizing: auto; font-variant-numeric: tabular-nums; }
 .sheet .lh { position: absolute; left: 20mm; right: 20mm; top: 12mm; display: flex; justify-content: space-between; align-items: flex-start; padding-bottom: 5mm; border-bottom: 0.6mm solid #1f3864; }
+.sheet .lh, .sheet table, .sheet .foot, .sheet .refs { font-family: "Hanken Grotesk", Arial, sans-serif; }
 .sheet .lh .cab { font-size: 16.5pt; font-weight: 700; color: #1f3864; letter-spacing: 0.02em; line-height: 1.1; margin-bottom: 2mm; }
 .sheet .lh .co { font-size: 8.8pt; color: #3a4457; line-height: 1.45; }
-.sheet .dest { position: absolute; left: 110mm; top: 52mm; width: 82mm; font-size: 10.6pt; line-height: 1.38; }
+.sheet .dest { position: absolute; left: 110mm; top: 52mm; width: 82mm; font-size: 10.2pt; line-height: 1.38; }
 .sheet .dest b { font-weight: 700; }
-.sheet .refs { position: absolute; left: 20mm; top: 52mm; width: 80mm; font-size: 9.4pt; color: #3a4457; line-height: 1.5; }
+.sheet .refs { position: absolute; left: 20mm; top: 52mm; width: 80mm; font-size: 9pt; color: #3a4457; line-height: 1.5; }
 .sheet .refs b { color: #111a2b; font-weight: 600; }
 .sheet .flow { position: absolute; left: 20mm; right: 20mm; top: 95mm; }
 .sheet .objet { font-weight: 700; margin: 0 0 4.5mm; }
-.sheet p { margin: 0 0 2.4mm; text-align: left; }
+.sheet p { margin: 0 0 2.2mm; text-align: left; }
 .sheet .salut { margin-bottom: 2.4mm; }
-.sheet table { width: 100%; border-collapse: collapse; margin: 1mm 0 1.5mm; font-size: 9.6pt; }
-.sheet th { background: #1f3864; color: #fff; font-weight: 600; text-align: right; padding: 1.3mm 2mm; }
+.sheet table { width: 100%; border-collapse: collapse; margin: 1mm 0 1.5mm; font-size: 8.8pt; }
+.sheet th { background: #1f3864; color: #fff; font-weight: 600; text-align: right; padding: 1.3mm 2mm; white-space: nowrap; }
 .sheet th:first-child { text-align: left; }
 .sheet td { padding: 1.1mm 2mm; text-align: right; border-bottom: 0.25mm solid #d7dce5; white-space: nowrap; }
 .sheet td:first-child { text-align: left; white-space: normal; }
@@ -210,7 +211,7 @@ svg.i { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor;
 .sheet .sign { margin: 4mm 0 0 90mm; }
 .sheet .sign b { display: block; }
 .sheet .sign i { font-size: 9.4pt; color: #3a4457; }
-.sheet .foot { position: absolute; left: 20mm; right: 20mm; bottom: 8mm; padding-top: 2mm; border-top: 0.25mm solid #c9ced8; font-size: 7.4pt; color: #6b7280; text-align: center; line-height: 1.35; }
+.sheet .foot { position: absolute; left: 20mm; right: 20mm; bottom: 8mm; padding-top: 2mm; border-top: 0.25mm solid #c9ced8; font-size: 7pt; color: #6b7280; text-align: center; line-height: 1.35; }
 .sheet .empty-line { color: #9aa3b2; font-style: italic; }
 .sheet .window { position: absolute; left: 100mm; top: 47mm; width: 100mm; height: 45mm; border: 0.5mm dashed oklch(55% 0.12 262 / 0.8); border-radius: 2mm; background: oklch(60% 0.1 262 / 0.05); pointer-events: none; }
 .sheet .window span { position: absolute; right: 2mm; bottom: 1.4mm; font-size: 7pt; color: oklch(45% 0.1 262); font-weight: 600; }
@@ -534,7 +535,7 @@ const fmtEur = new Intl.NumberFormat("fr-FR", { style: "currency", currency: "EU
 const fmtEur2 = new Intl.NumberFormat("fr-FR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 const fmtPct = new Intl.NumberFormat("fr-FR", { minimumFractionDigits: 1, maximumFractionDigits: 1 });
 const eur = v => fmtEur.format(v || 0);
-function pctSigned(r) { return (r > 0 ? "+" : r < 0 ? "−" : "") + fmtPct.format(Math.abs(r) * 100) + " %"; }
+function pctSigned(r) { return (r > 0 ? "+" : r < 0 ? "−" : "") + fmtPct.format(Math.abs(r) * 100) + "\u00a0%"; }
 function dec(v) { return v === "" || v == null ? "" : String(v).replace(".", ","); }
 function num(v) {
   if (typeof v === "number") return isFinite(v) ? v : 0;

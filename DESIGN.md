@@ -30,62 +30,62 @@ colors:
   letter-placeholder: "#9aa3b2"
 typography:
   brand:
-    fontFamily: "Source Sans 3, Segoe UI, system-ui, sans-serif"
+    fontFamily: "Hanken Grotesk, Segoe UI, system-ui, sans-serif"
     fontSize: "16px"
     fontWeight: 700
     lineHeight: 1.1
     letterSpacing: "0.02em"
   headline:
-    fontFamily: "Source Sans 3, Segoe UI, system-ui, sans-serif"
+    fontFamily: "Hanken Grotesk, Segoe UI, system-ui, sans-serif"
     fontSize: "18px"
     fontWeight: 700
     lineHeight: 1.25
   title:
-    fontFamily: "Source Sans 3, Segoe UI, system-ui, sans-serif"
+    fontFamily: "Hanken Grotesk, Segoe UI, system-ui, sans-serif"
     fontSize: "14.5px"
     fontWeight: 600
     lineHeight: 1.45
   body:
-    fontFamily: "Source Sans 3, Segoe UI, system-ui, sans-serif"
+    fontFamily: "Hanken Grotesk, Segoe UI, system-ui, sans-serif"
     fontSize: "15px"
     fontWeight: 400
     lineHeight: 1.45
     fontFeature: "tnum"
   label:
-    fontFamily: "Source Sans 3, Segoe UI, system-ui, sans-serif"
+    fontFamily: "Hanken Grotesk, Segoe UI, system-ui, sans-serif"
     fontSize: "12.5px"
     fontWeight: 600
     lineHeight: 1.45
   section-head:
-    fontFamily: "Source Sans 3, Segoe UI, system-ui, sans-serif"
+    fontFamily: "Hanken Grotesk, Segoe UI, system-ui, sans-serif"
     fontSize: "12.5px"
     fontWeight: 700
     letterSpacing: "0.06em"
   letter-letterhead:
-    fontFamily: "Source Sans 3, Arial, sans-serif"
+    fontFamily: "Hanken Grotesk, Arial, sans-serif"
     fontSize: "16.5pt"
     fontWeight: 700
     lineHeight: 1.1
     letterSpacing: "0.02em"
   letter-body:
-    fontFamily: "Source Sans 3, Arial, sans-serif"
-    fontSize: "10pt"
+    fontFamily: "Source Serif 4, Georgia, serif"
+    fontSize: "9.5pt"
     fontWeight: 400
-    lineHeight: 1.34
+    lineHeight: 1.33
     fontFeature: "tnum"
   letter-address:
-    fontFamily: "Source Sans 3, Arial, sans-serif"
-    fontSize: "10.6pt"
+    fontFamily: "Source Serif 4, Georgia, serif"
+    fontSize: "10.2pt"
     fontWeight: 400
     lineHeight: 1.38
   letter-table:
-    fontFamily: "Source Sans 3, Arial, sans-serif"
-    fontSize: "9.6pt"
+    fontFamily: "Hanken Grotesk, Arial, sans-serif"
+    fontSize: "8.8pt"
     fontWeight: 400
     fontFeature: "tnum"
   letter-footer:
-    fontFamily: "Source Sans 3, Arial, sans-serif"
-    fontSize: "7.4pt"
+    fontFamily: "Hanken Grotesk, Arial, sans-serif"
+    fontSize: "7pt"
     fontWeight: 400
     lineHeight: 1.35
 rounded:
@@ -186,12 +186,12 @@ The printed letter is the product. A white A4 sheet at true scale lies at the ce
 
 The world is lit like an office in daylight. It has one ink: the navy of the ALTHO letterhead. That navy carries the primary action, the selection, the focus ring and the letter's own letterhead and table header. Everything else is warm-grey paper, hairline rules and blue-grey ink. Density is that of a working tool used once a year by a non-technical accountant. Labels are explicit French words, targets are 30 to 36px tall, and every amount uses tabular figures so columns of euros line up.
 
-The UI and the letter share one family, Source Sans 3, embedded in the file so the letter prints the same on every machine. The theme is light only. The office-daylight scene is the world, and a dark mode would turn the paper metaphor upside down.
+Type follows the Anthropic pairing the user asked for (a geometric grotesque over a text serif), set with free look-alikes embedded in the file: Hanken Grotesk for the interface and the letter's structure (letterhead, references, fee table, footer), Source Serif 4 for the letter's prose and address. The fonts print the same on every machine. The theme is light only. The office-daylight scene is the world, and a dark mode would turn the paper metaphor upside down.
 
 **Key Characteristics:**
 - A real-scale A4 sheet with a layered paper shadow is the centrepiece; panels frame it rather than compete with it.
 - One accent ink (navy #1f3864); all tints are navy tints, never a second hue.
-- One family (Source Sans 3) for UI and letter; tabular numerals everywhere.
+- Two families, one pairing: Hanken Grotesk (UI and letter structure) and Source Serif 4 (letter prose); tabular numerals everywhere.
 - Hairline rules (1px) and 6–8px radii instead of cards and heavy borders.
 - Flat panels; shadows are reserved for paper and for floating layers.
 - Light theme only.
@@ -231,10 +231,11 @@ The letter uses fixed hex inks so it prints identically regardless of the UI tok
 ## Typography
 
 **Display Font:** none (no display face)
-**Body Font:** Source Sans 3 (embedded woff2, variable 200–900 plus italic 400), with Segoe UI and system-ui as fallbacks in the UI and Arial on the letter
-**Label/Mono Font:** same family; code-like tags such as `{civilite}` also use Source Sans 3
+**UI and Structure Font:** Hanken Grotesk (embedded woff2, variable 400–700), fallbacks Segoe UI / system-ui, Arial on the letter
+**Letter Text Font:** Source Serif 4 (embedded woff2, variable 400–700 with optical sizing, plus italic 400), fallback Georgia
+**Label/Mono Font:** Hanken Grotesk; code-like tags such as `{civilite}` use it too
 
-**Character:** One humanist sans does everything, from the 16.5pt letterhead to the 12px hint. Hierarchy comes from weight (400 / 600 / 700) and size, never from a second family.
+**Character:** The pairing echoes Anthropic's Styrene-over-Tiempos voice without its licensed faces: a clean geometric grotesque for everything the user operates and for the letter's frame, a warm text serif for what the client reads. In the UI, hierarchy comes from weight (400 / 600 / 700) and size only.
 
 ### Hierarchy
 - **Brand** (700, 16px, 1.1, +0.02em, navy): "ALTHO EXPERTISE" in the top bar, mirrored by the letterhead.
@@ -243,14 +244,14 @@ The letter uses fixed hex inks so it prints identically regardless of the UI tok
 - **Body** (400, 15px, 1.45): base UI text. Buttons and inputs are 14px/600 and 14px/400.
 - **Label** (600, 12.5px): field labels, list sub-lines, counts and the rail footer. Hints and deltas are 12px.
 - **Section Head** (700, 12.5px, +0.06em, uppercase, ink-2): headings for field groups in the client record ("Destinataire", "Honoraires annuels HT", "Envoi"). It is a real heading for the group below it, not a kicker above another title.
-- **Letter** (letter-letterhead 16.5pt/700 navy; letter-address 10.6pt/1.38; letter-body 10pt/1.34; letter-table 9.6pt; letter-footer 7.4pt): print sizes in points, measured against the A4 sheet.
+- **Letter** (letter-letterhead Hanken 16.5pt/700 navy; letter-address Source Serif 10.2pt; letter-body Source Serif 9.5pt/1.33; letter-table Hanken 8.8pt, headers nowrap; letter-footer Hanken 7pt; references Hanken 9pt): print sizes in points. The worst case (four missions, two-line address, signatory set) leaves about 10mm above the footer.
 
 ### Named Rules
-**The One Family Rule.** Source Sans 3, embedded, is the only family for both UI and letter. Don't add a display or serif face. Don't rely on a web font request; the file works offline.
+**The One Pairing Rule.** Hanken Grotesk and Source Serif 4, both embedded, are the only families. The serif is reserved for the letter's prose and address; the UI never uses it. Don't add a third face, and never ship Anthropic's licensed fonts (Styrene, Tiempos) in the file. Don't rely on a web font request; the file works offline.
 
 **The Tabular Rule.** `font-variant-numeric: tabular-nums` is set on the root and on the sheet. Every amount, percentage and count uses tabular figures, and amounts are right-aligned in every table and number input.
 
-**The Ragged-Right Letter Rule.** Letter paragraphs are left-aligned, never justified. Justifying a 170mm measure at 10pt produced loose word spacing.
+**The Ragged-Right Letter Rule.** Letter paragraphs are left-aligned, never justified. Justifying a 170mm measure produced loose word spacing.
 
 **The Superscript Ordinal Rule.** On the letter, "1er" is always set as `1<sup>er</sup>` (0.66em, raised 0.5em, zero line-height so line spacing is not disturbed).
 
@@ -323,7 +324,7 @@ A 210 × 297mm sheet with 20mm side margins: a navy letterhead with a 0.6mm navy
 - **Do** keep letter paragraphs left-aligned and set "1er" as a superscript ordinal.
 - **Do** show placeholder text only on the on-screen letter and make sure the print render never contains it.
 - **Do** separate panels with 1px rules and the panel/desk tone step; keep radii at 6px for controls and 8px for floating layers and tables.
-- **Do** embed Source Sans 3 in the file so the app and the letter render identically offline.
+- **Do** embed Hanken Grotesk and Source Serif 4 in the file so the app and the letter render identically offline.
 
 ### Don't:
 - **Don't** introduce a second accent hue. Amber, green and red are status signals only, and the field highlight is navy, not yellow.
