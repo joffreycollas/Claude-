@@ -197,7 +197,7 @@ svg.i { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor;
 .sheet .refs b { color: #111a2b; font-weight: 600; }
 .sheet .flow { position: absolute; left: 20mm; right: 20mm; top: 95mm; }
 .sheet .objet { font-weight: 700; margin: 0 0 4.5mm; }
-.sheet p { margin: 0 0 2.4mm; text-align: justify; hyphens: auto; }
+.sheet p { margin: 0 0 2.4mm; text-align: left; }
 .sheet .salut { margin-bottom: 2.4mm; }
 .sheet table { width: 100%; border-collapse: collapse; margin: 1mm 0 1.5mm; font-size: 9.6pt; }
 .sheet th { background: #1f3864; color: #fff; font-weight: 600; text-align: right; padding: 1.3mm 2mm; }
@@ -227,8 +227,8 @@ svg.i { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor;
 .totals { display: flex; gap: 22px; padding: 12px 20px; font-size: 13.5px; color: var(--ink-2); flex-wrap: wrap; }
 .totals b { color: var(--ink); font-weight: 700; font-size: 15px; }
 .totals .up { color: var(--up); }
-.grid-wrap { flex: 1; min-height: 0; overflow: auto; padding: 0 20px 24px 0; }
-table.grid { margin-left: 20px; }
+.grid-wrap { --gut: 20px; flex: 1; min-height: 0; overflow: auto; padding: 0 20px 24px 0; }
+table.grid { margin-left: var(--gut); }
 table.grid { border-collapse: separate; border-spacing: 0; font-size: 13.5px; background: var(--paper); border: 1px solid var(--rule); border-radius: var(--r-m); }
 .grid th { position: sticky; top: 0; z-index: 1; background: var(--panel); text-align: left; font-size: 12px; font-weight: 700; color: var(--ink-2); padding: 8px 6px; border-bottom: 1px solid var(--rule); white-space: nowrap; }
 .grid th.r { text-align: right; }
@@ -238,9 +238,9 @@ table.grid { border-collapse: separate; border-spacing: 0; font-size: 13.5px; ba
 .grid tr:last-child td { border-bottom: 0; }
 .grid td:nth-child(-n+3), .grid th:nth-child(-n+3) { position: sticky; background: var(--paper); z-index: 1; }
 .grid th:nth-child(-n+3) { background: var(--panel); z-index: 2; }
-.grid td:nth-child(1), .grid th:nth-child(1) { left: 0; width: 64px; min-width: 64px; }
-.grid td:nth-child(2), .grid th:nth-child(2) { left: 64px; }
-.grid td:nth-child(3), .grid th:nth-child(3) { left: 134px; box-shadow: 6px 0 8px -6px oklch(30% 0.02 262 / 0.22); }
+.grid td:nth-child(1), .grid th:nth-child(1) { left: var(--gut); width: 64px; min-width: 64px; box-shadow: calc(-1 * var(--gut)) 0 0 0 var(--desk); }
+.grid td:nth-child(2), .grid th:nth-child(2) { left: calc(var(--gut) + 64px); }
+.grid td:nth-child(3), .grid th:nth-child(3) { left: calc(var(--gut) + 134px); box-shadow: 6px 0 8px -6px oklch(30% 0.02 262 / 0.22); }
 .grid tr:hover td:nth-child(-n+3) { background: oklch(97.5% 0.004 75); }
 .grid tr:hover td { background: oklch(97.5% 0.004 75); }
 .grid td input, .grid td select { height: 30px; padding: 0 6px; border: 1px solid transparent; border-radius: 5px; background: none; width: 100%; }
@@ -300,14 +300,14 @@ dialog .d-actions { display: flex; justify-content: flex-end; gap: 8px; padding:
   .topbar .split { margin-left: auto; }
   .topbar .split .label-long { display: none; }
   .topbar .split .label-short { display: inline; }
+  .toggle.zoom { display: none; }
   .desk { display: block; height: auto; overflow: visible; }
   .rail { border-right: 0; border-bottom: 1px solid var(--rule); max-height: 46vh; }
   .stage { min-height: 0; }
   .stage-bar { flex-wrap: wrap; padding: 10px 16px; }
   .stage-scroll { padding: 4px 16px 20px; overflow: hidden; }
   .toolbar, .totals { padding-left: 16px; padding-right: 16px; }
-  .grid-wrap { padding: 0 16px 20px 0; }
-  table.grid { margin-left: 16px; }
+  .grid-wrap { --gut: 16px; padding: 0 16px 20px 0; }
   .settings-form section { padding: 18px 16px; }
   .f.s2, .f.s3, .f.s4 { grid-column: span 6; }
   .fields .f.s2.keep { grid-column: span 2; }
@@ -394,7 +394,7 @@ dialog .d-actions { display: flex; justify-content: flex-end; gap: 8px; padding:
           <div class="title" id="stage-title"></div>
           <span id="stage-chips"></span>
           <div class="spacer"></div>
-          <label class="toggle" title="Affiche la lettre à sa taille réelle pour la relire"><input type="checkbox" id="zoom-toggle"> Taille réelle</label>
+          <label class="toggle zoom" title="Affiche la lettre à sa taille réelle pour la relire"><input type="checkbox" id="zoom-toggle"> Taille réelle</label>
           <label class="toggle" title="Affiche la fenêtre d'une enveloppe DL pour vérifier que l'adresse y tient"><input type="checkbox" id="window-toggle"> Enveloppe</label>
           <button class="btn small" id="print-one" title="Imprimer ou enregistrer en PDF ce courrier seulement"><svg class="i"><use href="#i-print"/></svg>Cette lettre</button>
         </div>
