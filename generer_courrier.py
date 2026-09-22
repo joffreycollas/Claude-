@@ -10,6 +10,7 @@ from openpyxl.formatting.rule import FormulaRule
 from openpyxl.styles import Alignment, Border, Font, PatternFill, Side
 from openpyxl.workbook.defined_name import DefinedName
 from openpyxl.worksheet.datavalidation import DataValidation
+from openpyxl.worksheet.pagebreak import Break
 from openpyxl.utils import get_column_letter
 
 SORTIE = "Courrier_augmentation_tarifaire.xlsx"
@@ -46,15 +47,16 @@ wp["A2"].font = f(9, italic=True, color="7F7F7F")
 params = [
     # (nom défini, libellé, valeur, format, commentaire)
     ("__titre", "Coordonnées du cabinet", None, None, None),
-    ("Cab_Nom", "Nom du cabinet", "CABINET EXEMPLE EXPERTISE", None, None),
-    ("Cab_Adr1", "Adresse", "12 rue de la République", None, None),
-    ("Cab_CPVille", "Code postal et ville", "69002 LYON", None, None),
-    ("Cab_Ville", "Ville (lieu de signature)", "Lyon", None, None),
-    ("Cab_Contact", "Téléphone / e-mail", "Tél. 04 00 00 00 00  ·  contact@cabinet-exemple.fr", None, None),
+    ("Cab_Nom", "Nom du cabinet", "ALTHO EXPERTISE", None, None),
+    ("Cab_Adr1", "Adresse", "141 rue Charles de Gaulle", None, None),
+    ("Cab_CPVille", "Code postal et ville", "95130 LE PLESSIS-BOUCHARD", None, None),
+    ("Cab_Ville", "Ville (lieu de signature)", "Le Plessis-Bouchard", None, None),
+    ("Cab_Contact", "Téléphone / e-mail", "Tél. 01 34 14 53 45  ·  altho@altho-experts.com  ·  altho-experts.com", None, None),
     ("Cab_Mentions", "Mentions légales (pied de page)",
-     "SAS au capital de 10 000 € · SIRET 000 000 000 00000 · Société d'expertise comptable inscrite "
-     "au Tableau de l'Ordre de la région Auvergne-Rhône-Alpes", None, None),
-    ("Signataire", "Nom du signataire", "Jean MARTIN", None, None),
+     "ALTHO EXPERTISE · SAS au capital de 10 000 € · RCS Pontoise 919 706 325 · TVA FR62919706325 · "
+     "Société d'expertise comptable inscrite au Tableau de l'Ordre des experts-comptables de Paris Île-de-France",
+     None, "Source : registre du commerce (Pappers). Vérifiez l'intitulé exact de l'inscription à l'Ordre."),
+    ("Signataire", "Nom du signataire", "Prénom NOM", None, None),
     ("Signataire_Titre", "Fonction du signataire", "Expert-comptable associé", None, None),
     ("__titre", "Dates", None, None, None),
     ("Date_Courrier", "Date du courrier", "=TODAY()", "dd/mm/yyyy",
@@ -71,6 +73,10 @@ params = [
     ("Nb_Mensualites", "Nombre d'échéances par an (mensualisation)", 12, "0",
      "Utilisé pour afficher le montant de la mensualité HT sous le tableau. 0 = ligne masquée."),
     ("Taux_TVA", "Taux de TVA", 0.2, "0.0%", None),
+    ("__titre", "Impression en masse", None, None, None),
+    ("Filtre_Masse", "Clients à inclure", "Courrier postal uniquement", None,
+     "Courrier postal uniquement = clients « À envoyer = Oui » avec mode Courrier ou Les deux.\n"
+     "Tous les clients à envoyer = tous les clients « À envoyer = Oui », quel que soit le mode."),
     ("__titre", "Libellés des missions (tels qu'imprimés dans le courrier)", None, None, None),
     ("Lib_Compta", "Mission 1", "Mission comptable (tenue, révision, bilan, liasse fiscale)", None, None),
     ("Lib_Paye", "Mission 2", "Mission sociale (bulletins de paie, DSN, déclarations sociales)", None, None),
@@ -149,6 +155,9 @@ for i, m in enumerate(mois):
     wp.cell(r + i, 2, m).font = f(9, color="7F7F7F")
 wb.defined_names["Liste_Mois"] = DefinedName("Liste_Mois", attr_text=f"'Paramètres'!$B${r}:$B${r + 11}")
 wp.freeze_panes = "A4"
+dv_filtre = DataValidation(type="list", formula1='"Courrier postal uniquement,Tous les clients à envoyer"')
+wp.add_data_validation(dv_filtre)
+dv_filtre.add(nom_vers_cellule["Filtre_Masse"].split("!")[1].replace("$", ""))
 
 # ---------------------------------------------------------------- Clients
 wc = wb.create_sheet("Clients")
@@ -179,6 +188,7 @@ colonnes = [
     ("Écart %", 9, "calc"),                # W
     ("À envoyer", 10, "saisie"),           # X
     ("Mode d'envoi", 12, "saisie"),        # Y
+    ("N° impression en masse", 12, "calc"),  # Z
 ]
 for i, (titre, larg, typ) in enumerate(colonnes, start=1):
     c = wc.cell(1, i, titre)
@@ -196,7 +206,7 @@ exemples = [
     ["C002", "Mme", "Sophie", "LEROY", "SAS LEROY CONSEIL", "Parc d'activités du Moulin", "Bât. B – 3 allée Verte",
      "38000", "Grenoble", "s.leroy@exemple.fr", 5400, 0, 900, 0, 0.025, "Oui", "Email"],
     ["C003", "", "", "", "EURL LES JARDINS DE CLAIRE", "18 chemin des Vignes", "", "69400",
-     "Villefranche-sur-Saône", "contact@jardins-claire.fr", 2400, 1200, 0, 180, None, "Non", "Courrier"],
+     "Villefranche-sur-Saône", "contact@jardins-claire.fr", 2400, 1200, 0, 180, None, "Oui", "Les deux"],
 ]
 NB_LIGNES = 500
 TAUX = {"P": ("K", "Taux_Compta"), "Q": ("L", "Taux_Paye"), "R": ("M", "Taux_Jur"), "S": ("N", "Taux_PA")}
@@ -215,6 +225,9 @@ for ligne in range(2, NB_LIGNES + 2):
     wc[f"U{ligne}"] = f'=IF($A{ligne}="","",SUM(P{ligne}:S{ligne}))'
     wc[f"V{ligne}"] = f'=IF($A{ligne}="","",U{ligne}-T{ligne})'
     wc[f"W{ligne}"] = f'=IF(OR($A{ligne}="",N(T{ligne})=0),"",V{ligne}/T{ligne})'
+    # Ordre de passage dans l'onglet « Impression en masse »
+    wc[f"Z{ligne}"] = (f'=IF(AND($A{ligne}<>"",$X{ligne}="Oui",OR(Filtre_Masse="Tous les clients à envoyer",'
+                       f'$Y{ligne}<>"Email")),MAX(Z$1:Z{ligne - 1})+1,"")')
     for col in range(1, len(colonnes) + 1):
         c = wc.cell(ligne, col)
         typ = colonnes[col - 1][2]
@@ -236,7 +249,10 @@ dv_mode = DataValidation(type="list", formula1='"Courrier,Email,Les deux"', allo
 for dv, plage in ((dv_civ, "B"), (dv_oui, "X"), (dv_mode, "Y")):
     wc.add_data_validation(dv)
     dv.add(f"{plage}2:{plage}{NB_LIGNES + 1}")
-wc.auto_filter.ref = f"A1:Y{NB_LIGNES + 1}"
+wc.auto_filter.ref = f"A1:Z{NB_LIGNES + 1}"
+wc["Z1"].comment = Comment("Numéro de page dans l'onglet « Impression en masse ». Vide = client non imprimé "
+                           "(À envoyer ≠ Oui, ou mode Email si le filtre est « Courrier postal uniquement »).",
+                           "Modèle")
 wc["O1"].comment = Comment("Laisser vide pour appliquer les taux par défaut de l'onglet Paramètres. "
                            "Sinon, ce taux remplace tous les taux pour ce client (ex. 2,5 %).", "Modèle")
 wc["N1"].comment = Comment("Honoraires annuels HT de la plateforme agréée (facturation électronique). "
@@ -244,14 +260,215 @@ wc["N1"].comment = Comment("Honoraires annuels HT de la plateforme agréée (fac
 wb.defined_names["Codes_Clients"] = DefinedName("Codes_Clients",
                                                 attr_text=f"Clients!$A$2:$A${NB_LIGNES + 1}")
 
-# ---------------------------------------------------------------- Courrier
-wl = wb.create_sheet("Courrier")
-wl.sheet_view.showGridLines = False
-for col, larg in {"A": 1.5, "B": 44, "C": 14, "D": 9, "E": 14, "F": 13, "G": 3,
-                  "H": 3, "I": 22, "J": 16, "K": 12, "L": 12, "M": 6, "N": 6, "O": 6}.items():
-    wl.column_dimensions[col].width = larg
+# ---------------------------------------------------------------- Courrier (modèle réutilisable)
+LIGNES_COURRIER = 45          # hauteur d'un courrier en lignes (= 1 page A4)
+LARGEUR_CAR = 118             # caractères par ligne sur la largeur B:F
+LARGEURS = {"A": 1.5, "B": 44, "C": 14, "D": 9, "E": 14, "F": 13, "G": 3,
+            "H": 3, "I": 22, "J": 16, "K": 12, "L": 12, "M": 6, "N": 6, "O": 6}
 
-# Zone de pilotage (hors zone d'impression)
+
+def construire_courrier(ws, b, formule_ligne, formule_ref):
+    """Dessine un courrier complet sur les lignes b+1 à b+45 de `ws`.
+
+    formule_ligne : formule donnant la ligne du client dans l'onglet Clients (0 = aucun)
+    formule_ref   : formule affichant la référence client en haut à droite
+    Les colonnes J à O contiennent les calculs intermédiaires (non imprimés).
+    """
+    def R(n):
+        return n + b
+
+    L = f"$K${R(1)}"  # n° de ligne du client dans la plage Clients!x2:x501
+
+    def cli(col):
+        return f'IF({L}=0,"",INDEX(Clients!${col}$2:${col}$501,{L})&"")'
+
+    def cli_num(col):
+        return f"IF({L}=0,0,N(INDEX(Clients!${col}$2:${col}$501,{L})))"
+
+    def balises(nom):
+        return (f'SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE({nom},'
+                f'"{{cabinet}}",Cab_Nom),"{{societe}}",{cli("E")}),"{{date_effet}}",$K${R(3)}),'
+                f'"{{hausse}}",$K${R(4)}),"{{civilite}}",$K${R(2)})')
+
+    def paragraphe(ligne, nom):
+        c = ws[f"B{R(ligne)}"]
+        c.value = "=" + balises(nom)
+        c.alignment = Alignment(wrap_text=True, vertical="top", horizontal="justify")
+        ws.merge_cells(f"B{R(ligne)}:F{R(ligne)}")
+        texte = next(p[2] for p in params if p[0] == nom)
+        nb = max(1, math.ceil(len(texte) / LARGEUR_CAR))
+        ws.row_dimensions[R(ligne)].height = 13 * nb + 11
+
+    # Calculs intermédiaires
+    ws[f"J{R(1)}"] = "Ligne client"
+    ws[f"K{R(1)}"] = "=" + formule_ligne
+    ws[f"J{R(2)}"] = "Civilité longue"
+    ws[f"K{R(2)}"] = (f'=IF({cli("B")}="Mme","Madame",IF({cli("B")}="M.","Monsieur","Madame, Monsieur"))')
+    ws[f"J{R(3)}"] = "Date effet texte"
+    ws[f"K{R(3)}"] = ('=DAY(Date_Effet)&IF(DAY(Date_Effet)=1,"er","")&" "&INDEX(Liste_Mois,MONTH(Date_Effet))'
+                      '&" "&YEAR(Date_Effet)')
+    ws[f"J{R(4)}"] = "Hausse globale"
+    ws[f"K{R(4)}"] = (f'=IF(SUM($K${R(28)}:$K${R(31)})=0,"",FIXED((SUM($L${R(28)}:$L${R(31)})'
+                      f'/SUM($K${R(28)}:$K${R(31)})-1)*100,1)&" %")')
+
+    # En-tête cabinet
+    ws[f"B{R(2)}"] = "=Cab_Nom"
+    ws[f"B{R(2)}"].font = f(15, True, BLEU_FONCE)
+    for n, nom in ((3, "Cab_Adr1"), (4, "Cab_CPVille"), (5, "Cab_Contact")):
+        ws[f"B{R(n)}"] = f"={nom}"
+        ws[f"B{R(n)}"].font = f(9, color="404040")
+    ws.row_dimensions[R(2)].height = 22
+    for n in range(2, 6):
+        ws.merge_cells(f"B{R(n)}:C{R(n)}")
+    ws[f"E{R(2)}"] = "=" + formule_ref
+    ws[f"E{R(2)}"].font = f(9, color="404040")
+    ws[f"E{R(2)}"].alignment = Alignment(horizontal="right")
+    ws.merge_cells(f"E{R(2)}:F{R(2)}")
+    for col in "BCDEF":
+        ws[f"{col}{R(6)}"].border = Border(bottom=Side(style="medium", color=BLEU_FONCE))
+    ws.row_dimensions[R(6)].height = 6
+
+    # Destinataire (fenêtre d'enveloppe à droite)
+    for n in (7, 8, 9):
+        ws.row_dimensions[R(n)].height = 14
+    dest = {
+        10: f'={cli("E")}',
+        11: f'=IF({cli("D")}="","","À l\'attention de "&TRIM({cli("B")}&" "&{cli("C")}&" "&{cli("D")}))',
+        12: f'={cli("F")}',
+        13: f'=IF({cli("G")}="",TRIM({cli("H")}&" "&UPPER({cli("I")})),{cli("G")})',
+        14: f'=IF({cli("G")}="","",TRIM({cli("H")}&" "&UPPER({cli("I")})))',
+    }
+    for n, formule in dest.items():
+        ws[f"D{R(n)}"] = formule
+        ws[f"D{R(n)}"].font = f(10.5, bold=(n == 10))
+        ws.merge_cells(f"D{R(n)}:F{R(n)}")
+        ws.row_dimensions[R(n)].height = 15
+    ws.row_dimensions[R(15)].height = 26
+
+    ws[f"D{R(16)}"] = ('=Cab_Ville&", le "&DAY(Date_Courrier)&IF(DAY(Date_Courrier)=1,"er","")&" "'
+                       '&INDEX(Liste_Mois,MONTH(Date_Courrier))&" "&YEAR(Date_Courrier)')
+    ws.merge_cells(f"D{R(16)}:F{R(16)}")
+    ws.row_dimensions[R(17)].height = 20
+
+    ws[f"B{R(18)}"] = "=" + balises("Txt_Objet")
+    ws[f"B{R(18)}"].font = f(10.5, True)
+    ws.merge_cells(f"B{R(18)}:F{R(18)}")
+    ws.row_dimensions[R(19)].height = 14
+    ws[f"B{R(20)}"] = f'=$K${R(2)}&","'
+    ws.row_dimensions[R(21)].height = 6
+
+    for n, nom in ((22, "Txt_P1"), (23, "Txt_P2"), (24, "Txt_P3"), (25, "Txt_P4")):
+        paragraphe(n, nom)
+    ws.row_dimensions[R(26)].height = 4
+
+    # Tableau des honoraires
+    for col, t in {"B": "Mission", "C": "Actuel HT", "D": "Évol.", "E": "Nouveau HT", "F": "Écart HT"}.items():
+        c = ws[f"{col}{R(27)}"]
+        c.value = t
+        c.font = f(9.5, True, "FFFFFF")
+        c.fill = ENTETE
+        c.border = BORD
+        c.alignment = Alignment(horizontal="left" if col == "B" else "center", vertical="center")
+    ws.row_dimensions[R(27)].height = 18
+
+    missions = [("Lib_Compta", "K", "P"), ("Lib_Paye", "L", "Q"), ("Lib_Jur", "M", "R"), ("Lib_PA", "N", "S")]
+    for col, t in zip("JKLMNO", ("Libellé", "Actuel", "Nouveau", "Actif", "Rang", "k")):
+        ws[f"{col}{R(27)}"] = t
+    plage = lambda col: f"${col}${R(28)}:${col}${R(31)}"  # noqa: E731
+    for i, (lib, act, nouv) in enumerate(missions):
+        rr = R(28 + i)
+        ws[f"J{rr}"] = f"={lib}"
+        ws[f"K{rr}"] = "=" + cli_num(act)
+        ws[f"L{rr}"] = "=" + cli_num(nouv)
+        ws[f"M{rr}"] = f"=IF(OR(K{rr}<>0,L{rr}<>0),1,0)"
+        ws[f"N{rr}"] = f'=IF(M{rr}=1,SUM($M${R(28)}:M{rr}),"")'
+        ws[f"O{rr}"] = i + 1
+        # k-ième mission souscrite : les missions à 0 ne s'affichent pas
+        idx = f"MATCH($O{rr},{plage('N')},0)"
+        ws[f"B{rr}"] = f'=IFERROR(INDEX({plage("J")},{idx}),"")'
+        ws[f"C{rr}"] = f'=IFERROR(INDEX({plage("K")},{idx}),"")'
+        ws[f"E{rr}"] = f'=IFERROR(INDEX({plage("L")},{idx}),"")'
+        ws[f"F{rr}"] = f'=IF(E{rr}="","",E{rr}-C{rr})'
+        ws[f"D{rr}"] = f'=IF(OR(E{rr}="",N(C{rr})=0),"",E{rr}/C{rr}-1)'
+        for col in "BCDEF":
+            ws[f"{col}{rr}"].font = f(9.5)
+            ws[f"{col}{rr}"].alignment = Alignment(horizontal="left" if col == "B" else "right",
+                                                   vertical="center", wrap_text=(col == "B"))
+        for col in "CEF":
+            ws[f"{col}{rr}"].number_format = EUR
+        ws[f"D{rr}"].number_format = '+0.0%;-0.0%;"—"'
+        ws.row_dimensions[rr].height = 17
+    ws.conditional_formatting.add(f"B{R(28)}:F{R(31)}",
+                                  FormulaRule(formula=[f'$B{R(28)}<>""'], border=Border(bottom=fin)))
+
+    rt = R(32)
+    ws[f"B{rt}"] = "Total annuel HT"
+    ws[f"C{rt}"] = f"=SUM(K{R(28)}:K{R(31)})"
+    ws[f"E{rt}"] = f"=SUM(L{R(28)}:L{R(31)})"
+    ws[f"F{rt}"] = f"=E{rt}-C{rt}"
+    ws[f"D{rt}"] = f'=IF(N(C{rt})=0,"",E{rt}/C{rt}-1)'
+    for col in "BCDEF":
+        c = ws[f"{col}{rt}"]
+        c.font = f(10, True)
+        c.fill = PatternFill("solid", fgColor="D9E1F2")
+        c.border = Border(top=Side(style="thin", color=BLEU_FONCE), bottom=Side(style="thin", color=BLEU_FONCE))
+        c.alignment = Alignment(horizontal="left" if col == "B" else "right", vertical="center")
+    for col in "CEF":
+        ws[f"{col}{rt}"].number_format = EUR
+    ws[f"D{rt}"].number_format = '+0.0%;-0.0%;"—"'
+    ws.row_dimensions[rt].height = 18
+
+    ws[f"B{R(33)}"] = (f'=IF(N(Nb_Mensualites)=0,"","Soit "&FIXED(E{rt}/Nb_Mensualites,2)&" € HT par échéance ("'
+                       f'&Nb_Mensualites&" échéances), "&FIXED(E{rt}/Nb_Mensualites*(1+Taux_TVA),2)&" € TTC.")')
+    ws[f"B{R(33)}"].font = f(9, italic=True, color="404040")
+    ws.merge_cells(f"B{R(33)}:F{R(33)}")
+    ws.row_dimensions[R(34)].height = 8
+
+    for n, nom in ((35, "Txt_P5"), (36, "Txt_P6"), (37, "Txt_Politesse")):
+        paragraphe(n, nom)
+
+    ws[f"D{R(39)}"] = "=Signataire"
+    ws[f"D{R(39)}"].font = f(10.5, True)
+    ws[f"D{R(40)}"] = "=Signataire_Titre"
+    ws[f"D{R(40)}"].font = f(9.5, italic=True)
+    ws.merge_cells(f"D{R(39)}:F{R(39)}")
+    ws.merge_cells(f"D{R(40)}:F{R(40)}")
+    for n in (41, 42, 43, 44):
+        ws.row_dimensions[R(n)].height = 16
+
+    ws[f"B{R(45)}"] = "=Cab_Mentions"
+    ws[f"B{R(45)}"].font = f(7.5, color="7F7F7F")
+    ws[f"B{R(45)}"].alignment = Alignment(horizontal="center", wrap_text=True, vertical="bottom")
+    ws.merge_cells(f"B{R(45)}:F{R(45)}")
+    ws.row_dimensions[R(45)].height = 24
+    for col in "BCDEF":
+        ws[f"{col}{R(45)}"].border = Border(top=Side(style="thin", color="BFBFBF"))
+
+    # Polices par défaut
+    for row in ws.iter_rows(min_row=R(1), max_row=R(45), min_col=2, max_col=6):
+        for c in row:
+            if c.font.name != FONT:
+                c.font = f(10)
+    for row in ws.iter_rows(min_row=R(1), max_row=R(31), min_col=10, max_col=15):
+        for c in row:
+            c.font = f(8, color="A6A6A6")
+
+
+def mise_en_page_a4(ws):
+    ws.sheet_view.showGridLines = False
+    for col, larg in LARGEURS.items():
+        ws.column_dimensions[col].width = larg
+    ws.page_setup.paperSize = ws.PAPERSIZE_A4
+    ws.page_setup.orientation = "portrait"
+    ws.print_options.horizontalCentered = True
+    ws.page_margins.left = ws.page_margins.right = 0.6
+    ws.page_margins.top = ws.page_margins.bottom = 0.5
+    ws.page_margins.header = ws.page_margins.footer = 0.2
+
+
+# ---- Onglet « Courrier » : un client choisi dans la liste
+wl = wb.create_sheet("Courrier")
+mise_en_page_a4(wl)
 wl["I2"] = "CLIENT À ÉDITER ▼"
 wl["I2"].font = f(10, True, "C00000")
 wl["I3"] = "C001"
@@ -264,222 +481,56 @@ wl.add_data_validation(dv_cli)
 dv_cli.add("I3")
 wb.defined_names["Client_Selectionne"] = DefinedName("Client_Selectionne", attr_text="Courrier!$I$3")
 wl["I4"] = '=IFERROR(INDEX(Clients!$E$2:$E$501,MATCH(Client_Selectionne,Codes_Clients,0)),"Code introuvable")'
-wl["I4"].font = f(9, italic=True)
 wl["I6"] = ("Choisissez le code client dans la liste, puis :\n"
             "Fichier > Exporter > PDF (1 client)\nou Fichier > Imprimer.\n"
-            "Pour tous les clients : macro de l'onglet « Macro PDF ».")
+            "Pour tous les clients : onglet « Impression en masse ».")
+construire_courrier(wl, 0, "IFERROR(MATCH(Client_Selectionne,Codes_Clients,0),0)",
+                    '"Réf. client : "&Client_Selectionne')
+wl["I4"].font = f(9, italic=True)
 wl["I6"].font = f(9, color="595959")
 wl["I6"].alignment = Alignment(wrap_text=True, vertical="top")
 wl.merge_cells("I6:L10")
-
-# Cellules de calcul cachées (colonne J..O, lignes 1-4 et 30-33)
-wl["J1"] = "Ligne client"
-wl["K1"] = "=IFERROR(MATCH(Client_Selectionne,Codes_Clients,0),0)"
-
-
-def cli(col):
-    """Valeur de la colonne `col` de l'onglet Clients pour le client choisi."""
-    return f'IF($K$1=0,"",INDEX(Clients!${col}$2:${col}$501,$K$1)&"")'
-
-
-def cli_num(col):
-    return f"IF($K$1=0,0,N(INDEX(Clients!${col}$2:${col}$501,$K$1)))"
-
-
-wl["J2"] = "Civilité longue"
-wl["K2"] = (f'=IF({cli("B")}="Mme","Madame",IF({cli("B")}="M.","Monsieur",'
-            f'IF({cli("B")}="M. et Mme","Madame, Monsieur","Madame, Monsieur")))')
-wl["J3"] = "Date effet texte"
-wl["K3"] = '=DAY(Date_Effet)&IF(DAY(Date_Effet)=1,"er","")&" "&INDEX(Liste_Mois,MONTH(Date_Effet))&" "&YEAR(Date_Effet)'
-wl["J4"] = "Hausse globale"
-
-
-def balises(nom):
-    """Texte paramétré avec remplacement des balises."""
-    return (f'SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE({nom},'
-            f'"{{cabinet}}",Cab_Nom),"{{societe}}",{cli("E")}),"{{date_effet}}",$K$3),'
-            f'"{{hausse}}",$K$4),"{{civilite}}",$K$2)')
-
-
-# Bloc expéditeur
-wl["B2"] = "=Cab_Nom"
-wl["B2"].font = f(15, True, BLEU_FONCE)
-wl["B3"] = "=Cab_Adr1"
-wl["B4"] = "=Cab_CPVille"
-wl["B5"] = "=Cab_Contact"
-for a in ("B3", "B4", "B5"):
-    wl[a].font = f(9, color="404040")
-wl.row_dimensions[2].height = 22
-for rr in range(2, 6):
-    wl.merge_cells(f"B{rr}:C{rr}")
-wl["E2"] = '="Réf. client : "&Client_Selectionne'
-wl["E2"].font = f(9, color="404040")
-wl.merge_cells("E2:F2")
-wl["E2"].alignment = Alignment(horizontal="right")
-# filet sous l'en-tête
-for col in "BCDEF":
-    wl[f"{col}6"].border = Border(bottom=Side(style="medium", color=BLEU_FONCE))
-wl.row_dimensions[6].height = 6
-
-# Bloc destinataire (position fenêtre enveloppe DL/C5 à droite)
-for rr in (7, 8, 9):
-    wl.row_dimensions[rr].height = 14
-dest = {
-    10: f'={cli("E")}',
-    11: f'=IF({cli("D")}="","","À l\'attention de "&TRIM({cli("B")}&" "&{cli("C")}&" "&{cli("D")}))',
-    12: f'={cli("F")}',
-    13: f'=IF({cli("G")}="",TRIM({cli("H")}&" "&UPPER({cli("I")})),{cli("G")})',
-    14: f'=IF({cli("G")}="","",TRIM({cli("H")}&" "&UPPER({cli("I")})))',
-}
-for rr, formule in dest.items():
-    wl[f"D{rr}"] = formule
-    wl[f"D{rr}"].font = f(10.5, bold=(rr == 10))
-    wl.merge_cells(f"D{rr}:F{rr}")
-    wl.row_dimensions[rr].height = 15
-wl.row_dimensions[15].height = 26
-
-wl["D16"] = ('=Cab_Ville&", le "&DAY(Date_Courrier)&IF(DAY(Date_Courrier)=1,"er","")&" "'
-             '&INDEX(Liste_Mois,MONTH(Date_Courrier))&" "&YEAR(Date_Courrier)')
-wl.merge_cells("D16:F16")
-wl.row_dimensions[17].height = 20
-
-wl["B18"] = "=" + balises("Txt_Objet")
-wl["B18"].font = f(10.5, True)
-wl.merge_cells("B18:F18")
-wl.row_dimensions[19].height = 14
-
-wl["B20"] = "=$K$2&\",\""
-wl.row_dimensions[21].height = 6
-
-LARGEUR_CAR = 118  # caractères par ligne sur la largeur B:F
-
-
-def paragraphe(ligne, nom, marge_apres=True):
-    c = wl[f"B{ligne}"]
-    c.value = "=" + balises(nom)
-    c.alignment = Alignment(wrap_text=True, vertical="top", horizontal="justify")
-    wl.merge_cells(f"B{ligne}:F{ligne}")
-    texte = next(p[2] for p in params if p[0] == nom)
-    nb = max(1, math.ceil(len(texte) / LARGEUR_CAR))
-    wl.row_dimensions[ligne].height = 13 * nb + (11 if marge_apres else 0)
-
-
-paragraphe(22, "Txt_P1")
-paragraphe(23, "Txt_P2")
-paragraphe(24, "Txt_P3")
-paragraphe(25, "Txt_P4")
-wl.row_dimensions[26].height = 4
-
-# Tableau des honoraires
-entetes = {"B": "Mission", "C": "Actuel HT", "D": "Évol.", "E": "Nouveau HT", "F": "Écart HT"}
-for col, t in entetes.items():
-    c = wl[f"{col}27"]
-    c.value = t
-    c.font = f(9.5, True, "FFFFFF")
-    c.fill = ENTETE
-    c.border = BORD
-    c.alignment = Alignment(horizontal="left" if col == "B" else "center", vertical="center")
-wl.row_dimensions[27].height = 18
-
-# Calculs cachés des 4 missions (colonnes J à O, lignes 28-31)
-missions = [("Lib_Compta", "K", "P"), ("Lib_Paye", "L", "Q"), ("Lib_Jur", "M", "R"), ("Lib_PA", "N", "S")]
-wl["J27"], wl["K27"], wl["L27"], wl["M27"], wl["N27"], wl["O27"] = (
-    "Libellé", "Actuel", "Nouveau", "Actif", "Rang", "k")
-for i, (lib, act, nouv) in enumerate(missions):
-    rr = 28 + i
-    wl[f"J{rr}"] = f"={lib}"
-    wl[f"K{rr}"] = "=" + cli_num(act)
-    wl[f"L{rr}"] = "=" + cli_num(nouv)
-    wl[f"M{rr}"] = f"=IF(OR(K{rr}<>0,L{rr}<>0),1,0)"
-    wl[f"N{rr}"] = f'=IF(M{rr}=1,SUM($M$28:M{rr}),"")'
-    wl[f"O{rr}"] = i + 1
-    # Lignes visibles : k-ième mission souscrite (les missions à 0 disparaissent)
-    idx = f"MATCH($O{rr},$N$28:$N$31,0)"
-    wl[f"B{rr}"] = f'=IFERROR(INDEX($J$28:$J$31,{idx}),"")'
-    wl[f"C{rr}"] = f'=IFERROR(INDEX($K$28:$K$31,{idx}),"")'
-    wl[f"E{rr}"] = f'=IFERROR(INDEX($L$28:$L$31,{idx}),"")'
-    wl[f"F{rr}"] = f'=IF(E{rr}="","",E{rr}-C{rr})'
-    wl[f"D{rr}"] = f'=IF(OR(E{rr}="",N(C{rr})=0),"",E{rr}/C{rr}-1)'
-    for col in "BCDEF":
-        c = wl[f"{col}{rr}"]
-        c.font = f(9.5)
-        c.alignment = Alignment(horizontal="left" if col == "B" else "right", vertical="center",
-                                wrap_text=(col == "B"))
-    for col in "CEF":
-        wl[f"{col}{rr}"].number_format = EUR
-    wl[f"D{rr}"].number_format = '+0.0%;-0.0%;"—"'
-    wl.row_dimensions[rr].height = 17
-# Filet sous chaque ligne de mission uniquement si elle est remplie
-wl.conditional_formatting.add("B28:F31", FormulaRule(formula=['$B28<>""'], border=Border(bottom=fin)))
-wl["K4"] = '=IF(SUM($K$28:$K$31)=0,"",FIXED((SUM($L$28:$L$31)/SUM($K$28:$K$31)-1)*100,1)&" %")'
-
-rt = 32
-wl[f"B{rt}"] = "Total annuel HT"
-wl[f"C{rt}"] = "=SUM(K28:K31)"
-wl[f"E{rt}"] = "=SUM(L28:L31)"
-wl[f"F{rt}"] = f"=E{rt}-C{rt}"
-wl[f"D{rt}"] = f'=IF(N(C{rt})=0,"",E{rt}/C{rt}-1)'
-for col in "BCDEF":
-    c = wl[f"{col}{rt}"]
-    c.font = f(10, True)
-    c.fill = PatternFill("solid", fgColor="D9E1F2")
-    c.border = Border(top=Side(style="thin", color=BLEU_FONCE), bottom=Side(style="thin", color=BLEU_FONCE))
-    c.alignment = Alignment(horizontal="left" if col == "B" else "right", vertical="center")
-for col in "CEF":
-    wl[f"{col}{rt}"].number_format = EUR
-wl[f"D{rt}"].number_format = '+0.0%;-0.0%;"—"'
-wl.row_dimensions[rt].height = 18
-
-wl["B33"] = ('=IF(N(Nb_Mensualites)=0,"","Soit "&FIXED(E32/Nb_Mensualites,2)&" € HT par échéance ("'
-             '&Nb_Mensualites&" échéances), "&FIXED(E32/Nb_Mensualites*(1+Taux_TVA),2)&" € TTC.")')
-wl["B33"].font = f(9, italic=True, color="404040")
-wl.merge_cells("B33:F33")
-wl.row_dimensions[34].height = 8
-
-paragraphe(35, "Txt_P5")
-paragraphe(36, "Txt_P6")
-paragraphe(37, "Txt_Politesse")
-
-wl["D39"] = "=Signataire"
-wl["D39"].font = f(10.5, True)
-wl["D40"] = "=Signataire_Titre"
-wl["D40"].font = f(9.5, italic=True)
-wl.merge_cells("D39:F39")
-wl.merge_cells("D40:F40")
-for rr in (41, 42, 43, 44):
-    wl.row_dimensions[rr].height = 16
-
-wl["B45"] = "=Cab_Mentions"
-wl["B45"].font = f(7.5, color="7F7F7F")
-wl["B45"].alignment = Alignment(horizontal="center", wrap_text=True, vertical="bottom")
-wl.merge_cells("B45:F45")
-wl.row_dimensions[45].height = 24
-for col in "BCDEF":
-    wl[f"{col}45"].border = Border(top=Side(style="thin", color="BFBFBF"))
-
-# Police par défaut pour toutes les cellules du courrier sans style explicite
-for row in wl.iter_rows(min_row=1, max_row=45, min_col=2, max_col=6):
-    for c in row:
-        if c.font.name != FONT:
-            c.font = f(10)
-for row in wl.iter_rows(min_row=1, max_row=31, min_col=10, max_col=15):
-    for c in row:
-        c.font = f(8, color="A6A6A6")
-for a in ("B20", "D16"):
-    wl[a].font = f(10)
-
-# Mise en page A4
-wl.print_area = "A1:G45"
-wl.page_setup.paperSize = wl.PAPERSIZE_A4
-wl.page_setup.orientation = "portrait"
+wl.print_area = f"A1:G{LIGNES_COURRIER}"
 wl.page_setup.fitToWidth = 1
 wl.page_setup.fitToHeight = 1
 wl.sheet_properties.pageSetUpPr.fitToPage = True
-wl.print_options.horizontalCentered = True
-wl.page_margins.left = wl.page_margins.right = 0.6
-wl.page_margins.top = 0.5
-wl.page_margins.bottom = 0.5
-wl.page_margins.header = wl.page_margins.footer = 0.2
+
+# ---- Onglet « Impression en masse » : tous les courriers à la suite, 1 par page
+NB_MASSE = 300
+wi = wb.create_sheet("Impression en masse")
+mise_en_page_a4(wi)
+wi.page_setup.fitToWidth = 1
+wi.page_setup.fitToHeight = 0  # hauteur libre : sauts de page manuels tous les 45 lignes
+wi.sheet_properties.pageSetUpPr.fitToPage = True
+for k in range(1, NB_MASSE + 1):
+    b = (k - 1) * LIGNES_COURRIER
+    construire_courrier(
+        wi, b,
+        f"IFERROR(MATCH({k},Clients!$Z$2:$Z$501,0),0)",
+        f'IF($K${b + 1}=0,"","Réf. client : "&INDEX(Clients!$A$2:$A$501,$K${b + 1}))')
+    wi.row_breaks.append(Break(id=b + LIGNES_COURRIER))
+# Zone d'impression dynamique : seulement les courriers remplis
+# (Excel n'imprime ainsi que les pages des clients sélectionnés, pas les 300 blocs)
+wb.defined_names["Nb_Courriers"] = DefinedName(
+    "Nb_Courriers", attr_text=f"MAX(Clients!$Z$2:$Z${NB_LIGNES + 1})")
+wi.defined_names["_xlnm.Print_Area"] = DefinedName(
+    "_xlnm.Print_Area", localSheetId=wb.sheetnames.index("Impression en masse"),
+    attr_text=f"OFFSET('Impression en masse'!$A$1,0,0,{LIGNES_COURRIER}*MAX(1,Nb_Courriers),7)")
+wi.sheet_properties.tabColor = "C00000"
+wi["I2"] = "COURRIERS À IMPRIMER"
+wi["I2"].font = f(10, True, "C00000")
+wi["I3"] = "=Nb_Courriers"
+wi["I3"].font = f(14, True, BLEU_SAISIE)
+wi["I3"].fill = JAUNE
+wi["I3"].alignment = Alignment(horizontal="center")
+wi["I5"] = ("Fichier > Imprimer : tous les courriers sortent d'un coup (1 page par client).\n"
+            "Fichier > Exporter > PDF : un seul PDF avec tous les courriers.\n"
+            "Si des pages vierges apparaissent, imprimez les pages 1 à N (N = nombre ci-dessus).\n"
+            "Sélection des clients : colonnes « À envoyer » et « Mode d'envoi » de l'onglet Clients.")
+wi["I5"].font = f(9, color="595959")
+wi["I5"].alignment = Alignment(wrap_text=True, vertical="top")
+wi.merge_cells("I5:L12")
+
 
 # ---------------------------------------------------------------- Mode d'emploi
 wm = wb.create_sheet("Mode d'emploi", 0)
@@ -507,7 +558,15 @@ lignes = [
      "ou Fichier > Imprimer pour l'envoi postal. La mise en page A4 est déjà réglée (1 page, "
      "adresse du destinataire positionnée pour une enveloppe à fenêtre à droite).", f(10)),
     ("", None),
-    ("4. Tous les clients d'un coup — macro « Macro PDF »", f(11, True)),
+    ("4. IMPRESSION EN MASSE — onglet « Impression en masse » (sans macro)", f(11, True)),
+    ("Cet onglet contient tous les courriers les uns à la suite des autres, un par page A4. Y figurent les clients "
+     "dont « À envoyer » = Oui (et, par défaut, dont le mode d'envoi est Courrier ou Les deux — réglable dans "
+     "Paramètres > Impression en masse). Cliquez sur l'onglet puis Fichier > Imprimer : toutes les lettres "
+     "sortent d'un coup, recto simple. Pour un PDF unique : Fichier > Exporter > PDF avec cet onglet actif. "
+     "La colonne Z de l'onglet Clients indique le numéro de page de chaque client. Capacité : 300 courriers.",
+     f(10)),
+    ("", None),
+    ("5. Un PDF séparé par client — macro « Macro PDF » (facultatif)", f(11, True)),
     ("Enregistrez le fichier au format .xlsm (Classeur Excel prenant en charge les macros), ouvrez l'éditeur VBA "
      "(Alt + F11), Insertion > Module, collez le code de l'onglet « Macro PDF » (ou importez le fichier "
      "Module_Courriers.bas). Lancez ensuite (Alt + F8) :\n"
@@ -515,7 +574,7 @@ lignes = [
      "  • ExporterUnSeulPDF : un seul PDF regroupant tous les courriers (pratique pour un envoi en masse)\n"
      "  • ImprimerCourriersPostaux : impression des clients « À envoyer » = Oui et mode Courrier / Les deux", f(10)),
     ("", None),
-    ("5. Alternative : publipostage Word", f(11, True)),
+    ("6. Alternative : publipostage Word", f(11, True)),
     ("L'onglet « Clients » (en-têtes en ligne 1) peut aussi servir de source de données à un publipostage "
      "Word (Publipostage > Sélection des destinataires > Utiliser une liste existante).", f(10)),
     ("", None),
