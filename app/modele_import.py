@@ -23,6 +23,7 @@ COLONNES = [
     ("Paye HT", 13, 1872, None),
     ("Juridique HT", 13, 618, None),
     ("Plateforme agréée HT", 15, 240, None),
+    ("Périodicité", 14, "Mensuelle", "Mensuelle, Trimestrielle, Semestrielle ou Annuelle. Vide = périodicité par défaut du cabinet."),
     ("À envoyer", 11, "Oui", "Oui / Non. Vide = Oui."),
     ("Mode d'envoi", 13, "Courrier", "Courrier, Email ou Les deux. Vide = Courrier."),
 ]
@@ -54,7 +55,7 @@ for r in range(2, 502):
             c.number_format = "@"
 ws["H2"].value = "95120"
 ws.freeze_panes = "F2"
-for formule, col in (('"M.,Mme,M. et Mme"', "B"), ('"Oui,Non"', "O"), ('"Courrier,Email,Les deux"', "P")):
+for formule, col in (('"M.,Mme,M. et Mme"', "B"), ('"Mensuelle,Trimestrielle,Semestrielle,Annuelle"', "O"), ('"Oui,Non"', "P"), ('"Courrier,Email,Les deux"', "Q")):
     dv = DataValidation(type="list", formula1=formule, allow_blank=True)
     ws.add_data_validation(dv)
     dv.add(f"{col}2:{col}501")

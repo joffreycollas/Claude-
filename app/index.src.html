@@ -80,6 +80,8 @@ svg.i { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor;
 .btn.quiet:hover { background: var(--desk-deep); color: var(--ink); }
 .btn.danger { color: var(--danger); }
 .btn.danger:hover { background: var(--danger-tint); }
+.btn.primary.danger-fill { background: var(--danger); border-color: var(--danger); color: #fff; }
+.btn.primary.danger-fill:hover { background: oklch(44% 0.16 27); }
 .btn.small { height: 30px; padding: 0 10px; font-size: 13.5px; }
 .split { display: inline-flex; }
 .label-short { display: none; }
@@ -459,7 +461,7 @@ dialog .d-actions { display: flex; justify-content: flex-end; gap: 8px; padding:
 </div>
 
 <dialog id="dialog"></dialog>
-<input type="file" id="file-input" accept=".xlsx,.csv,.txt,.json" hidden>
+<input type="file" id="file-input" hidden>
 <div id="print-root"></div>
 
 <script>
@@ -474,6 +476,22 @@ const MISSIONS = [
   { k: "jur", tx: "jur" },
   { k: "pa", tx: "pa" },
 ];
+const PERIODES = {
+  mensuelle: { n: 12, lib: "Mensuelle", par: "par mois" },
+  trimestrielle: { n: 4, lib: "Trimestrielle", par: "par trimestre" },
+  semestrielle: { n: 2, lib: "Semestrielle", par: "par semestre" },
+  annuelle: { n: 1, lib: "Annuelle", par: "par an" },
+};
+function periodeOf(c) { return PERIODES[c.periodicite] ? c.periodicite : (PERIODES[state.settings.periodicite] ? state.settings.periodicite : "aucune"); }
+function parsePeriode(v) {
+  const n = norm(v).replace(/[^a-z0-9]/g, "");
+  if (!n) return "";
+  if (/^(mens|mois|12)/.test(n)) return "mensuelle";
+  if (/^(trim|4)/.test(n)) return "trimestrielle";
+  if (/^(sem|2)/.test(n)) return "semestrielle";
+  if (/^(ann|an$|1$)/.test(n)) return "annuelle";
+  return "";
+}
 const MOIS = ["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"];
 
 function defaultSettings() {
@@ -489,7 +507,7 @@ function defaultSettings() {
     signataireTitre: "Expert-comptable",
     dateCourrier: "",
     dateEffet: `${y + 1}-01-01`,
-    echeances: 12,
+    periodicite: "mensuelle",
     tva: 20,
     lib: {
       compta: "Mission comptable (tenue, révision, bilan, liasse fiscale)",
@@ -519,7 +537,7 @@ function demoClients() {
 }
 function uid() { return Math.random().toString(36).slice(2, 10); }
 function blankClient(code) {
-  return { id: uid(), code, civ: "", prenom: "", nom: "", societe: "", adr1: "", adr2: "", cp: "", ville: "", email: "", compta: 0, paye: 0, jur: 0, pa: 0, tauxPerso: null, envoyer: true, mode: "courrier", exemple: false };
+  return { id: uid(), code, civ: "", prenom: "", nom: "", societe: "", adr1: "", adr2: "", cp: "", ville: "", email: "", compta: 0, paye: 0, jur: 0, pa: 0, tauxPerso: null, periodicite: "", envoyer: true, mode: "courrier", exemple: false };
 }
 
 let state = load();
@@ -532,6 +550,7 @@ function load() {
   const s = data.settings || {};
   const settings = { ...d, ...s, lib: { ...d.lib, ...(s.lib || {}) }, txt: { ...d.txt, ...(s.txt || {}) }, fmt: { ...d.fmt, ...(s.fmt || {}), p: { ...((s.fmt || {}).p || {}) } } };
   if (/\{hausse\}/.test(settings.txt.p4 || "")) settings.txt.p4 = d.txt.p4; /* ancienne version : taux calculés */
+  if (!("periodicite" in s) && "echeances" in s) settings.periodicite = ({ 12: "mensuelle", 4: "trimestrielle", 2: "semestrielle", 1: "annuelle" })[num(s.echeances)] || "aucune";
   const clients = data.clients.map(c => ({ ...blankClient(""), ...c }));
   return { settings, clients, selectedId: data.selectedId && clients.some(c => c.id === data.selectedId) ? data.selectedId : (clients[0] || {}).id || null };
 }
@@ -613,9 +632,9 @@ function letterHTML(c, opts = {}) {
   const cpVille = [c.cp, (c.ville || "").toUpperCase()].filter(Boolean).join(" ");
   const rows = MISSIONS.filter(m => amt(c, m.k) > 0).map(m =>
     `<tr data-f="m-${m.k}"><td>${esc(S.lib[m.k])}</td><td>${eur(amt(c, m.k))}</td></tr>`).join("");
-  const ech = Math.round(num(S.echeances));
-  const mens = ech > 0 && t.n > 0
-    ? `<p class="mens">Soit ${fmtEur2.format(t.n / ech)} € HT par échéance (${ech} échéances), ${fmtEur2.format(t.n / ech * (1 + num(S.tva) / 100))} € TTC.</p>` : "";
+  const per = PERIODES[periodeOf(c)];
+  const mens = per && t.n > 0
+    ? `<p class="mens" data-f="periode">Soit ${fmtEur2.format(t.n / per.n)} € HT ${per.par} (${fmtEur2.format(t.n / per.n * (1 + num(S.tva) / 100))} € TTC).</p>` : "";
   const para = k => (S.txt[k] || "").trim() ? `<p data-f="t-${k}"${paraStyle(k)}>${balises(S.txt[k], c, t)}</p>` : "";
   const window = opts.window ? '<div class="window"><span>Fenêtre d\'enveloppe DL (100 × 45 mm)</span></div>' : "";
   const folds = opts.window ? '<div class="fold" style="top:99mm"></div><div class="fold" style="top:198mm"></div>' : "";
@@ -757,6 +776,9 @@ function renderFiche() {
       <p class="hint-line">Les nouveaux honoraires, tels qu'ils s'impriment. Laissez vide une mission non souscrite : elle n'apparaît pas sur la lettre.</p>
     </section>
     <section><h3>Envoi</h3><div class="fields">
+      <div class="f"><label for="f-periodicite">Périodicité de facturation</label><select id="f-periodicite" data-k="periodicite" data-link="periode">
+        <option value="" ${!c.periodicite ? "selected" : ""}>Comme le cabinet (${esc((PERIODES[state.settings.periodicite] || { lib: "aucune" }).lib.toLowerCase())})</option>
+        ${Object.entries(PERIODES).map(([v, o]) => `<option value="${v}" ${c.periodicite === v ? "selected" : ""}>${o.lib}</option>`).join("")}</select></div>
       <div class="f"><label class="toggle"><input type="checkbox" data-k="envoyer" ${c.envoyer ? "checked" : ""}> Envoyer ce courrier</label></div>
       <div class="f"><span class="lab" id="mode-lab">Mode d'envoi</span><div class="radios" role="radiogroup" aria-labelledby="mode-lab">
         ${[["courrier", "Courrier"], ["email", "E-mail"], ["deux", "Les deux"]].map(([v, l]) => `<label><input type="radio" name="mode" value="${v}" data-k="mode" ${c.mode === v ? "checked" : ""}><span>${l}</span></label>`).join("")}
@@ -798,7 +820,7 @@ function renderCourriers() { renderList(); renderStage(); renderFiche(); renderC
 const COLS = [
   ["envoyer", "Envoyer", "ck"], ["code", "Réf.", "", 70], ["societe", "Société", "", 220],
   ["compta", "Compta HT", "num", 92], ["paye", "Paye HT", "num", 92], ["jur", "Juridique HT", "num", 92], ["pa", "Plateforme HT", "num", 92],
-  ["__calc", "Total HT", "calc"], ["mode", "Mode", "mode", 110],
+  ["__calc", "Total HT", "calc"], ["periodicite", "Périodicité", "per", 130], ["mode", "Mode", "mode", 110],
   ["civ", "Civ.", "sel", 78], ["prenom", "Prénom", "", 100], ["nom", "Nom", "", 120],
   ["adr1", "Adresse", "", 200], ["adr2", "Complément", "", 150], ["cp", "CP", "", 68], ["ville", "Ville", "", 140], ["email", "E-mail", "", 190],
 ];
@@ -823,6 +845,7 @@ function renderGrid() {
       if (type === "calc") return `<td class="calc" data-calc="${c.id}">${eur(t.n)}${c.exemple ? '<span class="tag">exemple</span>' : ""}</td>`;
       if (type === "ck") return `<td class="ck"><input type="checkbox" data-id="${c.id}" data-k="envoyer" ${c.envoyer ? "checked" : ""} aria-label="Envoyer à ${esc(c.societe)}"></td>`;
       if (type === "sel") return `<td${st}><select data-id="${c.id}" data-k="civ" aria-label="${l}">${CIVS.map(([v, lb]) => `<option value="${v}" ${c.civ === v ? "selected" : ""}>${lb}</option>`).join("")}</select></td>`;
+      if (type === "per") return `<td${st}><select data-id="${c.id}" data-k="periodicite" aria-label="${l}"><option value="" ${!c.periodicite ? "selected" : ""}>Par défaut</option>${Object.entries(PERIODES).map(([v, o]) => `<option value="${v}" ${c.periodicite === v ? "selected" : ""}>${o.lib}</option>`).join("")}</select></td>`;
       if (type === "mode") return `<td${st}><select data-id="${c.id}" data-k="mode" aria-label="${l}">${[["courrier", "Courrier"], ["email", "E-mail"], ["deux", "Les deux"]].map(([v, lb]) => `<option value="${v}" ${c.mode === v ? "selected" : ""}>${lb}</option>`).join("")}</select></td>`;
       const v = type === "num" ? (k === "tauxPerso" ? dec(c.tauxPerso) : dec(num(c[k]) || "")) : c[k];
       return `<td${st}><input ${type === "num" ? 'class="num" inputmode="decimal"' : ""} data-id="${c.id}" data-k="${k}" value="${esc(v)}" aria-label="${l}"></td>`;
@@ -860,8 +883,9 @@ function renderSettingsForm() {
       ${i("signataire", "Nom du signataire", "s3", 'data-link="s-sign" placeholder="Prénom NOM"')}${i("signataireTitre", "Fonction", "s3", 'data-link="s-sign"')}
       ${i("dateCourrier", "Date du courrier", "s3", 'type="date" data-link="s-date"')}${i("dateEffet", "Date d'effet des nouveaux tarifs", "s3", 'type="date" data-link="t-p4"')}
     </div></section>
-    <section><h2>Mensualisation</h2><p class="lead">Sous le tableau, la lettre indique le montant de chaque échéance. 0 échéance = ligne retirée.</p><div class="fields">
-      ${p("echeances", "Échéances par an", "s3", "none")}${p("tva", "TVA", "s3")}
+    <section><h2>Périodicité de facturation</h2><p class="lead">Sous le tableau, la lettre indique le montant par mois, trimestre, semestre ou an. Chaque client peut avoir sa propre périodicité (fiche client).</p><div class="fields">
+      <div class="f s3"><label for="s-periodicite">Périodicité par défaut</label><select id="s-periodicite" data-s="periodicite" data-link="periode">
+        ${Object.entries(PERIODES).map(([v, o]) => `<option value="${v}" ${S.periodicite === v ? "selected" : ""}>${o.lib}</option>`).join("")}<option value="aucune" ${!PERIODES[S.periodicite] ? "selected" : ""}>Ne pas afficher</option></select></div>${p("tva", "TVA", "s3")}
     </div></section>
     <section><h2>Intitulés des missions</h2><p class="lead">Tels qu'ils apparaissent dans le tableau du courrier.</p><div class="fields">
       ${["compta", "paye", "jur", "pa"].map(k => i("lib." + k, shortLib(k), "", `data-link="m-${k}"`)).join("")}
@@ -1040,7 +1064,7 @@ $("#settings-frame").addEventListener("click", e => {
 document.addEventListener("click", e => {
   const a = e.target.closest("[data-action]"); if (!a) return;
   const act = a.dataset.action;
-  if (act === "import") { fileMode = "import"; $("#file-input").accept = ".xlsx,.csv,.txt"; $("#file-input").click(); }
+  if (act === "import") { fileMode = "import"; $("#file-input").accept = ".xlsx,.xlsm,.csv,.txt,.xls,.ods,.numbers"; $("#file-input").click(); }
   if (act === "restore") { fileMode = "restore"; $("#file-input").accept = ".json"; $("#file-input").click(); }
   if (act === "add") addClient();
   if (act === "delete") { const c = selected(); if (c) removeClient(c.id); }
@@ -1063,15 +1087,29 @@ function addClient() {
   show("courriers");
   const f = $("#f-societe"); if (f) f.focus();
 }
-function removeClient(id) {
+function removeClient(id, confirmed) {
   const i = state.clients.findIndex(c => c.id === id); if (i < 0) return;
+  const c0 = state.clients[i];
+  if (!confirmed) {
+    showDialog(`<div class="d-body"><h2>Supprimer ce client ?</h2><p><b>${esc(c0.societe || "Client sans nom")}</b>${c0.code ? ` (${esc(c0.code)})` : ""} sera retiré de la liste, avec ses honoraires. Son courrier ne sera plus imprimé.</p></div>
+      <div class="d-actions"><button class="btn" data-close>Annuler</button><button class="btn primary danger-fill" data-imp="del">Supprimer</button></div>`,
+      b => { if (b.dataset.imp === "del") removeClient(id, true); });
+    return;
+  }
   const [c] = state.clients.splice(i, 1);
   if (state.selectedId === id) state.selectedId = (state.clients[i] || state.clients[i - 1] || {}).id || null;
   save(); show(view);
   toast(`${c.societe || "Client"} supprimé.`, "Annuler", () => { state.clients.splice(i, 0, c); state.selectedId = c.id; save(); show(view); });
 }
-function dropDemo() {
+function dropDemo(confirmed) {
   const kept = state.clients.filter(c => !c.exemple), gone = state.clients.filter(c => c.exemple);
+  if (!gone.length) return;
+  if (!confirmed) {
+    showDialog(`<div class="d-body"><h2>Supprimer les clients d'exemple ?</h2><p>${gone.length} client${gone.length > 1 ? "s" : ""} fictif${gone.length > 1 ? "s" : ""} (${gone.map(c => esc(c.societe)).join(", ")}) ${gone.length > 1 ? "seront retirés" : "sera retiré"}. Vos propres clients ne sont pas touchés.</p></div>
+      <div class="d-actions"><button class="btn" data-close>Annuler</button><button class="btn primary danger-fill" data-imp="del">Supprimer les exemples</button></div>`,
+      b => { if (b.dataset.imp === "del") dropDemo(true); });
+    return;
+  }
   const before = state.clients.slice(), sel = state.selectedId;
   state.clients = kept; state.selectedId = (kept[0] || {}).id || null; save(); show(view);
   toast(`${gone.length} client${gone.length > 1 ? "s" : ""} d'exemple supprimé${gone.length > 1 ? "s" : ""}.`, "Annuler", () => { state.clients = before; state.selectedId = sel; save(); show(view); });
@@ -1138,7 +1176,10 @@ $("#file-input").addEventListener("change", async e => {
   const file = e.target.files[0]; e.target.value = ""; if (!file) return;
   try {
     if (fileMode === "restore") return restore(await file.text());
-    const rows = /\.xlsx$/i.test(file.name) ? await readXlsx(await file.arrayBuffer()) : readCsv(await decodeText(await file.arrayBuffer()));
+    if (/\.(xls|ods|numbers)$/i.test(file.name)) throw new Error(`Le format « ${file.name.split(".").pop()} » n'est pas lu par l'application. Dans votre tableur, faites « Enregistrer sous » et choisissez « Classeur Excel (.xlsx) » ou « CSV », puis importez ce nouveau fichier.`);
+    const buf = await file.arrayBuffer(), head = new Uint8Array(buf.slice(0, 4));
+    const isZip = head[0] === 0x50 && head[1] === 0x4b; /* un .xlsx est une archive zip, quel que soit son nom */
+    const rows = isZip ? await readXlsx(buf) : readCsv(await decodeText(buf));
     const res = mapRows(rows);
     confirmImport(file.name, res);
   } catch (err) {
@@ -1167,28 +1208,37 @@ function readCsv(text) {
   return rows.filter(r => r.some(v => String(v).trim() !== ""));
 }
 /* Lecteur .xlsx minimal : zip + XML, sans bibliothèque externe */
+const tags = (node, name) => [...node.getElementsByTagNameNS("*", name)];
 async function readXlsx(buf) {
   const files = await unzip(buf, n => /^xl\/(workbook\.xml|_rels\/workbook\.xml\.rels|sharedStrings\.xml|worksheets\/[^/]+\.xml)$/.test(n));
   const xml = s => new DOMParser().parseFromString(s, "application/xml");
   const wb = xml(files["xl/workbook.xml"] || ""), rels = xml(files["xl/_rels/workbook.xml.rels"] || "");
-  const sheets = [...wb.getElementsByTagName("sheet")].map(s => ({ name: s.getAttribute("name"), rid: s.getAttribute("r:id") || s.getAttributeNS("http://schemas.openxmlformats.org/officeDocument/2006/relationships", "id") }));
+  const sheets = tags(wb, "sheet").map(s => ({ name: s.getAttribute("name"), rid: s.getAttribute("r:id") || s.getAttribute("id") || s.getAttributeNS("http://schemas.openxmlformats.org/officeDocument/2006/relationships", "id") }));
   if (!sheets.length) throw new Error("Aucune feuille trouvée dans le classeur.");
-  const pick = sheets.find(s => norm(s.name) === "clients") || sheets.find(s => !/param|mode d|courrier|impression|macro/i.test(norm(s.name))) || sheets[0];
-  const rel = [...rels.getElementsByTagName("Relationship")].find(r => r.getAttribute("Id") === pick.rid);
+  const order = [...sheets].sort((a, b) => (norm(b.name) === "clients") - (norm(a.name) === "clients"));
+  let best = null;
+  for (const pick of order) {
+    const rows = await readSheet(pick);
+    if (rows.some(r => r.filter(v => matchHead(v)).length >= 2)) return rows;
+    if (!best && rows.length) best = rows;
+  }
+  return best || [];
+  async function readSheet(pick) {
+  const rel = tags(rels, "Relationship").find(r => r.getAttribute("Id") === pick.rid);
   let target = rel ? rel.getAttribute("Target") : "worksheets/sheet1.xml";
   target = target.replace(/^\/?xl\//, "").replace(/^\//, "");
   const sheetXml = files["xl/" + target];
-  if (!sheetXml) throw new Error("La feuille « " + pick.name + " » est introuvable.");
-  const shared = files["xl/sharedStrings.xml"] ? [...xml(files["xl/sharedStrings.xml"]).getElementsByTagName("si")].map(si => [...si.getElementsByTagName("t")].map(t => t.textContent).join("")) : [];
+  if (!sheetXml) return [];
+  const shared = files["xl/sharedStrings.xml"] ? tags(xml(files["xl/sharedStrings.xml"]), "si").map(si => tags(si, "t").filter(t => t.parentNode.localName !== "rPh").map(t => t.textContent).join("")) : [];
   const doc = xml(sheetXml), rows = [];
-  for (const r of doc.getElementsByTagName("row")) {
+  for (const r of tags(doc, "row")) {
     const out = [];
-    for (const cEl of r.getElementsByTagName("c")) {
+    for (const cEl of tags(r, "c")) {
       const ref = cEl.getAttribute("r") || "", col = colIndex(ref.replace(/\d+/g, ""));
-      const tp = cEl.getAttribute("t"), vEl = cEl.getElementsByTagName("v")[0];
+      const tp = cEl.getAttribute("t"), vEl = tags(cEl, "v")[0];
       let v = "";
       if (tp === "s") v = shared[+(vEl ? vEl.textContent : 0)] ?? "";
-      else if (tp === "inlineStr") v = [...cEl.getElementsByTagName("t")].map(t => t.textContent).join("");
+      else if (tp === "inlineStr") v = tags(cEl, "t").map(t => t.textContent).join("");
       else if (tp === "b") v = vEl && vEl.textContent === "1" ? "Oui" : "Non";
       else v = vEl ? vEl.textContent : "";
       out[col >= 0 ? col : out.length] = v;
@@ -1196,6 +1246,7 @@ async function readXlsx(buf) {
     rows.push(Array.from(out, x => x ?? ""));
   }
   return rows.filter(r => r.some(v => String(v).trim() !== ""));
+  }
 }
 function colIndex(s) { let n = 0; for (const ch of s.toUpperCase()) n = n * 26 + ch.charCodeAt(0) - 64; return n - 1; }
 async function unzip(buf, want) {
@@ -1241,6 +1292,7 @@ const HEADS = [
   ["pa", ["plateformeagreeeht", "paht", "panouveauht", "paactuelht", "panouveau", "paactuel", "pa", "plateforme", "plateformeagreee", "facturationelectronique"]],
   ["envoyer", ["aenvoyer", "envoyer", "envoi"]],
   ["mode", ["modedenvoi", "mode", "modeenvoi"]],
+  ["periodicite", ["periodicite", "periodicitedefacturation", "frequence", "frequencedefacturation", "echeancier"]],
 ];
 function mapRows(rows) {
   if (!rows.length) throw new Error("Le fichier est vide.");
@@ -1254,11 +1306,11 @@ function mapRows(rows) {
   });
   if (cols.societe == null && cols.nom == null) throw new Error("Il manque une colonne « Société » (ou « Nom »).");
   const found = HEADS.map(([k]) => k).filter(k => cols[k] != null);
-  const clients = []; let skipped = 0;
+  const clients = []; let skipped = 0, sample = false;
   const mapped = Object.values(cols);
   for (const r of rows.slice(hi + 1)) {
     const g = k => cols[k] == null ? "" : String(r[cols[k]] ?? "").trim();
-    if (g("email") === "p.durand@exemple.fr" && g("societe") === "SARL DURAND BÂTIMENT") { continue; } /* ligne d'exemple du modèle */
+    if (g("email") === "p.durand@exemple.fr" && g("societe") === "SARL DURAND BÂTIMENT") { sample = true; continue; } /* ligne d'exemple du modèle */
     if (!g("societe") && !g("nom")) { if (mapped.some(i => String(r[i] ?? "").trim() !== "" && String(r[i]).trim() !== "0")) skipped++; continue; }
     const c = blankClient(g("code"));
     for (const k of ["civ", "prenom", "nom", "societe", "adr1", "adr2", "ville", "email"]) c[k] = g(k);
@@ -1268,9 +1320,10 @@ function mapRows(rows) {
     for (const k of ["compta", "paye", "jur", "pa"]) c[k] = Math.max(0, Math.round(num(g(k)) * 100) / 100);
     const env = norm(g("envoyer")); c.envoyer = env === "" ? true : !/^(non|n|0|false|faux)$/.test(env);
     const mode = norm(g("mode")); c.mode = /deux|2/.test(mode) ? "deux" : /mail/.test(mode) ? "email" : "courrier";
+    c.periodicite = parsePeriode(g("periodicite"));
     clients.push(c);
   }
-  return { clients, skipped, found };
+  return { clients, skipped, found, sample };
 }
 function matchHead(h) {
   const n = norm(h).replace(/[^a-z0-9]/g, "");
@@ -1279,9 +1332,9 @@ function matchHead(h) {
   for (const [k, syn] of HEADS) if (syn.some(s => s.length > 3 && n.startsWith(s))) return k;
   return null;
 }
-const LABELS = { code: "Réf. client", civ: "Civilité", prenom: "Prénom", nom: "Nom", societe: "Société", adr1: "Adresse", adr2: "Complément", cp: "Code postal", ville: "Ville", email: "E-mail", compta: "Comptabilité", paye: "Paye", jur: "Juridique", pa: "Plateforme agréée", envoyer: "À envoyer", mode: "Mode d'envoi" };
+const LABELS = { code: "Réf. client", civ: "Civilité", prenom: "Prénom", nom: "Nom", societe: "Société", adr1: "Adresse", adr2: "Complément", cp: "Code postal", ville: "Ville", email: "E-mail", compta: "Comptabilité", paye: "Paye", jur: "Juridique", pa: "Plateforme agréée", envoyer: "À envoyer", mode: "Mode d'envoi", periodicite: "Périodicité" };
 function confirmImport(name, res) {
-  if (!res.clients.length) throw new Error("Aucun client trouvé sous la ligne d'en-têtes.");
+  if (!res.clients.length) throw new Error(res.sample ? "Le fichier ne contient que la ligne d'exemple du modèle. Ajoutez vos clients à partir de la ligne 3 (ou remplacez la ligne d'exemple), enregistrez, puis importez à nouveau." : "Aucun client trouvé sous la ligne de titres : vérifiez que la colonne « Société » est remplie.");
   const hasReal = state.clients.some(c => !c.exemple);
   const missing = ["compta", "paye", "jur", "pa"].filter(k => !res.found.includes(k));
   showDialog(`<div class="d-body"><h2>${res.clients.length} client${res.clients.length > 1 ? "s" : ""} trouvé${res.clients.length > 1 ? "s" : ""}</h2>
@@ -1316,10 +1369,10 @@ function download(name, content, type) {
   document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
 }
 function exportCSV() {
-  const H = ["Réf. client", "Civilité", "Prénom", "Nom", "Société", "Adresse", "Complément d'adresse", "Code postal", "Ville", "E-mail", "Comptabilité HT", "Paye HT", "Juridique HT", "Plateforme agréée HT", "À envoyer", "Mode d'envoi", "Total HT"];
+  const H = ["Réf. client", "Civilité", "Prénom", "Nom", "Société", "Adresse", "Complément d'adresse", "Code postal", "Ville", "E-mail", "Comptabilité HT", "Paye HT", "Juridique HT", "Plateforme agréée HT", "Périodicité", "À envoyer", "Mode d'envoi", "Total HT"];
   const cell = v => { const s = typeof v === "number" ? String(v).replace(".", ",") : String(v ?? ""); return /[;"\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s; };
   const lines = [H.join(";")].concat(state.clients.map(c => [c.code, c.civ, c.prenom, c.nom, c.societe, c.adr1, c.adr2, c.cp, c.ville, c.email,
-    amt(c, "compta"), amt(c, "paye"), amt(c, "jur"), amt(c, "pa"), c.envoyer ? "Oui" : "Non", { courrier: "Courrier", email: "Email", deux: "Les deux" }[c.mode], totals(c).n].map(cell).join(";")));
+    amt(c, "compta"), amt(c, "paye"), amt(c, "jur"), amt(c, "pa"), (PERIODES[c.periodicite] || { lib: "" }).lib, c.envoyer ? "Oui" : "Non", { courrier: "Courrier", email: "Email", deux: "Les deux" }[c.mode], totals(c).n].map(cell).join(";")));
   download(`Clients_honoraires_${new Date().toISOString().slice(0, 10)}.csv`, "\ufeff" + lines.join("\r\n"), "text/csv;charset=utf-8");
 }
 function downloadModele() {

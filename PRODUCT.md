@@ -31,9 +31,9 @@ Remplace le classeur Excel de publipostage du même projet (`Courrier_augmentati
 
 ## Capabilities and Constraints
 
-- Paramètres : nom du cabinet et ville de signature, signataire, date du courrier, date d'effet, nombre d'échéances, TVA, intitulés des missions, textes du courrier modifiables avec balises.
-- Clients : code, civilité, prénom, nom, société, adresse (2 lignes), CP, ville, e-mail, nouveaux honoraires annuels HT par mission, à envoyer (oui/non), mode d'envoi (courrier / e-mail / les deux).
-- Montants : l'utilisateur saisit à la main les nouveaux honoraires annuels HT par mission (pas de calcul de taux). La lettre n'affiche que les nouveaux montants, jamais l'ancien montant, le taux ou l'écart. Totaux et mensualité HT/TTC calculés.
+- Paramètres : nom du cabinet et ville de signature, signataire, date du courrier, date d'effet, périodicité de facturation par défaut (mensuelle, trimestrielle, semestrielle, annuelle), TVA, intitulés des missions, textes du courrier modifiables avec balises.
+- Clients : code, civilité, prénom, nom, société, adresse (2 lignes), CP, ville, e-mail, nouveaux honoraires annuels HT par mission, périodicité propre (facultative), à envoyer (oui/non), mode d'envoi (courrier / e-mail / les deux).
+- Montants : l'utilisateur saisit à la main les nouveaux honoraires annuels HT par mission (pas de calcul de taux). La lettre n'affiche que les nouveaux montants, jamais l'ancien montant, le taux ou l'écart. Totaux et montant par période HT/TTC calculés. Toute suppression de client demande une confirmation.
 - Courrier : 1 page A4, seules les missions souscrites apparaissent.
 - Impression en masse de la sélection, une lettre par page.
 - Aucune donnée ne quitte l'ordinateur. Pas de compte, pas de serveur.
