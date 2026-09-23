@@ -197,11 +197,15 @@ svg.i { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor;
 .sheet .dest b { font-weight: 700; }
 .sheet .refs { position: absolute; left: 20mm; top: 52mm; width: 80mm; font-size: 9pt; color: #3d3d3d; line-height: 1.5; }
 .sheet .refs b { color: #1a1a1a; font-weight: 600; }
-.sheet .flow { position: absolute; left: 20mm; right: 20mm; top: 95mm; }
+.sheet .flow { position: absolute; left: 20mm; right: 20mm; top: 95mm; font-size: var(--txt-size, 9.5pt); }
+.sheet .flow p { text-align: var(--txt-align, justify); }
+.sheet .flow .objet { text-align: left; }
 .sheet .objet { font-weight: 700; margin: 0 0 4.5mm; }
-.sheet p { margin: 0 0 2.2mm; text-align: left; }
+.sheet p { margin: 0 0 2.2mm; text-align: justify; hyphens: auto; -webkit-hyphens: auto; }
+.sheet .flow strong { font-weight: 700; }
+.sheet .flow em { font-style: italic; }
 .sheet .salut { margin-bottom: 2.4mm; }
-.sheet table { width: 100%; border-collapse: collapse; margin: 1mm 0 1.5mm; font-size: 8.8pt; }
+.sheet table { width: 100%; border-collapse: collapse; margin: 1mm 0 1.5mm; font-size: 0.93em; }
 .sheet th { background: #9d202e; color: #fff; font-weight: 600; text-align: right; padding: 1.3mm 2mm; white-space: nowrap; }
 .sheet th:first-child { text-align: left; }
 .sheet td { padding: 1.1mm 2mm; text-align: right; border-bottom: 0.25mm solid #e3dcdc; white-space: nowrap; }
@@ -269,6 +273,15 @@ table.grid { border-collapse: separate; border-spacing: 0; font-size: 13.5px; ba
 .pct input { padding-right: 26px; }
 .pct::after { content: "%"; position: absolute; right: 10px; top: 50%; translate: 0 -50%; font-size: 13px; color: var(--ink-3); pointer-events: none; }
 .eur::after { content: "€"; }
+.f-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+.fbar { display: inline-flex; align-items: center; gap: 2px; }
+.fb { display: inline-grid; place-items: center; min-width: 28px; height: 28px; padding: 0 4px; border: 0; border-radius: 5px; background: none; color: var(--ink-2); font-size: 14px; }
+.fb:hover { background: var(--desk-deep); color: var(--ink); }
+.fb[aria-pressed="true"] { background: var(--brand-tint); color: var(--brand); }
+.fb svg.i { width: 16px; height: 16px; }
+.fbar .sep { width: 1px; height: 18px; background: var(--rule); margin: 0 4px; }
+.fsize { height: 28px; border: 1px solid var(--rule); border-radius: 5px; background: var(--paper); font-size: 13px; padding: 0 4px; }
+.f select { width: 100%; height: 34px; padding: 0 8px; border: 1px solid var(--rule); border-radius: var(--r-s); background: var(--paper); }
 .balises { display: flex; gap: 6px; flex-wrap: wrap; margin: 0 0 12px; }
 .balises code { font-family: inherit; font-size: 12.5px; font-weight: 600; background: var(--desk); padding: 2px 7px; border-radius: 4px; color: var(--ink-2); }
 .settings .stage-scroll { padding-top: 18px; }
@@ -342,6 +355,10 @@ dialog .d-actions { display: flex; justify-content: flex-end; gap: 8px; padding:
   <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
   <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16"/><path d="M10 11v6M14 11v6"/><path d="M6 7l1 13h10l1-13"/><path d="M9 7V4h6v3"/></symbol>
   <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></symbol>
+  <symbol id="i-al-left" viewBox="0 0 24 24"><path d="M4 6h16M4 10h10M4 14h16M4 18h10"/></symbol>
+  <symbol id="i-al-justify" viewBox="0 0 24 24"><path d="M4 6h16M4 10h16M4 14h16M4 18h16"/></symbol>
+  <symbol id="i-al-center" viewBox="0 0 24 24"><path d="M4 6h16M7 10h10M4 14h16M7 18h10"/></symbol>
+  <symbol id="i-al-auto" viewBox="0 0 24 24"><path d="M4 6h16M4 10h16M4 14h9"/><circle cx="18" cy="17" r="2.5"/></symbol>
   <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 5 5L20 7"/></symbol>
   <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/></symbol>
 </svg>
@@ -480,6 +497,7 @@ function defaultSettings() {
       jur: "Mission juridique (approbation des comptes, secrétariat juridique)",
       pa: "Plateforme agréée – facturation électronique",
     },
+    fmt: { size: 9.5, align: "justify", p: {} },
     txt: {
       objet: "Objet : révision de nos honoraires au {date_effet}",
       p1: "Nous tenons tout d'abord à vous remercier pour la confiance que vous accordez à {cabinet}. Comme chaque année, et conformément aux dispositions de votre lettre de mission, nous procédons à la révision de nos honoraires.",
@@ -512,7 +530,7 @@ function load() {
   if (!data || !Array.isArray(data.clients)) { base.selectedId = base.clients[0].id; return base; }
   const d = defaultSettings();
   const s = data.settings || {};
-  const settings = { ...d, ...s, lib: { ...d.lib, ...(s.lib || {}) }, txt: { ...d.txt, ...(s.txt || {}) } };
+  const settings = { ...d, ...s, lib: { ...d.lib, ...(s.lib || {}) }, txt: { ...d.txt, ...(s.txt || {}) }, fmt: { ...d.fmt, ...(s.fmt || {}), p: { ...((s.fmt || {}).p || {}) } } };
   if (/\{hausse\}/.test(settings.txt.p4 || "")) settings.txt.p4 = d.txt.p4; /* ancienne version : taux calculés */
   const clients = data.clients.map(c => ({ ...blankClient(""), ...c }));
   return { settings, clients, selectedId: data.selectedId && clients.some(c => c.id === data.selectedId) ? data.selectedId : (clients[0] || {}).id || null };
@@ -572,10 +590,21 @@ function civLongue(c) { return c.civ === "Mme" ? "Madame" : c.civ === "M." ? "Mo
 /* ================================================================== rendu de la lettre */
 const esc = s => String(s ?? "").replace(/[&<>"']/g, ch => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch]));
 const sup = html => html.replace(/\b1er\b/g, "1<sup>er</sup>");
+/* Mise en forme dans le texte : **gras** et *italique* */
+const inline = html => html.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>").replace(/(^|[^*])\*(?!\s)(.+?)\*(?!\*)/g, "$1<em>$2</em>");
+const ALIGNS = { left: "left", justify: "justify", center: "center", right: "right" };
+function paraStyle(k) {
+  const f = (state.settings.fmt.p || {})[k] || {}, out = [];
+  if (f.align && ALIGNS[f.align]) out.push(`text-align:${f.align}`);
+  if (f.size) out.push(`font-size:${num(f.size)}pt`);
+  if (f.b) out.push("font-weight:700");
+  if (f.i) out.push("font-style:italic");
+  return out.length ? ` style="${out.join(";")}"` : "";
+}
 function balises(txt, c, t) {
   const S = state.settings;
   const map = { cabinet: S.cabNom, societe: c.societe, date_effet: dateTexte(S.dateEffet), hausse: "", civilite: civLongue(c) };
-  return sup(esc(txt || "").replace(/\{(cabinet|societe|date_effet|hausse|civilite)\}/g, (_, k) => esc(map[k])));
+  return sup(inline(esc(txt || "").replace(/\{(cabinet|societe|date_effet|hausse|civilite)\}/g, (_, k) => esc(map[k]))));
 }
 function letterHTML(c, opts = {}) {
   const S = state.settings, t = totals(c);
@@ -587,10 +616,11 @@ function letterHTML(c, opts = {}) {
   const ech = Math.round(num(S.echeances));
   const mens = ech > 0 && t.n > 0
     ? `<p class="mens">Soit ${fmtEur2.format(t.n / ech)} € HT par échéance (${ech} échéances), ${fmtEur2.format(t.n / ech * (1 + num(S.tva) / 100))} € TTC.</p>` : "";
-  const para = k => (S.txt[k] || "").trim() ? `<p data-f="t-${k}">${balises(S.txt[k], c, t)}</p>` : "";
+  const para = k => (S.txt[k] || "").trim() ? `<p data-f="t-${k}"${paraStyle(k)}>${balises(S.txt[k], c, t)}</p>` : "";
   const window = opts.window ? '<div class="window"><span>Fenêtre d\'enveloppe DL (100 × 45 mm)</span></div>' : "";
   const folds = opts.window ? '<div class="fold" style="top:99mm"></div><div class="fold" style="top:198mm"></div>' : "";
-  return `<article class="sheet${opts.live ? " live" : ""}" data-id="${esc(c.id)}">
+  const F = S.fmt || {};
+  return `<article class="sheet${opts.live ? " live" : ""}" data-id="${esc(c.id)}" style="--txt-size:${num(F.size) || 9.5}pt;--txt-align:${ALIGNS[F.align] || "justify"}">
     ${window}${folds}
     <img class="lh" src="${IMG.entete}" alt="">
     <div class="refs"><div data-f="s-date">${esc(S.cabVille)}, le ${sup(esc(dateTexte(S.dateCourrier)))}</div><div data-f="code">Réf. client : <b>${esc(c.code || "—")}</b></div></div>
@@ -602,7 +632,7 @@ function letterHTML(c, opts = {}) {
       <div data-f="cpville">${cpVille ? esc(cpVille) : ph("Code postal et ville")}</div>
     </div>
     <div class="flow">
-      <p class="objet" data-f="t-objet">${balises(S.txt.objet, c, t)}</p>
+      <p class="objet" data-f="t-objet"${paraStyle("objet")}>${balises(S.txt.objet, c, t)}</p>
       <p class="salut" data-f="civ">${esc(civLongue(c))},</p>
       ${para("p1")}${para("p2")}${para("p3")}${para("p4")}
       <table data-f="fees"><thead><tr><th>Mission</th><th>Honoraires annuels HT</th></tr></thead>
@@ -808,7 +838,20 @@ function renderSettingsForm() {
   const S = state.settings;
   const i = (path, label, cls = "", extra = "") => `<div class="f ${cls}"><label for="s-${path}">${label}</label><input id="s-${path}" data-s="${path}" value="${esc(get(S, path))}" ${extra}></div>`;
   const p = (path, label, cls = "s2", unit = "pct") => `<div class="f ${cls}"><label for="s-${path}">${label}</label><div class="${unit === "none" ? "" : unit === "eur" ? "pct eur" : "pct"}"><input id="s-${path}" class="num" inputmode="decimal" data-s="${path}" data-num="1" value="${esc(dec(get(S, path)))}"></div></div>`;
-  const ta = (path, label, rows = 3) => `<div class="f"><label for="s-${path}">${label}</label><textarea id="s-${path}" rows="${rows}" data-s="${path}" data-link="t-${path.split(".")[1]}">${esc(get(S, path))}</textarea></div>`;
+  const ta = (path, label, rows = 3) => {
+    const k = path.split(".")[1], f = (S.fmt.p || {})[k] || {};
+    const al = (v, t, ic) => `<button type="button" class="fb" data-fmt="align" data-v="${v}" data-k="${k}" aria-pressed="${(f.align || "") === v}" title="${t}">${ic}</button>`;
+    return `<div class="f"><div class="f-head"><label for="s-${path}">${label}</label>
+      <div class="fbar" role="toolbar" aria-label="Mise en forme : ${esc(label)}">
+        <button type="button" class="fb" data-fmt="b" data-k="${k}" aria-pressed="${!!f.b}" title="Gras (sélectionnez des mots pour ne mettre qu'eux en gras)"><b>G</b></button>
+        <button type="button" class="fb" data-fmt="i" data-k="${k}" aria-pressed="${!!f.i}" title="Italique (sélectionnez des mots pour ne mettre qu'eux en italique)"><i>I</i></button>
+        <span class="sep"></span>
+        ${al("", "Alignement par défaut", '<svg class="i"><use href="#i-al-auto"/></svg>')}${al("left", "Aligné à gauche", '<svg class="i"><use href="#i-al-left"/></svg>')}${al("justify", "Justifié", '<svg class="i"><use href="#i-al-justify"/></svg>')}${al("center", "Centré", '<svg class="i"><use href="#i-al-center"/></svg>')}
+        <span class="sep"></span>
+        <select class="fsize" data-fmt="size" data-k="${k}" aria-label="Taille du texte">${[["", "Taille auto"], ...SIZES.map(v => [v, dec(v) + " pt"])].map(([v, l]) => `<option value="${v}" ${String(f.size || "") === String(v) ? "selected" : ""}>${l}</option>`).join("")}</select>
+      </div></div>
+      <textarea id="s-${path}" rows="${rows}" data-s="${path}" data-link="t-${k}">${esc(get(S, path))}</textarea></div>`;
+  };
   $("#settings-form").innerHTML = `
     <section><h2>Le cabinet</h2><p class="lead">L'en-tête et le pied de page sont ceux de votre papier à lettres (logo, adresse, mentions légales).</p><div class="fields">
       ${i("cabNom", "Nom du cabinet dans les textes", "s3", 'data-link="t-p1"')}${i("cabVille", "Ville de signature", "s3", 'data-link="s-date"')}
@@ -823,15 +866,22 @@ function renderSettingsForm() {
     <section><h2>Intitulés des missions</h2><p class="lead">Tels qu'ils apparaissent dans le tableau du courrier.</p><div class="fields">
       ${["compta", "paye", "jur", "pa"].map(k => i("lib." + k, shortLib(k), "", `data-link="m-${k}"`)).join("")}
     </div></section>
+    <section><h2>Mise en forme du texte</h2><p class="lead">S'applique à tous les paragraphes, sauf ceux que vous réglez un par un plus bas.</p><div class="fields">
+      <div class="f s3"><label for="s-fmt-size">Taille du texte</label><select id="s-fmt-size" data-gfmt="size">${SIZES.map(v => `<option value="${v}" ${num(S.fmt.size) === v ? "selected" : ""}>${dec(v)} pt${v === 9.5 ? " (conseillé)" : ""}</option>`).join("")}</select></div>
+      <div class="f s3"><span class="lab" id="gal-lab">Alignement</span><div class="radios" role="radiogroup" aria-labelledby="gal-lab">
+        ${[["justify", "Justifié"], ["left", "À gauche"]].map(([v, l]) => `<label><input type="radio" name="galign" value="${v}" data-gfmt="align" ${S.fmt.align === v ? "checked" : ""}><span>${l}</span></label>`).join("")}</div></div>
+    </div></section>
     <section><h2>Textes du courrier</h2><p class="lead">Laissez un paragraphe vide pour le retirer. Ces mots sont remplacés automatiquement :</p>
       <div class="balises"><code>{cabinet}</code><code>{societe}</code><code>{date_effet}</code><code>{civilite}</code></div>
+      <p class="lead">Pour mettre seulement quelques mots en gras ou en italique, sélectionnez-les puis cliquez sur <b>G</b> ou <i>I</i> : ils s'écrivent alors **ainsi** (gras) ou *ainsi* (italique). Sans sélection, G et I s'appliquent à tout le paragraphe.</p>
       <div class="fields">${ta("txt.objet", "Objet", 1)}${ta("txt.p1", "Paragraphe 1")}${ta("txt.p2", "Paragraphe 2")}${ta("txt.p3", "Paragraphe 3 — facturation électronique", 5)}${ta("txt.p4", "Avant le tableau", 2)}${ta("txt.p5", "Après le tableau")}${ta("txt.p6", "Paragraphe suivant", 2)}${ta("txt.politesse", "Formule de politesse", 2)}
-      <div class="f"><button class="btn quiet small" type="button" data-action="reset-texts">Rétablir les textes d'origine</button></div></div>
+      <div class="f"><button class="btn quiet small" type="button" data-action="reset-texts">Rétablir les textes et la mise en forme d'origine</button></div></div>
     </section>
     <section><h2>Sauvegarde</h2><p class="lead">Vos données restent sur cet ordinateur, dans ce navigateur. Faites une copie de sécurité dans un fichier, surtout avant de vider l'historique du navigateur.</p>
       <div class="row" style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn" type="button" data-action="backup"><svg class="i"><use href="#i-download"/></svg>Enregistrer une copie de sécurité</button><button class="btn quiet" type="button" data-action="restore"><svg class="i"><use href="#i-upload"/></svg>Restaurer une copie</button></div>
     </section>`;
 }
+const SIZES = [8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12];
 function get(o, path) { return path.split(".").reduce((a, k) => a == null ? a : a[k], o) ?? ""; }
 function set(o, path, v) { const ks = path.split("."); const last = ks.pop(); ks.reduce((a, k) => a[k], o)[last] = v; }
 function renderSettingsPreview() {
@@ -938,6 +988,37 @@ $("#grid-wrap").addEventListener("change", () => {
 });
 $("#grid-wrap").addEventListener("click", e => { const b = e.target.closest("[data-del]"); if (b) removeClient(b.dataset.del); });
 
+/* ----- réglages : mise en forme */
+function fmtOf(k) { const P = state.settings.fmt.p || (state.settings.fmt.p = {}); return P[k] || (P[k] = {}); }
+function wrapSelection(ta, mark) {
+  const a = ta.selectionStart, b = ta.selectionEnd, v = ta.value;
+  if (a === b) return false;
+  let sel = v.slice(a, b), lead = sel.match(/^\s*/)[0], trail = sel.match(/\s*$/)[0];
+  sel = sel.trim();
+  const already = sel.startsWith(mark) && sel.endsWith(mark) && sel.length > mark.length * 2;
+  const inner = already ? sel.slice(mark.length, -mark.length) : mark + sel + mark;
+  ta.value = v.slice(0, a) + lead + inner + trail + v.slice(b);
+  ta.setSelectionRange(a + lead.length, a + lead.length + inner.length);
+  ta.dispatchEvent(new Event("input", { bubbles: true }));
+  return true;
+}
+$("#settings-form").addEventListener("mousedown", e => { if (e.target.closest(".fb")) e.preventDefault(); /* garde la sélection du texte */ });
+$("#settings-form").addEventListener("click", e => {
+  const b = e.target.closest(".fb"); if (!b) return;
+  const k = b.dataset.k, what = b.dataset.fmt, f = fmtOf(k);
+  const area = document.getElementById("s-txt." + k);
+  if ((what === "b" || what === "i") && area && document.activeElement === area && wrapSelection(area, what === "b" ? "**" : "*")) return;
+  if (what === "b" || what === "i") { f[what] = !f[what]; b.setAttribute("aria-pressed", f[what]); }
+  if (what === "align") { f.align = b.dataset.v || undefined; b.parentElement.querySelectorAll('[data-fmt="align"]').forEach(x => x.setAttribute("aria-pressed", x === b)); }
+  save(); renderSettingsPreview();
+});
+$("#settings-form").addEventListener("change", e => {
+  const el = e.target;
+  if (el.dataset.fmt === "size") { const f = fmtOf(el.dataset.k); f.size = el.value ? num(el.value) : undefined; save(); renderSettingsPreview(); }
+  if (el.dataset.gfmt === "size") { state.settings.fmt.size = num(el.value); save(); renderSettingsPreview(); }
+  if (el.dataset.gfmt === "align") { state.settings.fmt.align = el.value; save(); renderSettingsPreview(); }
+});
+
 /* ----- réglages */
 $("#settings-form").addEventListener("input", e => {
   const el = e.target, path = el.dataset.s; if (!path) return;
@@ -967,7 +1048,7 @@ document.addEventListener("click", e => {
   if (act === "export-csv") exportCSV();
   if (act === "modele") downloadModele();
   if (act === "backup") backup();
-  if (act === "reset-texts") { state.settings.txt = defaultSettings().txt; save(); renderSettingsForm(); renderSettingsPreview(); toast("Textes d'origine rétablis."); }
+  if (act === "reset-texts") { state.settings.txt = defaultSettings().txt; state.settings.fmt = defaultSettings().fmt; save(); renderSettingsForm(); renderSettingsPreview(); toast("Textes d'origine rétablis."); }
 });
 function nextCode() {
   let max = 0;
@@ -1014,6 +1095,10 @@ function printClients(list, title, checked) {
     const noAddr = list.filter(c => !c.societe || !c.adr1 || !c.cp || !c.ville);
     if (noAddr.length) issues.push(`${noAddr.length} courrier${noAddr.length > 1 ? "s ont" : " a"} une adresse incomplète : ${noAddr.slice(0, 4).map(c => esc(c.societe || c.code || "sans nom")).join(", ")}${noAddr.length > 4 ? "…" : ""}.`);
     const noFee = list.filter(c => totals(c).n <= 0);
+    const probe = $("#print-root"); probe.style.cssText = "display:block;position:absolute;left:-4000px;top:0";
+    const tooLong = list.filter(c => { probe.innerHTML = letterHTML(c); return overflowOf(probe.firstElementChild); });
+    probe.innerHTML = ""; probe.style.cssText = "";
+    if (tooLong.length) issues.push(`${tooLong.length} courrier${tooLong.length > 1 ? "s dépassent" : " dépasse"} une page (texte trop long ou trop grand) : ${tooLong.slice(0, 4).map(c => esc(c.societe || c.code)).join(", ")}${tooLong.length > 4 ? "…" : ""}. Réduisez la taille du texte dans Réglages.`);
     if (noFee.length) issues.push(`${noFee.length} courrier${noFee.length > 1 ? "s n'ont" : " n'a"} aucun honoraire saisi : ${noFee.slice(0, 4).map(c => esc(c.societe || c.code || "sans nom")).join(", ")}${noFee.length > 4 ? "…" : ""}.`);
     if (issues.length) {
       showDialog(`<div class="d-body"><h2>À vérifier avant d'imprimer</h2><ul>${issues.map(i => `<li>${i}</li>`).join("")}</ul><p>${list.length} courrier${list.length > 1 ? "s seront imprimés" : " sera imprimé"} tel${list.length > 1 ? "s" : ""} quel${list.length > 1 ? "s" : ""}.</p></div>
@@ -1254,7 +1339,7 @@ function restore(text) {
     <div class="d-actions"><button class="btn quiet" data-close>Annuler</button><button class="btn primary" data-imp="restore">Restaurer</button></div>`, b => {
     if (b.dataset.imp !== "restore") return;
     try { localStorage.setItem(STORE_KEY, JSON.stringify(data)); } catch (e) { /* stockage indisponible */ }
-    const prev = state; state = (() => { const d = defaultSettings(), s = data.settings || {}; const clients = data.clients.map(c => ({ ...blankClient(""), ...c })); const txt = { ...d.txt, ...(s.txt || {}) }; if (/\{hausse\}/.test(txt.p4 || "")) txt.p4 = d.txt.p4; return { settings: { ...d, ...s, lib: { ...d.lib, ...(s.lib || {}) }, txt }, clients, selectedId: (clients[0] || {}).id || null }; })();
+    const prev = state; state = (() => { const d = defaultSettings(), s = data.settings || {}; const clients = data.clients.map(c => ({ ...blankClient(""), ...c })); const txt = { ...d.txt, ...(s.txt || {}) }; if (/\{hausse\}/.test(txt.p4 || "")) txt.p4 = d.txt.p4; return { settings: { ...d, ...s, lib: { ...d.lib, ...(s.lib || {}) }, txt, fmt: { ...d.fmt, ...(s.fmt || {}), p: { ...((s.fmt || {}).p || {}) } } }, clients, selectedId: (clients[0] || {}).id || null }; })();
     save(); show(view); toast("Copie restaurée.", "Annuler", () => { state = prev; save(); show(view); });
   });
 }

@@ -251,7 +251,7 @@ The letter uses fixed hex inks so it prints identically regardless of the UI tok
 
 **The Tabular Rule.** `font-variant-numeric: tabular-nums` is set on the root and on the sheet. Every amount, percentage and count uses tabular figures, and amounts are right-aligned in every table and number input.
 
-**The Ragged-Right Letter Rule.** Letter paragraphs are left-aligned, never justified. Justifying a 170mm measure produced loose word spacing.
+**The Justified Letter Rule.** Letter paragraphs are justified by default, at the firm's request, with French hyphenation (`hyphens: auto`, `lang="fr"`) to keep word spacing even. The user controls it in Réglages > « Mise en forme du texte »: a global size (8.5 to 12pt, 9.5pt recommended) and alignment (justified or left), then per paragraph bold, italic, alignment (default, left, justified, centred) and size, and inline `**bold**` / `*italic*` for selected words. The subject line stays left-aligned unless set otherwise. Printing warns when a letter no longer fits one page.
 
 **The Superscript Ordinal Rule.** On the letter, "1er" is always set as `1<sup>er</sup>` (0.66em, raised 0.5em, zero line-height so line spacing is not disturbed).
 
