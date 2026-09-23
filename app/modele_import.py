@@ -9,21 +9,23 @@ from openpyxl.worksheet.datavalidation import DataValidation
 BORDEAUX = "9D202E"
 F = "Arial"
 COLONNES = [
-    ("Réf. client", 12, "C001", "Facultatif. Laissé vide, l'application numérote C001, C002…"),
-    ("Civilité", 10, "M.", "M., Mme ou M. et Mme. Vide = « Madame, Monsieur »."),
-    ("Prénom", 14, "Pierre", None),
-    ("Nom", 16, "DURAND", "Nom du contact. Utilisé pour « À l'attention de »."),
-    ("Société", 30, "SARL DURAND BÂTIMENT", "Obligatoire (ou le Nom)."),
+    ("Société / Nom", 30, "SARL DURAND BÂTIMENT", "Obligatoire. Nom imprimé en tête de l'adresse."),
+    ("Nom", 26, "Durand Bâtiment (SARL)", "Nom complet / raison sociale (pour vous, non imprimé)."),
     ("Adresse", 30, "5 avenue des Tilleuls", None),
     ("Complément d'adresse", 22, "", "Bâtiment, BP, lieu-dit… Facultatif."),
     ("Code postal", 11, "95120", None),
     ("Ville", 18, "Ermont", None),
-    ("E-mail", 26, "p.durand@exemple.fr", None),
-    ("Comptabilité HT", 15, 3726, "Nouveaux honoraires annuels HT. 0 ou vide = mission non souscrite (non imprimée)."),
-    ("Paye HT", 13, 1872, None),
-    ("Juridique HT", 13, 618, None),
-    ("Plateforme agréée HT", 15, 240, None),
-    ("Périodicité", 14, "Mensuelle", "Mensuelle, Trimestrielle, Semestrielle ou Annuelle. Vide = périodicité par défaut du cabinet."),
+    ("E-mail", 26, "p.durand@exemple.fr", "Facultatif."),
+    ("Clôture", 12, "Décembre", "Pour vous, non imprimé."),
+    ("Récurrence", 14, "Mensuelles", "Mensuelles, Trimestrielles, Semestrielles ou Annuelles : s'imprime dans « Prestations comptables mensuelles »."),
+    ("Honoraires 2026", 15, 250, "Honoraires comptables ACTUELS HT, par période (mois, trimestre…). L'application calcule le nouveau montant."),
+    ("Bilan 2026", 13, 600, "Facturation annuelle du bilan, ACTUELLE HT."),
+    ("Juridique", 13, 400, "Approbation des comptes, ACTUELLE HT."),
+    ("Prix bulletin", 13, 26, "Prix ACTUEL HT par bulletin de salaire."),
+    ("Plateforme agréée", 15, None, "Facultatif : plateforme agréée, ACTUELLE HT."),
+    ("LM AE", 12, "Signée", "Pour vous, non imprimé."),
+    ("ECF", 10, "", "Pour vous, non imprimé."),
+    ("Informations complémentaires", 36, "Exemple fictif : à remplacer", "Pour vous, non imprimé."),
     ("À envoyer", 11, "Oui", "Oui / Non. Vide = Oui."),
     ("Mode d'envoi", 13, "Courrier", "Courrier, Email ou Les deux. Vide = Courrier."),
 ]
@@ -49,13 +51,13 @@ for r in range(2, 502):
         c.border = Border(bottom=fin)
         if r > 2:
             c.font = Font(name=F)
-        if 11 <= i <= 14:
+        if 10 <= i <= 14:
             c.number_format = '#,##0.00" €";-#,##0.00" €";""'
-        if i == 8:
+        if i == 5:
             c.number_format = "@"
-ws["H2"].value = "95120"
+ws["E2"].value = "95120"
 ws.freeze_panes = "F2"
-for formule, col in (('"M.,Mme,M. et Mme"', "B"), ('"Mensuelle,Trimestrielle,Semestrielle,Annuelle"', "O"), ('"Oui,Non"', "P"), ('"Courrier,Email,Les deux"', "Q")):
+for formule, col in (('"Mensuelles,Trimestrielles,Semestrielles,Annuelles"', "I"), ('"Oui,Non"', "R"), ('"Courrier,Email,Les deux"', "S")):
     dv = DataValidation(type="list", formula1=formule, allow_blank=True)
     ws.add_data_validation(dv)
     dv.add(f"{col}2:{col}501")
@@ -67,12 +69,13 @@ lignes = [
     ("", None),
     ("1. Remplissez l'onglet « Clients » : une ligne par client, à partir de la ligne 2.", Font(name=F)),
     ("2. Remplacez ou supprimez la ligne d'exemple (en bleu).", Font(name=F)),
-    ("3. Saisissez les NOUVEAUX honoraires annuels HT par mission (ce sont eux qui s'impriment sur la lettre).", Font(name=F)),
-    ("   Laissez 0 ou vide une mission que le client n'a pas : elle n'apparaîtra pas dans son courrier.", Font(name=F)),
+    ("3. Saisissez les honoraires ACTUELS HT (ceux de cette année) : l'application calcule les nouveaux avec l'augmentation générale,", Font(name=F)),
+    ("   et vous pourrez corriger n'importe quel nouveau montant à la main. Laissez vide une prestation que le client n'a pas.", Font(name=F)),
     ("4. Ne changez pas les titres de la ligne 1 (l'application s'en sert pour reconnaître les colonnes).", Font(name=F)),
     ("5. Enregistrez, puis dans l'application : onglet Clients > « Importer un fichier Excel ou CSV ».", Font(name=F)),
     ("", None),
-    ("Colonnes obligatoires : Société (ou Nom), Adresse, Code postal, Ville. Les autres sont facultatives.", Font(name=F, italic=True, color="595959")),
+    ("Colonnes obligatoires : Société / Nom, Adresse, Code postal, Ville. Les autres sont facultatives.", Font(name=F, italic=True, color="595959")),
+    ("Même disposition que « liste clients et hono » : ce fichier-là s'importe aussi directement.", Font(name=F, italic=True, color="595959")),
 ]
 for i, (t, f) in enumerate(lignes, start=1):
     aide.cell(i, 1, t)

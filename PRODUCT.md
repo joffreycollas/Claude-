@@ -33,7 +33,7 @@ Remplace le classeur Excel de publipostage du même projet (`Courrier_augmentati
 
 - Paramètres : nom du cabinet et ville de signature, signataire, date du courrier, date d'effet, périodicité de facturation par défaut (mensuelle, trimestrielle, semestrielle, annuelle), TVA, intitulés des missions, textes du courrier modifiables avec balises.
 - Clients : code, civilité, prénom, nom, société, adresse (2 lignes), CP, ville, e-mail, nouveaux honoraires annuels HT par mission, périodicité propre (facultative), à envoyer (oui/non), mode d'envoi (courrier / e-mail / les deux).
-- Montants : l'utilisateur saisit à la main les nouveaux honoraires annuels HT par mission (pas de calcul de taux). La lettre n'affiche que les nouveaux montants, jamais l'ancien montant, le taux ou l'écart. Totaux et montant par période HT/TTC calculés. Toute suppression de client demande une confirmation.
+- Montants : on importe les honoraires ACTUELS (format du fichier « liste clients et hono » du cabinet : Société / Nom, Nom, Adresse, Code postal, Ville, Clôture, Récurrence, Honoraires 2026, Bilan 2026, Juridique, Prix bulletin, LM AE, ECF, Informations complémentaires). Nouveau montant = actuel + augmentation générale (x %, Réglages, arrondi réglable), chaque case « nouveau » pouvant être saisie à la main. La lettre n'affiche que les nouveaux montants, ligne par prestation (Prestations comptables {récurrence}, Gestion de la paie par bulletin, Facturation annuelle du bilan, Juridique – approbation des comptes, Plateforme agréée), sans total. Toute suppression demande une confirmation.
 - Courrier : 1 page A4, seules les missions souscrites apparaissent.
 - Impression en masse de la sélection, une lettre par page.
 - Aucune donnée ne quitte l'ordinateur. Pas de compte, pas de serveur.
@@ -46,9 +46,10 @@ Identité visuelle fournie par le cabinet : logo « AE | ALTHO EXPERTISE » et p
 
 ## Evidence on Hand
 
-- Textes du courrier et règles de calcul validés dans `generer_courrier.py` / `Courrier_augmentation_tarifaire.xlsx`.
+- Courrier de décembre 2024 fourni (`courrier_augmentation.docx`, publipostage Word, signé ERIC PAYET, Expert-comptable) : textes par défaut repris de ce courrier.
+- Fichier réel des clients et honoraires 2026 fourni par l'utilisateur (63 clients) : données confidentielles, jamais versées dans le dépôt.
 - Aucun client réel fourni : les clients d'exemple sont fictifs et doivent être signalés comme tels.
-- À confirmer par l'utilisateur : nom et fonction du signataire.
+- Signataire : ERIC PAYET, Expert-comptable (courrier 2024).
 
 ## Product Principles
 
