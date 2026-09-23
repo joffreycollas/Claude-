@@ -16,7 +16,7 @@ Un seul utilisateur : l'expert-comptable (ou son assistant) d'ALTHO EXPERTISE qu
 
 ## Product Purpose
 
-Produire en une séance les courriers de révision tarifaire de tous les clients du cabinet (missions comptabilité, paye, juridique, plateforme agréée de facturation électronique) : saisir ou importer les clients et leurs honoraires actuels, appliquer les taux d'augmentation, relire, puis imprimer tous les courriers d'un coup ou les exporter en PDF. Réussite : la campagne est bouclée en une matinée, chaque lettre est juste (montants, civilité, adresse) et présentable.
+Produire en une séance les courriers de révision tarifaire de tous les clients du cabinet (missions comptabilité, paye, juridique, plateforme agréée de facturation électronique) : saisir ou importer les clients et leurs nouveaux honoraires, relire, puis imprimer tous les courriers d'un coup ou les exporter en PDF. Réussite : la campagne est bouclée en une matinée, chaque lettre est juste (montants, civilité, adresse) et présentable.
 
 ## Positioning
 
@@ -24,29 +24,31 @@ Remplace le classeur Excel de publipostage du même projet (`Courrier_augmentati
 
 ## Operating Context
 
-- Données clients importées depuis Excel/CSV (export du logiciel de production ou de l'ancien classeur), puis corrigées à la main.
+- Données clients importées depuis le modèle Excel fourni (`Modele_import_clients.xlsx`, téléchargeable aussi depuis l'application), puis corrigées à la main.
 - Impression papier A4 portrait, adresse destinataire positionnée pour enveloppe à fenêtre (DL/C5, fenêtre à droite), et export PDF via la boîte d'impression du navigateur.
 - Certains clients reçoivent le courrier par e-mail (PDF), d'autres par la poste.
 - Données stockées localement dans le navigateur de l'utilisateur ; sauvegarde/restauration par fichier.
 
 ## Capabilities and Constraints
 
-- Paramètres : coordonnées du cabinet, signataire, date du courrier, date d'effet, taux par mission, arrondi, nombre d'échéances, TVA, textes du courrier modifiables avec balises.
-- Clients : code, civilité, prénom, nom, société, adresse (2 lignes), CP, ville, e-mail, honoraires annuels HT actuels par mission, taux personnalisé facultatif, à envoyer (oui/non), mode d'envoi (courrier / e-mail / les deux).
-- Calculs : nouveau montant = actuel × (1 + taux), arrondi au pas choisi (au-dessus) ; totaux, écarts, mensualité HT/TTC.
+- Paramètres : nom du cabinet et ville de signature, signataire, date du courrier, date d'effet, nombre d'échéances, TVA, intitulés des missions, textes du courrier modifiables avec balises.
+- Clients : code, civilité, prénom, nom, société, adresse (2 lignes), CP, ville, e-mail, nouveaux honoraires annuels HT par mission, à envoyer (oui/non), mode d'envoi (courrier / e-mail / les deux).
+- Montants : l'utilisateur saisit à la main les nouveaux honoraires annuels HT par mission (pas de calcul de taux). La lettre n'affiche que les nouveaux montants, jamais l'ancien montant, le taux ou l'écart. Totaux et mensualité HT/TTC calculés.
 - Courrier : 1 page A4, seules les missions souscrites apparaissent.
 - Impression en masse de la sélection, une lettre par page.
 - Aucune donnée ne quitte l'ordinateur. Pas de compte, pas de serveur.
 
 ## Brand Commitments
 
-ALTHO EXPERTISE — SAS au capital de 10 000 €, RCS Pontoise 919 706 325, TVA FR62919706325, 141 rue Charles de Gaulle, 95130 Le Plessis-Bouchard, Tél. 01 34 14 53 45, altho@altho-experts.com, altho-experts.com (source : registre du commerce via Pappers). Aucun logo ni charte graphique fourni.
+ALTHO EXPERTISE — SAS au capital de 10 000 €, RCS Pontoise 919 706 325, TVA FR62919706325, 141 rue Charles de Gaulle, 95130 Le Plessis-Bouchard, Tél. 01 34 14 53 45, altho@altho-experts.com, altho-experts.com (source : registre du commerce via Pappers).
+
+Identité visuelle fournie par le cabinet : logo « AE | ALTHO EXPERTISE » et papier à en-tête (`Papier_en_t_te_definitif.docx`), couleur bordeaux #9D202E et noir. L'en-tête et le pied de page de la lettre sont les images de ce papier à en-tête, reprises telles quelles (fichiers dans `app/assets/`). E-mail du pied de page officiel : ae@altho-expertise.com.
 
 ## Evidence on Hand
 
 - Textes du courrier et règles de calcul validés dans `generer_courrier.py` / `Courrier_augmentation_tarifaire.xlsx`.
 - Aucun client réel fourni : les clients d'exemple sont fictifs et doivent être signalés comme tels.
-- À confirmer par l'utilisateur : nom et fonction du signataire, intitulé exact de l'inscription à l'Ordre.
+- À confirmer par l'utilisateur : nom et fonction du signataire.
 
 ## Product Principles
 

@@ -17,23 +17,23 @@
   --desk-deep: oklch(90% 0.008 75);
   --panel: oklch(98.6% 0.003 75);
   --paper: #fff;
-  --ink: oklch(23% 0.02 262);
-  --ink-2: oklch(40% 0.018 262);
-  --ink-3: oklch(50% 0.014 262);
+  --ink: oklch(21% 0.006 30);
+  --ink-2: oklch(38% 0.008 30);
+  --ink-3: oklch(48% 0.008 30);
   --rule: oklch(87.5% 0.007 75);
   --rule-soft: oklch(92% 0.005 75);
-  --navy: #1f3864;
-  --navy-hover: #172b4d;
-  --navy-tint: oklch(94.5% 0.022 262);
-  --navy-tint-2: oklch(90% 0.035 262);
+  --brand: #9d202e;
+  --brand-hover: #7c1823;
+  --brand-tint: oklch(95.5% 0.018 18);
+  --brand-tint-2: oklch(90.5% 0.042 18);
   --up: oklch(45% 0.11 150);
   --warn-tint: oklch(95% 0.045 80);
   --danger: oklch(50% 0.17 27);
   --danger-tint: oklch(95.5% 0.03 27);
   --r-s: 6px;
   --r-m: 8px;
-  --shadow-paper: 0 1px 2px oklch(30% 0.02 262 / 0.10), 0 8px 24px oklch(30% 0.02 262 / 0.10), 0 24px 60px oklch(30% 0.02 262 / 0.08);
-  --shadow-pop: 0 4px 12px oklch(30% 0.02 262 / 0.14), 0 16px 40px oklch(30% 0.02 262 / 0.12);
+  --shadow-paper: 0 1px 2px oklch(28% 0.01 30 / 0.10), 0 8px 24px oklch(28% 0.01 30 / 0.10), 0 24px 60px oklch(28% 0.01 30 / 0.08);
+  --shadow-pop: 0 4px 12px oklch(28% 0.01 30 / 0.14), 0 16px 40px oklch(28% 0.01 30 / 0.12);
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
   font-family: "Hanken Grotesk", "Segoe UI", system-ui, sans-serif;
   font-size: 15px;
@@ -41,15 +41,15 @@
   color: var(--ink);
   font-variant-numeric: tabular-nums;
   -webkit-font-smoothing: antialiased;
-  accent-color: var(--navy);
-  caret-color: var(--navy);
+  accent-color: var(--brand);
+  caret-color: var(--brand);
 }
 * { box-sizing: border-box; }
 html, body { margin: 0; height: 100%; }
 body { background: var(--desk); }
-::selection { background: var(--navy-tint-2); color: var(--ink); }
+::selection { background: var(--brand-tint-2); color: var(--ink); }
 * { scrollbar-width: thin; scrollbar-color: oklch(78% 0.01 75) transparent; }
-:focus-visible { outline: 2px solid var(--navy); outline-offset: 2px; border-radius: 3px; }
+:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; border-radius: 3px; }
 button, input, select, textarea { font: inherit; color: inherit; }
 button { cursor: pointer; }
 [hidden] { display: none !important; }
@@ -59,14 +59,14 @@ svg.i { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor;
 /* ---------- Barre haute ---------- */
 .app { display: grid; grid-template-rows: 56px 1fr; grid-template-columns: minmax(0, 1fr); height: 100vh; }
 .topbar { display: flex; align-items: center; gap: 28px; padding: 0 20px; background: var(--panel); border-bottom: 1px solid var(--rule); }
-.brand { display: flex; flex-direction: column; line-height: 1.1; min-width: 0; }
-.brand b { font-size: 16px; font-weight: 700; letter-spacing: 0.02em; color: var(--navy); white-space: nowrap; }
+.brand { display: flex; align-items: center; gap: 12px; line-height: 1.1; min-width: 0; }
+.brand img { height: 30px; width: auto; display: block; }
 .brand span { font-size: 12.5px; color: var(--ink-3); white-space: nowrap; }
 .tabs { display: flex; gap: 2px; height: 100%; }
 .tab { position: relative; display: flex; align-items: center; padding: 0 14px; border: 0; background: none; color: var(--ink-2); font-weight: 600; font-size: 14.5px; }
 .tab:hover { color: var(--ink); }
-.tab[aria-selected="true"] { color: var(--navy); }
-.tab[aria-selected="true"]::after { content: ""; position: absolute; left: 10px; right: 10px; bottom: 0; height: 2px; background: var(--navy); border-radius: 2px 2px 0 0; }
+.tab[aria-selected="true"] { color: var(--brand); }
+.tab[aria-selected="true"]::after { content: ""; position: absolute; left: 10px; right: 10px; bottom: 0; height: 2px; background: var(--brand); border-radius: 2px 2px 0 0; }
 .tab .count { margin-left: 6px; font-weight: 600; font-size: 12.5px; color: var(--ink-3); }
 .topbar .spacer { flex: 1; }
 .saved { font-size: 12.5px; color: var(--ink-3); display: flex; align-items: center; gap: 6px; white-space: nowrap; }
@@ -74,8 +74,8 @@ svg.i { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor;
 .btn { display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 14px; border-radius: var(--r-s); border: 1px solid var(--rule); background: var(--paper); font-weight: 600; font-size: 14px; color: var(--ink); white-space: nowrap; transition: background .15s, border-color .15s, color .15s; }
 .btn:hover { background: var(--rule-soft); }
 .btn:disabled { opacity: .45; cursor: not-allowed; }
-.btn.primary { background: var(--navy); border-color: var(--navy); color: #fff; }
-.btn.primary:hover { background: var(--navy-hover); }
+.btn.primary { background: var(--brand); border-color: var(--brand); color: #fff; }
+.btn.primary:hover { background: var(--brand-hover); }
 .btn.quiet { border-color: transparent; background: transparent; color: var(--ink-2); }
 .btn.quiet:hover { background: var(--desk-deep); color: var(--ink); }
 .btn.danger { color: var(--danger); }
@@ -87,7 +87,7 @@ svg.i { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor;
 .split .btn.primary.more { border-radius: 0 var(--r-s) var(--r-s) 0; padding: 0 9px; border-left: 1px solid oklch(100% 0 0 / 0.25); }
 .menu { position: fixed; inset: auto; margin: 0; padding: 6px; border: 0; border-radius: var(--r-m); background: var(--paper); box-shadow: var(--shadow-pop); min-width: 300px; }
 .menu button { display: flex; width: 100%; align-items: flex-start; gap: 10px; padding: 9px 10px; border: 0; background: none; border-radius: var(--r-s); text-align: left; }
-.menu button:hover, .menu button:focus-visible { background: var(--navy-tint); }
+.menu button:hover, .menu button:focus-visible { background: var(--brand-tint); }
 .menu button small { display: block; color: var(--ink-3); font-size: 12.5px; }
 .menu button:disabled { opacity: .45; cursor: not-allowed; background: none; }
 
@@ -102,7 +102,7 @@ svg.i { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor;
 .search input::placeholder { color: var(--ink-3); }
 .seg { display: flex; padding: 3px; gap: 3px; background: var(--desk); border-radius: var(--r-s); }
 .seg button { flex: 1; height: 28px; border: 0; border-radius: 5px; background: none; font-size: 13px; font-weight: 600; color: var(--ink-2); white-space: nowrap; padding: 0 6px; }
-.seg button[aria-pressed="true"] { background: var(--paper); color: var(--navy); box-shadow: 0 1px 2px oklch(30% 0.02 262 / 0.14); }
+.seg button[aria-pressed="true"] { background: var(--paper); color: var(--brand); box-shadow: 0 1px 2px oklch(28% 0.01 30 / 0.14); }
 .notice { margin: 10px 14px 0; padding: 10px 12px; border-radius: var(--r-s); background: var(--warn-tint); font-size: 13px; color: oklch(35% 0.08 60); }
 .notice p { margin: 0 0 8px; }
 .notice .row { display: flex; gap: 6px; flex-wrap: wrap; }
@@ -110,11 +110,11 @@ svg.i { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor;
 .list { flex: 1; overflow: auto; padding: 6px 8px 8px; }
 .item { display: grid; grid-template-columns: 22px 1fr auto; gap: 4px 10px; align-items: center; width: 100%; padding: 9px 8px; border-radius: var(--r-s); border: 0; background: none; text-align: left; cursor: pointer; }
 .item:hover { background: var(--desk); }
-.item[aria-current="true"] { background: var(--navy-tint); }
+.item[aria-current="true"] { background: var(--brand-tint); }
 .item input { margin: 0; width: 16px; height: 16px; }
 .item .who { min-width: 0; }
 .item .who b { display: block; font-weight: 600; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.item[aria-current="true"] .who b { color: var(--navy); }
+.item[aria-current="true"] .who b { color: var(--brand); }
 .item .who span { display: block; font-size: 12.5px; color: var(--ink-3); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .item .amt { text-align: right; font-size: 13.5px; font-weight: 600; }
 .item .amt span { display: block; font-size: 12px; font-weight: 600; color: var(--up); }
@@ -130,12 +130,12 @@ svg.i { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor;
 .stage-bar .title span { color: var(--ink-3); font-weight: 400; }
 .stage-bar .spacer { flex: 1; }
 .chip { display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 10px; border-radius: 13px; font-size: 12.5px; font-weight: 600; background: var(--desk-deep); color: var(--ink-2); white-space: nowrap; }
-.chip.go { background: var(--navy-tint); color: var(--navy); }
+.chip.go { background: var(--brand-tint); color: var(--brand); }
 .chip.warn { background: var(--warn-tint); color: oklch(38% 0.1 60); }
 .toggle { display: inline-flex; align-items: center; gap: 8px; font-size: 13.5px; font-weight: 600; color: var(--ink-2); cursor: pointer; white-space: nowrap; }
 .toggle input { appearance: none; width: 30px; height: 18px; margin: 0; border-radius: 9px; background: var(--rule); position: relative; transition: background .18s var(--ease); cursor: pointer; }
-.toggle input::after { content: ""; position: absolute; top: 2px; left: 2px; width: 14px; height: 14px; border-radius: 50%; background: #fff; box-shadow: 0 1px 2px oklch(30% 0.02 262 / 0.3); transition: translate .18s var(--ease); }
-.toggle input:checked { background: var(--navy); }
+.toggle input::after { content: ""; position: absolute; top: 2px; left: 2px; width: 14px; height: 14px; border-radius: 50%; background: #fff; box-shadow: 0 1px 2px oklch(28% 0.01 30 / 0.3); transition: translate .18s var(--ease); }
+.toggle input:checked { background: var(--brand); }
 .toggle input:checked::after { translate: 12px 0; }
 .stage-scroll { flex: 1; min-height: 0; overflow: auto; display: flex; justify-content: safe center; align-items: flex-start; padding: 6px 24px 32px; }
 .sheet-frame { position: relative; flex: none; }
@@ -157,7 +157,7 @@ svg.i { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor;
 .f input, .f select, .f textarea { width: 100%; height: 34px; padding: 0 9px; border: 1px solid var(--rule); border-radius: var(--r-s); background: var(--paper); transition: border-color .15s, box-shadow .15s; }
 .f textarea { height: auto; padding: 8px 9px; resize: vertical; line-height: 1.45; }
 .f input:hover, .f select:hover, .f textarea:hover { border-color: oklch(80% 0.01 75); }
-.f input:focus, .f select:focus, .f textarea:focus { outline: none; border-color: var(--navy); box-shadow: 0 0 0 3px var(--navy-tint-2); }
+.f input:focus, .f select:focus, .f textarea:focus { outline: none; border-color: var(--brand); box-shadow: 0 0 0 3px var(--brand-tint-2); }
 .f input.num { text-align: right; }
 .f .hint { font-size: 12px; color: var(--ink-3); }
 .f .toggle input { width: 30px; height: 18px; padding: 0; border: 0; box-shadow: none; }
@@ -170,9 +170,11 @@ svg.i { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor;
 .fees td { padding: 5px 0; border-top: 1px solid var(--rule-soft); vertical-align: middle; }
 .fees td.m { font-weight: 600; padding-right: 8px; }
 .fees td.m small { display: block; font-weight: 400; color: var(--ink-3); font-size: 12px; }
-.fees td.in { width: 104px; }
+.fees td.in { width: 132px; }
+.fees td.in .pct input { padding-right: 24px; }
+.hint-line { margin: 10px 0 0; font-size: 12.5px; color: var(--ink-3); }
 .fees td.in input { width: 100%; height: 32px; padding: 0 8px; text-align: right; border: 1px solid var(--rule); border-radius: var(--r-s); background: var(--paper); }
-.fees td.in input:focus { outline: none; border-color: var(--navy); box-shadow: 0 0 0 3px var(--navy-tint-2); }
+.fees td.in input:focus { outline: none; border-color: var(--brand); box-shadow: 0 0 0 3px var(--brand-tint-2); }
 .fees td.out { width: 88px; text-align: right; font-weight: 600; }
 .fees td.out small { display: block; font-weight: 600; font-size: 12px; color: var(--up); }
 .fees tr.tot td { border-top: 1px solid var(--rule); font-weight: 700; padding-top: 8px; }
@@ -181,45 +183,44 @@ svg.i { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor;
 .radios label { flex: 1; position: relative; }
 .radios input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
 .radios span { display: grid; place-items: center; height: 30px; border-radius: 5px; font-size: 13.5px; font-weight: 600; color: var(--ink-2); }
-.radios input:checked + span { background: var(--paper); color: var(--navy); box-shadow: 0 1px 2px oklch(30% 0.02 262 / 0.14); }
-.radios input:focus-visible + span { outline: 2px solid var(--navy); outline-offset: 1px; }
+.radios input:checked + span { background: var(--paper); color: var(--brand); box-shadow: 0 1px 2px oklch(28% 0.01 30 / 0.14); }
+.radios input:focus-visible + span { outline: 2px solid var(--brand); outline-offset: 1px; }
 .fiche-actions { display: flex; justify-content: space-between; gap: 8px; border-top: 1px solid var(--rule-soft); padding-top: 14px; }
 
 /* ---------- La lettre ---------- */
-.sheet { width: 210mm; height: 297mm; background: var(--paper); color: #111a2b; position: relative; overflow: hidden;
+.sheet { width: 210mm; height: 297mm; background: var(--paper); color: #1a1a1a; position: relative; overflow: hidden;
   font-family: "Source Serif 4", Georgia, serif; font-size: 9.5pt; line-height: 1.33; font-optical-sizing: auto; font-variant-numeric: tabular-nums; }
-.sheet .lh { position: absolute; left: 20mm; right: 20mm; top: 12mm; display: flex; justify-content: space-between; align-items: flex-start; padding-bottom: 5mm; border-bottom: 0.6mm solid #1f3864; }
-.sheet .lh, .sheet table, .sheet .foot, .sheet .refs { font-family: "Hanken Grotesk", Arial, sans-serif; }
-.sheet .lh .cab { font-size: 16.5pt; font-weight: 700; color: #1f3864; letter-spacing: 0.02em; line-height: 1.1; margin-bottom: 2mm; }
-.sheet .lh .co { font-size: 8.8pt; color: #3a4457; line-height: 1.45; }
+.sheet .lh { position: absolute; left: 14.8mm; top: 8mm; width: 181mm; height: auto; }
+.sheet .pied { position: absolute; left: 15.2mm; bottom: 7mm; width: 180mm; height: auto; }
+.sheet table, .sheet .refs { font-family: "Hanken Grotesk", Arial, sans-serif; }
 .sheet .dest { position: absolute; left: 110mm; top: 52mm; width: 82mm; font-size: 10.2pt; line-height: 1.38; }
 .sheet .dest b { font-weight: 700; }
-.sheet .refs { position: absolute; left: 20mm; top: 52mm; width: 80mm; font-size: 9pt; color: #3a4457; line-height: 1.5; }
-.sheet .refs b { color: #111a2b; font-weight: 600; }
+.sheet .refs { position: absolute; left: 20mm; top: 52mm; width: 80mm; font-size: 9pt; color: #3d3d3d; line-height: 1.5; }
+.sheet .refs b { color: #1a1a1a; font-weight: 600; }
 .sheet .flow { position: absolute; left: 20mm; right: 20mm; top: 95mm; }
 .sheet .objet { font-weight: 700; margin: 0 0 4.5mm; }
 .sheet p { margin: 0 0 2.2mm; text-align: left; }
 .sheet .salut { margin-bottom: 2.4mm; }
 .sheet table { width: 100%; border-collapse: collapse; margin: 1mm 0 1.5mm; font-size: 8.8pt; }
-.sheet th { background: #1f3864; color: #fff; font-weight: 600; text-align: right; padding: 1.3mm 2mm; white-space: nowrap; }
+.sheet th { background: #9d202e; color: #fff; font-weight: 600; text-align: right; padding: 1.3mm 2mm; white-space: nowrap; }
 .sheet th:first-child { text-align: left; }
-.sheet td { padding: 1.1mm 2mm; text-align: right; border-bottom: 0.25mm solid #d7dce5; white-space: nowrap; }
+.sheet td { padding: 1.1mm 2mm; text-align: right; border-bottom: 0.25mm solid #e3dcdc; white-space: nowrap; }
 .sheet td:first-child { text-align: left; white-space: normal; }
-.sheet tr.total td { font-weight: 700; background: #e3e9f3; border-bottom: 0.3mm solid #1f3864; border-top: 0.3mm solid #1f3864; }
+.sheet th:last-child, .sheet td:last-child { width: 42mm; }
+.sheet tr.total td { font-weight: 700; background: #f6ebec; border-bottom: 0.3mm solid #9d202e; border-top: 0.3mm solid #9d202e; }
 .sheet sup { font-size: 0.66em; line-height: 0; vertical-align: 0.5em; }
-.sheet .mens { font-size: 8.8pt; font-style: italic; color: #3a4457; margin: 0 0 3.5mm; }
+.sheet .mens { font-size: 8.8pt; font-style: italic; color: #3d3d3d; margin: 0 0 3.5mm; }
 .sheet .sign { margin: 4mm 0 0 90mm; }
 .sheet .sign b { display: block; }
-.sheet .sign i { font-size: 9.4pt; color: #3a4457; }
-.sheet .foot { position: absolute; left: 20mm; right: 20mm; bottom: 8mm; padding-top: 2mm; border-top: 0.25mm solid #c9ced8; font-size: 7pt; color: #6b7280; text-align: center; line-height: 1.35; }
+.sheet .sign i { font-size: 9.4pt; color: #3d3d3d; }
 .sheet .empty-line { color: #9aa3b2; font-style: italic; }
-.sheet .window { position: absolute; left: 100mm; top: 47mm; width: 100mm; height: 45mm; border: 0.5mm dashed oklch(55% 0.12 262 / 0.8); border-radius: 2mm; background: oklch(60% 0.1 262 / 0.05); pointer-events: none; }
-.sheet .window span { position: absolute; right: 2mm; bottom: 1.4mm; font-size: 7pt; color: oklch(45% 0.1 262); font-weight: 600; }
+.sheet .window { position: absolute; left: 100mm; top: 47mm; width: 100mm; height: 45mm; border: 0.5mm dashed oklch(50% 0.14 18 / 0.8); border-radius: 2mm; background: oklch(55% 0.12 18 / 0.05); pointer-events: none; }
+.sheet .window span { position: absolute; right: 2mm; bottom: 1.4mm; font-size: 7pt; color: oklch(42% 0.13 18); font-weight: 600; }
 .sheet .fold { position: absolute; left: 0; width: 5mm; border-top: 0.3mm solid #c9ced8; pointer-events: none; }
 .sheet [data-f] { border-radius: 1mm; transition: background-color .18s var(--ease), box-shadow .18s var(--ease); }
 .sheet.live [data-f] { cursor: pointer; }
-.sheet.live [data-f]:hover { background: oklch(96.5% 0.018 262); }
-.sheet [data-f].hl { background: oklch(91% 0.045 262); box-shadow: 0 0 0 1.2mm oklch(91% 0.045 262); }
+.sheet.live [data-f]:hover { background: oklch(96.5% 0.016 18); }
+.sheet [data-f].hl { background: oklch(92% 0.04 18); box-shadow: 0 0 0 1.2mm oklch(92% 0.04 18); }
 
 /* ---------- Vue Clients ---------- */
 .sheetview { display: flex; flex-direction: column; height: 100%; min-height: 0; }
@@ -241,12 +242,12 @@ table.grid { border-collapse: separate; border-spacing: 0; font-size: 13.5px; ba
 .grid th:nth-child(-n+3) { background: var(--panel); z-index: 2; }
 .grid td:nth-child(1), .grid th:nth-child(1) { left: var(--gut); width: 64px; min-width: 64px; box-shadow: calc(-1 * var(--gut)) 0 0 0 var(--desk); }
 .grid td:nth-child(2), .grid th:nth-child(2) { left: calc(var(--gut) + 64px); }
-.grid td:nth-child(3), .grid th:nth-child(3) { left: calc(var(--gut) + 134px); box-shadow: 6px 0 8px -6px oklch(30% 0.02 262 / 0.22); }
+.grid td:nth-child(3), .grid th:nth-child(3) { left: calc(var(--gut) + 134px); box-shadow: 6px 0 8px -6px oklch(28% 0.01 30 / 0.22); }
 .grid tr:hover td:nth-child(-n+3) { background: oklch(97.5% 0.004 75); }
 .grid tr:hover td { background: oklch(97.5% 0.004 75); }
 .grid td input, .grid td select { height: 30px; padding: 0 6px; border: 1px solid transparent; border-radius: 5px; background: none; width: 100%; }
 .grid td input:hover, .grid td select:hover { border-color: var(--rule); }
-.grid td input:focus, .grid td select:focus { outline: none; border-color: var(--navy); background: var(--paper); box-shadow: 0 0 0 3px var(--navy-tint-2); }
+.grid td input:focus, .grid td select:focus { outline: none; border-color: var(--brand); background: var(--paper); box-shadow: 0 0 0 3px var(--brand-tint-2); }
 .grid td input.num { text-align: right; }
 .grid td.calc { text-align: right; font-weight: 600; padding: 0 8px; }
 .grid td.calc small { color: var(--up); font-weight: 600; margin-left: 4px; }
@@ -274,7 +275,7 @@ table.grid { border-collapse: separate; border-spacing: 0; font-size: 13.5px; ba
 
 /* ---------- Dialogue et toast ---------- */
 dialog { border: 0; border-radius: 10px; padding: 0; width: min(560px, calc(100vw - 32px)); box-shadow: var(--shadow-pop); color: var(--ink); }
-dialog::backdrop { background: oklch(25% 0.02 262 / 0.35); }
+dialog::backdrop { background: oklch(25% 0.01 30 / 0.35); }
 dialog .d-body { padding: 22px 24px 8px; }
 dialog h2 { margin: 0 0 8px; font-size: 18px; }
 dialog p { margin: 0 0 10px; color: var(--ink-2); }
@@ -347,7 +348,7 @@ dialog .d-actions { display: flex; justify-content: flex-end; gap: 8px; padding:
 
 <div class="app">
   <header class="topbar">
-    <div class="brand"><b id="brand-name">ALTHO EXPERTISE</b><span>Révision des honoraires</span></div>
+    <div class="brand"><img id="brand-logo" alt="ALTHO EXPERTISE" src="data:image/png;base64,/*IMG_LOGO*/"><span>Révision des honoraires</span></div>
     <nav class="tabs" role="tablist" aria-label="Sections">
       <button class="tab" role="tab" data-view="courriers" aria-selected="true">Courriers</button>
       <button class="tab" role="tab" data-view="clients" aria-selected="false">Clients <span class="count" id="count-clients"></span></button>
@@ -411,6 +412,7 @@ dialog .d-actions { display: flex; justify-content: flex-end; gap: 8px; padding:
     <div class="sheetview">
       <div class="toolbar">
         <button class="btn primary" data-action="import"><svg class="i"><use href="#i-upload"/></svg>Importer un fichier Excel ou CSV</button>
+        <button class="btn" data-action="modele"><svg class="i"><use href="#i-download"/></svg>Modèle Excel à remplir</button>
         <button class="btn" data-action="add"><svg class="i"><use href="#i-plus"/></svg>Ajouter un client</button>
         <div class="spacer"></div>
         <button class="btn quiet" data-action="drop-demo" id="drop-demo-2" hidden>Supprimer les exemples</button>
@@ -447,6 +449,8 @@ dialog .d-actions { display: flex; justify-content: flex-end; gap: 8px; padding:
 "use strict";
 /* ================================================================== données */
 const STORE_KEY = "altho-courriers-v1";
+const IMG = { entete: "data:image/png;base64,/*IMG_ENTETE*/", pied: "data:image/png;base64,/*IMG_PIED*/" };
+const MODELE_XLSX = "/*MODELE_XLSX*/";
 const MISSIONS = [
   { k: "compta", tx: "compta" },
   { k: "paye", tx: "paye" },
@@ -468,8 +472,6 @@ function defaultSettings() {
     signataireTitre: "Expert-comptable",
     dateCourrier: "",
     dateEffet: `${y + 1}-01-01`,
-    taux: { compta: 3.5, paye: 4, jur: 3, pa: 0 },
-    arrondi: 1,
     echeances: 12,
     tva: 20,
     lib: {
@@ -483,7 +485,7 @@ function defaultSettings() {
       p1: "Nous tenons tout d'abord à vous remercier pour la confiance que vous accordez à {cabinet}. Comme chaque année, et conformément aux dispositions de votre lettre de mission, nous procédons à la révision de nos honoraires.",
       p2: "Cette révision, que nous avons souhaitée mesurée, tient compte de l'évolution de nos charges (rémunération et formation continue de nos collaborateurs, logiciels, sécurité informatique) ainsi que du renforcement constant des obligations comptables, fiscales, sociales et juridiques qui s'imposent à votre entreprise.",
       p3: "L'année à venir est également marquée par la généralisation de la facturation électronique : depuis le 1er septembre 2026, toutes les entreprises doivent être en mesure de recevoir leurs factures électroniques via une plateforme agréée, et l'obligation d'émission s'étendra aux PME et micro-entreprises au 1er septembre 2027. Notre cabinet vous accompagne dans cette transition grâce à une solution de plateforme agréée directement intégrée à votre dossier.",
-      p4: "À compter du {date_effet}, vos honoraires annuels hors taxes évolueront ainsi (évolution globale : {hausse}) :",
+      p4: "À compter du {date_effet}, vos honoraires annuels hors taxes seront les suivants :",
       p5: "Les autres conditions de votre lettre de mission demeurent inchangées. Les nouveaux montants seront appliqués automatiquement sur vos prochaines factures et échéances de prélèvement.",
       p6: "Votre interlocuteur habituel reste à votre entière disposition pour répondre à vos questions et faire le point sur l'évolution de vos besoins.",
       politesse: "Nous vous prions d'agréer, {civilite}, l'expression de nos salutations distinguées.",
@@ -492,9 +494,9 @@ function defaultSettings() {
 }
 function demoClients() {
   return [
-    { code: "C001", civ: "M.", prenom: "Pierre", nom: "DURAND", societe: "SARL DURAND BÂTIMENT", adr1: "5 avenue des Tilleuls", adr2: "", cp: "95120", ville: "Ermont", email: "p.durand@exemple.fr", compta: 3600, paye: 1800, jur: 600, pa: 240, tauxPerso: null, envoyer: true, mode: "courrier" },
-    { code: "C002", civ: "Mme", prenom: "Sophie", nom: "LEROY", societe: "SAS LEROY CONSEIL", adr1: "Parc d'activités des Bellevues", adr2: "Bât. B – 3 allée Verte", cp: "95610", ville: "Éragny", email: "s.leroy@exemple.fr", compta: 5400, paye: 0, jur: 900, pa: 0, tauxPerso: 2.5, envoyer: true, mode: "email" },
-    { code: "C003", civ: "", prenom: "", nom: "", societe: "EURL LES JARDINS DE CLAIRE", adr1: "18 chemin des Vignes", adr2: "", cp: "95130", ville: "Franconville", email: "contact@jardins-claire.fr", compta: 2400, paye: 1200, jur: 0, pa: 180, tauxPerso: null, envoyer: true, mode: "deux" },
+    { code: "C001", civ: "M.", prenom: "Pierre", nom: "DURAND", societe: "SARL DURAND BÂTIMENT", adr1: "5 avenue des Tilleuls", adr2: "", cp: "95120", ville: "Ermont", email: "p.durand@exemple.fr", compta: 3726, paye: 1872, jur: 618, pa: 240, tauxPerso: null, envoyer: true, mode: "courrier" },
+    { code: "C002", civ: "Mme", prenom: "Sophie", nom: "LEROY", societe: "SAS LEROY CONSEIL", adr1: "Parc d'activités des Bellevues", adr2: "Bât. B – 3 allée Verte", cp: "95610", ville: "Éragny", email: "s.leroy@exemple.fr", compta: 5535, paye: 0, jur: 923, pa: 0, tauxPerso: null, envoyer: true, mode: "email" },
+    { code: "C003", civ: "", prenom: "", nom: "", societe: "EURL LES JARDINS DE CLAIRE", adr1: "18 chemin des Vignes", adr2: "", cp: "95130", ville: "Franconville", email: "contact@jardins-claire.fr", compta: 2484, paye: 1248, jur: 0, pa: 180, tauxPerso: null, envoyer: true, mode: "deux" },
   ].map(c => ({ ...c, id: uid(), exemple: true }));
 }
 function uid() { return Math.random().toString(36).slice(2, 10); }
@@ -510,7 +512,8 @@ function load() {
   if (!data || !Array.isArray(data.clients)) { base.selectedId = base.clients[0].id; return base; }
   const d = defaultSettings();
   const s = data.settings || {};
-  const settings = { ...d, ...s, taux: { ...d.taux, ...(s.taux || {}) }, lib: { ...d.lib, ...(s.lib || {}) }, txt: { ...d.txt, ...(s.txt || {}) } };
+  const settings = { ...d, ...s, lib: { ...d.lib, ...(s.lib || {}) }, txt: { ...d.txt, ...(s.txt || {}) } };
+  if (/\{hausse\}/.test(settings.txt.p4 || "")) settings.txt.p4 = d.txt.p4; /* ancienne version : taux calculés */
   const clients = data.clients.map(c => ({ ...blankClient(""), ...c }));
   return { settings, clients, selectedId: data.selectedId && clients.some(c => c.id === data.selectedId) ? data.selectedId : (clients[0] || {}).id || null };
 }
@@ -535,7 +538,7 @@ const fmtEur = new Intl.NumberFormat("fr-FR", { style: "currency", currency: "EU
 const fmtEur2 = new Intl.NumberFormat("fr-FR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 const fmtPct = new Intl.NumberFormat("fr-FR", { minimumFractionDigits: 1, maximumFractionDigits: 1 });
 const eur = v => fmtEur.format(v || 0);
-function pctSigned(r) { return (r > 0 ? "+" : r < 0 ? "−" : "") + fmtPct.format(Math.abs(r) * 100) + "\u00a0%"; }
+
 function dec(v) { return v === "" || v == null ? "" : String(v).replace(".", ","); }
 function num(v) {
   if (typeof v === "number") return isFinite(v) ? v : 0;
@@ -544,21 +547,12 @@ function num(v) {
   const n = parseFloat(s);
   return isFinite(n) ? n : 0;
 }
-function tauxFor(c, m) {
-  const t = c.tauxPerso != null && c.tauxPerso !== "" ? num(c.tauxPerso) : num(state.settings.taux[m]);
-  return t / 100;
-}
-function nouveau(c, m) {
-  const act = num(c[m]);
-  if (act <= 0) return 0;
-  const step = Math.max(num(state.settings.arrondi), 0.01);
-  const raw = Math.round(act * (1 + tauxFor(c, m)) * 100) / 100;
-  return Math.ceil((raw - 0.005) / step) * step;
-}
+
+function amt(c, m) { return Math.max(0, num(c[m])); }
 function totals(c) {
-  let a = 0, n = 0;
-  for (const m of MISSIONS) { a += num(c[m.k]); n += nouveau(c, m.k); }
-  return { a, n, d: n - a, r: a ? n / a - 1 : 0 };
+  let n = 0;
+  for (const m of MISSIONS) n += amt(c, m.k);
+  return { n };
 }
 function inPrint(c, kind) {
   if (!c.envoyer) return false;
@@ -580,7 +574,7 @@ const esc = s => String(s ?? "").replace(/[&<>"']/g, ch => ({ "&": "&amp;", "<":
 const sup = html => html.replace(/\b1er\b/g, "1<sup>er</sup>");
 function balises(txt, c, t) {
   const S = state.settings;
-  const map = { cabinet: S.cabNom, societe: c.societe, date_effet: dateTexte(S.dateEffet), hausse: t.a ? pctSigned(t.r).replace(/^\+/, "") : "—", civilite: civLongue(c) };
+  const map = { cabinet: S.cabNom, societe: c.societe, date_effet: dateTexte(S.dateEffet), hausse: "", civilite: civLongue(c) };
   return sup(esc(txt || "").replace(/\{(cabinet|societe|date_effet|hausse|civilite)\}/g, (_, k) => esc(map[k])));
 }
 function letterHTML(c, opts = {}) {
@@ -588,10 +582,8 @@ function letterHTML(c, opts = {}) {
   const ph = label => opts.live ? `<span class="empty-line">${label}</span>` : "";
   const attn = [c.civ, c.prenom, c.nom].filter(Boolean).join(" ");
   const cpVille = [c.cp, (c.ville || "").toUpperCase()].filter(Boolean).join(" ");
-  const rows = MISSIONS.filter(m => num(c[m.k]) > 0 || nouveau(c, m.k) > 0).map(m => {
-    const a = num(c[m.k]), n = nouveau(c, m.k);
-    return `<tr data-f="m-${m.k}"><td>${esc(S.lib[m.k])}</td><td>${eur(a)}</td><td>${a ? pctSigned(tauxFor(c, m.k)) : "—"}</td><td>${eur(n)}</td><td>${n - a ? eur(n - a) : "—"}</td></tr>`;
-  }).join("");
+  const rows = MISSIONS.filter(m => amt(c, m.k) > 0).map(m =>
+    `<tr data-f="m-${m.k}"><td>${esc(S.lib[m.k])}</td><td>${eur(amt(c, m.k))}</td></tr>`).join("");
   const ech = Math.round(num(S.echeances));
   const mens = ech > 0 && t.n > 0
     ? `<p class="mens">Soit ${fmtEur2.format(t.n / ech)} € HT par échéance (${ech} échéances), ${fmtEur2.format(t.n / ech * (1 + num(S.tva) / 100))} € TTC.</p>` : "";
@@ -600,10 +592,7 @@ function letterHTML(c, opts = {}) {
   const folds = opts.window ? '<div class="fold" style="top:99mm"></div><div class="fold" style="top:198mm"></div>' : "";
   return `<article class="sheet${opts.live ? " live" : ""}" data-id="${esc(c.id)}">
     ${window}${folds}
-    <header class="lh">
-      <div><div class="cab" data-f="s-cab">${esc(S.cabNom)}</div>
-        <div class="co" data-f="s-cab">${esc(S.cabAdr1)}<br>${esc(S.cabCPVille)}<br>${esc(S.cabContact)}</div></div>
-    </header>
+    <img class="lh" src="${IMG.entete}" alt="">
     <div class="refs"><div data-f="s-date">${esc(S.cabVille)}, le ${sup(esc(dateTexte(S.dateCourrier)))}</div><div data-f="code">Réf. client : <b>${esc(c.code || "—")}</b></div></div>
     <div class="dest">
       <div data-f="societe"><b>${c.societe ? esc(c.societe) : ph("Société")}</b></div>
@@ -616,14 +605,14 @@ function letterHTML(c, opts = {}) {
       <p class="objet" data-f="t-objet">${balises(S.txt.objet, c, t)}</p>
       <p class="salut" data-f="civ">${esc(civLongue(c))},</p>
       ${para("p1")}${para("p2")}${para("p3")}${para("p4")}
-      <table data-f="fees"><thead><tr><th>Mission</th><th>Actuel HT</th><th>Évol.</th><th>Nouveau HT</th><th>Écart HT</th></tr></thead>
-        <tbody>${rows || (opts.live ? '<tr><td colspan="5" class="empty-line">Aucune mission : saisissez les honoraires actuels.</td></tr>' : "")}
-        <tr class="total"><td>Total annuel HT</td><td>${eur(t.a)}</td><td>${t.a ? pctSigned(t.r) : "—"}</td><td>${eur(t.n)}</td><td>${t.d ? eur(t.d) : "—"}</td></tr></tbody></table>
+      <table data-f="fees"><thead><tr><th>Mission</th><th>Honoraires annuels HT</th></tr></thead>
+        <tbody>${rows || (opts.live ? '<tr><td colspan="2" class="empty-line">Aucune mission : saisissez les honoraires du client.</td></tr>' : "")}
+        <tr class="total"><td>Total annuel HT</td><td>${eur(t.n)}</td></tr></tbody></table>
       ${mens}
       ${para("p5")}${para("p6")}${para("politesse")}
       <div class="sign" data-f="s-sign"><b>${S.signataire ? esc(S.signataire) : ph("Nom du signataire")}</b><i>${esc(S.signataireTitre)}</i></div>
     </div>
-    <footer class="foot" data-f="s-cab">${esc(S.cabMentions)}</footer>
+    <img class="pied" src="${IMG.pied}" alt="">
   </article>`;
 }
 
@@ -650,7 +639,7 @@ function fitSheet(frame, scroller) {
   frame.style.height = H * s + "px";
 }
 function overflowOf(sheet) {
-  const flow = sheet.querySelector(".flow"), foot = sheet.querySelector(".foot");
+  const flow = sheet.querySelector(".flow"), foot = sheet.querySelector(".pied");
   return flow.offsetTop + flow.offsetHeight > foot.offsetTop - 4;
 }
 
@@ -685,12 +674,12 @@ function renderList() {
       return `<div class="item${c.envoyer ? "" : " off"}" role="option" data-id="${esc(c.id)}" aria-current="${c.id === state.selectedId}" aria-selected="${c.id === state.selectedId}">
         <input type="checkbox" ${c.envoyer ? "checked" : ""} aria-label="À envoyer" data-toggle-send="${esc(c.id)}">
         <span class="who"><b>${esc(c.societe || "Client sans nom")}</b><span>${esc(sub)}</span></span>
-        <span class="amt">${eur(t.n)}${t.a ? `<span>${pctSigned(t.r)}</span>` : ""}</span></div>`;
+        <span class="amt">${t.n ? eur(t.n) : "—"}</span></div>`;
     }).join("");
   }
-  const all = state.clients.reduce((acc, c) => { if (!c.envoyer) return acc; const t = totals(c); acc.a += t.a; acc.n += t.n; acc.k++; return acc; }, { a: 0, n: 0, k: 0 });
+  const all = state.clients.reduce((acc, c) => { if (!c.envoyer) return acc; acc.n += totals(c).n; acc.k++; return acc; }, { n: 0, k: 0 });
   $("#rail-foot").innerHTML = state.clients.length
-    ? `<span><b>${all.k}</b> courrier${all.k > 1 ? "s" : ""} à envoyer sur ${state.clients.length} client${state.clients.length > 1 ? "s" : ""}</span><span>Honoraires annuels : ${eur(all.a)} → <b>${eur(all.n)}</b>${all.a ? ` (${pctSigned(all.n / all.a - 1)})` : ""}</span>` : "";
+    ? `<span><b>${all.k}</b> courrier${all.k > 1 ? "s" : ""} à envoyer sur ${state.clients.length} client${state.clients.length > 1 ? "s" : ""}</span><span>Honoraires annuels HT : <b>${eur(all.n)}</b></span>` : "";
   $("#demo-notice").hidden = !state.clients.some(c => c.exemple);
   $("#drop-demo-2").hidden = !state.clients.some(c => c.exemple);
 }
@@ -727,19 +716,15 @@ function renderFiche() {
       ${inp("email", "E-mail", "", 'type="email"')}${inp("code", "Réf. client", "s3")}
     </div></section>
     <section><h3>Honoraires annuels HT</h3>
-      <table class="fees"><thead><tr><th>Mission</th><th>Actuel</th><th>Nouveau</th></tr></thead><tbody>
+      <table class="fees"><tbody>
       ${MISSIONS.map(m => {
-        const a = num(c[m.k]), n = nouveau(c, m.k);
-        return `<tr><td class="m">${esc(shortLib(m.k))}<small>${fmtPct.format(tauxFor(c, m.k) * 100)} %</small></td>
-          <td class="in"><input class="num" inputmode="decimal" data-k="${m.k}" data-link="m-${m.k}" value="${a ? dec(a) : ""}" placeholder="0" aria-label="${esc(shortLib(m.k))}, montant actuel HT"></td>
-          <td class="out" data-out="${m.k}">${n ? eur(n) : "—"}${a ? `<small>${n - a ? "+" + eur(n - a) : "="}</small>` : ""}</td></tr>`;
+        const a = amt(c, m.k);
+        return `<tr><td class="m">${esc(shortLib(m.k))}</td>
+          <td class="in"><div class="pct eur"><input class="num" inputmode="decimal" data-k="${m.k}" data-link="m-${m.k}" value="${a ? dec(a) : ""}" placeholder="—" aria-label="${esc(shortLib(m.k))}, honoraires annuels HT"></div></td></tr>`;
       }).join("")}
-      <tr class="tot"><td class="m">Total</td><td class="out" data-out="ta">${eur(t.a)}</td><td class="out" data-out="tn">${eur(t.n)}${t.a ? `<small>${pctSigned(t.r)}</small>` : ""}</td></tr>
+      <tr class="tot"><td class="m">Total annuel HT</td><td class="out" data-out="tn">${eur(t.n)}</td></tr>
       </tbody></table>
-      <div class="fields" style="margin-top:12px">
-        <div class="f s3"><label for="f-tauxPerso">Taux particulier</label><div class="pct"><input id="f-tauxPerso" class="num" inputmode="decimal" data-k="tauxPerso" data-link="fees" value="${dec(c.tauxPerso)}" placeholder="Taux du cabinet"></div></div>
-        <div class="f s3"><span class="lab">&nbsp;</span><span class="hint">Laisser vide pour appliquer les taux des Réglages.</span></div>
-      </div>
+      <p class="hint-line">Les nouveaux honoraires, tels qu'ils s'impriment. Laissez vide une mission non souscrite : elle n'apparaît pas sur la lettre.</p>
     </section>
     <section><h3>Envoi</h3><div class="fields">
       <div class="f"><label class="toggle"><input type="checkbox" data-k="envoyer" ${c.envoyer ? "checked" : ""}> Envoyer ce courrier</label></div>
@@ -757,13 +742,7 @@ function linkOf(k) { return ({ cp: "cpville", ville: "cpville", prenom: "contact
 function refreshFicheNumbers() {
   const c = selected(); if (!c) return;
   const box = $("#fiche"), t = totals(c);
-  for (const m of MISSIONS) {
-    const a = num(c[m.k]), n = nouveau(c, m.k), td = box.querySelector(`[data-out="${m.k}"]`);
-    if (td) td.innerHTML = `${n ? eur(n) : "—"}${a ? `<small>${n - a ? "+" + eur(n - a) : "="}</small>` : ""}`;
-    const rate = td && td.parentElement.querySelector(".m small"); if (rate) rate.textContent = fmtPct.format(tauxFor(c, m.k) * 100) + " %";
-  }
-  box.querySelector('[data-out="ta"]').textContent = eur(t.a);
-  box.querySelector('[data-out="tn"]').innerHTML = `${eur(t.n)}${t.a ? `<small>${pctSigned(t.r)}</small>` : ""}`;
+  box.querySelector('[data-out="tn"]').textContent = eur(t.n);
   box.querySelector("h2").textContent = c.societe || "Nouveau client";
 }
 
@@ -782,26 +761,28 @@ function renderCounts() {
   document.querySelectorAll("[data-n]").forEach(el => { el.textContent = `(${n(el.dataset.n)})`; });
   document.querySelectorAll("[data-print]").forEach(b => { b.disabled = n(b.dataset.print) === 0; });
   $("#count-clients").textContent = state.clients.length || "";
-  $("#brand-name").textContent = state.settings.cabNom || "Cabinet";
 }
 function renderCourriers() { renderList(); renderStage(); renderFiche(); renderCounts(); }
 
 /* ================================================================== vue Clients (grille) */
 const COLS = [
   ["envoyer", "Envoyer", "ck"], ["code", "Réf.", "", 70], ["societe", "Société", "", 220],
-  ["compta", "Compta", "num", 86], ["paye", "Paye", "num", 86], ["jur", "Juridique", "num", 86], ["pa", "Plateforme", "num", 86],
-  ["tauxPerso", "Taux part. %", "num", 86], ["__calc", "Nouveau total", "calc"], ["mode", "Mode", "mode", 110],
+  ["compta", "Compta HT", "num", 92], ["paye", "Paye HT", "num", 92], ["jur", "Juridique HT", "num", 92], ["pa", "Plateforme HT", "num", 92],
+  ["__calc", "Total HT", "calc"], ["mode", "Mode", "mode", 110],
   ["civ", "Civ.", "sel", 78], ["prenom", "Prénom", "", 100], ["nom", "Nom", "", 120],
   ["adr1", "Adresse", "", 200], ["adr2", "Complément", "", 150], ["cp", "CP", "", 68], ["ville", "Ville", "", 140], ["email", "E-mail", "", 190],
 ];
+function totalsLine() {
+  const n = state.clients.reduce((acc, c) => acc + totals(c).n, 0), k = state.clients.filter(c => c.envoyer).length;
+  return `<span>${state.clients.length} client${state.clients.length > 1 ? "s" : ""}, dont ${k} à envoyer</span><span>Total des honoraires annuels HT <b>${eur(n)}</b></span>`;
+}
 function renderGrid() {
   const wrap = $("#grid-wrap");
-  const all = state.clients.reduce((acc, c) => { const t = totals(c); acc.a += t.a; acc.n += t.n; return acc; }, { a: 0, n: 0 });
-  $("#totals").innerHTML = state.clients.length
-    ? `<span>${state.clients.length} client${state.clients.length > 1 ? "s" : ""}</span><span>Honoraires actuels <b>${eur(all.a)}</b></span><span>Après révision <b>${eur(all.n)}</b></span><span class="up">Écart <b class="up">+${eur(all.n - all.a)}</b>${all.a ? ` (${pctSigned(all.n / all.a - 1)})` : ""}</span>` : "";
+    $("#totals").innerHTML = state.clients.length
+    ? totalsLine() : "";
   if (!state.clients.length) {
-    wrap.innerHTML = `<div class="grid-empty"><h2>Votre liste de clients est vide</h2><p>Importez un fichier Excel ou CSV (une ligne par client, avec une ligne d'en-têtes), ou ajoutez vos clients un par un.</p>
-      <div class="row"><button class="btn primary" data-action="import"><svg class="i"><use href="#i-upload"/></svg>Importer un fichier</button><button class="btn" data-action="add"><svg class="i"><use href="#i-plus"/></svg>Ajouter un client</button></div></div>`;
+    wrap.innerHTML = `<div class="grid-empty"><h2>Votre liste de clients est vide</h2><p>Téléchargez le modèle Excel, remplissez-le (une ligne par client) puis importez-le. Vous pouvez aussi ajouter vos clients un par un.</p>
+      <div class="row"><button class="btn" data-action="modele"><svg class="i"><use href="#i-download"/></svg>Télécharger le modèle Excel</button><button class="btn primary" data-action="import"><svg class="i"><use href="#i-upload"/></svg>Importer un fichier</button><button class="btn" data-action="add"><svg class="i"><use href="#i-plus"/></svg>Ajouter un client</button></div></div>`;
     return;
   }
   const head = COLS.map(([, l, t]) => `<th class="${t === "num" || t === "calc" ? "r" : ""}">${l}</th>`).join("") + `<th></th>`;
@@ -809,7 +790,7 @@ function renderGrid() {
     const t = totals(c);
     const cells = COLS.map(([k, l, type, w]) => {
       const st = w ? ` style="width:${w}px;min-width:${w}px"` : "";
-      if (type === "calc") return `<td class="calc" data-calc="${c.id}">${eur(t.n)}${t.a ? `<small>${pctSigned(t.r)}</small>` : ""}${c.exemple ? '<span class="tag">exemple</span>' : ""}</td>`;
+      if (type === "calc") return `<td class="calc" data-calc="${c.id}">${eur(t.n)}${c.exemple ? '<span class="tag">exemple</span>' : ""}</td>`;
       if (type === "ck") return `<td class="ck"><input type="checkbox" data-id="${c.id}" data-k="envoyer" ${c.envoyer ? "checked" : ""} aria-label="Envoyer à ${esc(c.societe)}"></td>`;
       if (type === "sel") return `<td${st}><select data-id="${c.id}" data-k="civ" aria-label="${l}">${CIVS.map(([v, lb]) => `<option value="${v}" ${c.civ === v ? "selected" : ""}>${lb}</option>`).join("")}</select></td>`;
       if (type === "mode") return `<td${st}><select data-id="${c.id}" data-k="mode" aria-label="${l}">${[["courrier", "Courrier"], ["email", "E-mail"], ["deux", "Les deux"]].map(([v, lb]) => `<option value="${v}" ${c.mode === v ? "selected" : ""}>${lb}</option>`).join("")}</select></td>`;
@@ -829,25 +810,21 @@ function renderSettingsForm() {
   const p = (path, label, cls = "s2", unit = "pct") => `<div class="f ${cls}"><label for="s-${path}">${label}</label><div class="${unit === "none" ? "" : unit === "eur" ? "pct eur" : "pct"}"><input id="s-${path}" class="num" inputmode="decimal" data-s="${path}" data-num="1" value="${esc(dec(get(S, path)))}"></div></div>`;
   const ta = (path, label, rows = 3) => `<div class="f"><label for="s-${path}">${label}</label><textarea id="s-${path}" rows="${rows}" data-s="${path}" data-link="t-${path.split(".")[1]}">${esc(get(S, path))}</textarea></div>`;
   $("#settings-form").innerHTML = `
-    <section><h2>Le cabinet</h2><p class="lead">En-tête et pied de page de chaque courrier.</p><div class="fields">
-      ${i("cabNom", "Nom du cabinet", "", 'data-link="s-cab"')}${i("cabAdr1", "Adresse", "", 'data-link="s-cab"')}
-      ${i("cabCPVille", "Code postal et ville", "s3", 'data-link="s-cab"')}${i("cabVille", "Ville de signature", "s3", 'data-link="s-date"')}
-      ${i("cabContact", "Téléphone, e-mail, site", "", 'data-link="s-cab"')}
-      <div class="f"><label for="s-cabMentions">Mentions légales (pied de page)</label><textarea id="s-cabMentions" rows="3" data-s="cabMentions" data-link="s-cab">${esc(S.cabMentions)}</textarea><span class="hint">Vérifiez l'intitulé exact de votre inscription à l'Ordre.</span></div>
+    <section><h2>Le cabinet</h2><p class="lead">L'en-tête et le pied de page sont ceux de votre papier à lettres (logo, adresse, mentions légales).</p><div class="fields">
+      ${i("cabNom", "Nom du cabinet dans les textes", "s3", 'data-link="t-p1"')}${i("cabVille", "Ville de signature", "s3", 'data-link="s-date"')}
     </div></section>
     <section><h2>Signature et dates</h2><p class="lead">La date du courrier vide = date du jour à l'impression.</p><div class="fields">
       ${i("signataire", "Nom du signataire", "s3", 'data-link="s-sign" placeholder="Prénom NOM"')}${i("signataireTitre", "Fonction", "s3", 'data-link="s-sign"')}
       ${i("dateCourrier", "Date du courrier", "s3", 'type="date" data-link="s-date"')}${i("dateEffet", "Date d'effet des nouveaux tarifs", "s3", 'type="date" data-link="t-p4"')}
     </div></section>
-    <section><h2>Taux d'augmentation</h2><p class="lead">Appliqués à tous les clients sans taux particulier.</p><div class="fields">
-      ${p("taux.compta", "Comptabilité", "s3")}${p("taux.paye", "Paye / social", "s3")}${p("taux.jur", "Juridique", "s3")}${p("taux.pa", "Plateforme agréée", "s3")}
-      ${p("arrondi", "Arrondir au-dessus, par pas de", "s2", "eur")}${p("echeances", "Échéances par an", "s2", "none")}${p("tva", "TVA", "s2")}
+    <section><h2>Mensualisation</h2><p class="lead">Sous le tableau, la lettre indique le montant de chaque échéance. 0 échéance = ligne retirée.</p><div class="fields">
+      ${p("echeances", "Échéances par an", "s3", "none")}${p("tva", "TVA", "s3")}
     </div></section>
     <section><h2>Intitulés des missions</h2><p class="lead">Tels qu'ils apparaissent dans le tableau du courrier.</p><div class="fields">
       ${["compta", "paye", "jur", "pa"].map(k => i("lib." + k, shortLib(k), "", `data-link="m-${k}"`)).join("")}
     </div></section>
     <section><h2>Textes du courrier</h2><p class="lead">Laissez un paragraphe vide pour le retirer. Ces mots sont remplacés automatiquement :</p>
-      <div class="balises"><code>{cabinet}</code><code>{societe}</code><code>{date_effet}</code><code>{hausse}</code><code>{civilite}</code></div>
+      <div class="balises"><code>{cabinet}</code><code>{societe}</code><code>{date_effet}</code><code>{civilite}</code></div>
       <div class="fields">${ta("txt.objet", "Objet", 1)}${ta("txt.p1", "Paragraphe 1")}${ta("txt.p2", "Paragraphe 2")}${ta("txt.p3", "Paragraphe 3 — facturation électronique", 5)}${ta("txt.p4", "Avant le tableau", 2)}${ta("txt.p5", "Après le tableau")}${ta("txt.p6", "Paragraphe suivant", 2)}${ta("txt.politesse", "Formule de politesse", 2)}
       <div class="f"><button class="btn quiet small" type="button" data-action="reset-texts">Rétablir les textes d'origine</button></div></div>
     </section>
@@ -953,12 +930,11 @@ $("#grid-wrap").addEventListener("input", e => {
   const el = e.target, id = el.dataset.id, k = el.dataset.k; if (!id || !k) return;
   const c = state.clients.find(x => x.id === id); applyClientField(c, k, el); save();
   const t = totals(c), cell = $(`[data-calc="${id}"]`);
-  if (cell) cell.innerHTML = `${eur(t.n)}${t.a ? `<small>${pctSigned(t.r)}</small>` : ""}`;
+  if (cell) cell.innerHTML = `${eur(t.n)}${c.exemple ? '<span class="tag">exemple</span>' : ""}`;
   renderCounts();
 });
 $("#grid-wrap").addEventListener("change", () => {
-  const all = state.clients.reduce((acc, c) => { const t = totals(c); acc.a += t.a; acc.n += t.n; return acc; }, { a: 0, n: 0 });
-  $("#totals").innerHTML = `<span>${state.clients.length} client${state.clients.length > 1 ? "s" : ""}</span><span>Honoraires actuels <b>${eur(all.a)}</b></span><span>Après révision <b>${eur(all.n)}</b></span><span class="up">Écart <b class="up">+${eur(all.n - all.a)}</b>${all.a ? ` (${pctSigned(all.n / all.a - 1)})` : ""}</span>`;
+    $("#totals").innerHTML = totalsLine();
 });
 $("#grid-wrap").addEventListener("click", e => { const b = e.target.closest("[data-del]"); if (b) removeClient(b.dataset.del); });
 
@@ -989,6 +965,7 @@ document.addEventListener("click", e => {
   if (act === "delete") { const c = selected(); if (c) removeClient(c.id); }
   if (act === "drop-demo") dropDemo();
   if (act === "export-csv") exportCSV();
+  if (act === "modele") downloadModele();
   if (act === "backup") backup();
   if (act === "reset-texts") { state.settings.txt = defaultSettings().txt; save(); renderSettingsForm(); renderSettingsPreview(); toast("Textes d'origine rétablis."); }
 });
@@ -1036,7 +1013,7 @@ function printClients(list, title, checked) {
     if (!state.settings.signataire.trim()) issues.push("Le nom du signataire n'est pas renseigné (Réglages).");
     const noAddr = list.filter(c => !c.societe || !c.adr1 || !c.cp || !c.ville);
     if (noAddr.length) issues.push(`${noAddr.length} courrier${noAddr.length > 1 ? "s ont" : " a"} une adresse incomplète : ${noAddr.slice(0, 4).map(c => esc(c.societe || c.code || "sans nom")).join(", ")}${noAddr.length > 4 ? "…" : ""}.`);
-    const noFee = list.filter(c => totals(c).a <= 0);
+    const noFee = list.filter(c => totals(c).n <= 0);
     if (noFee.length) issues.push(`${noFee.length} courrier${noFee.length > 1 ? "s n'ont" : " n'a"} aucun honoraire saisi : ${noFee.slice(0, 4).map(c => esc(c.societe || c.code || "sans nom")).join(", ")}${noFee.length > 4 ? "…" : ""}.`);
     if (issues.length) {
       showDialog(`<div class="d-body"><h2>À vérifier avant d'imprimer</h2><ul>${issues.map(i => `<li>${i}</li>`).join("")}</ul><p>${list.length} courrier${list.length > 1 ? "s seront imprimés" : " sera imprimé"} tel${list.length > 1 ? "s" : ""} quel${list.length > 1 ? "s" : ""}.</p></div>
@@ -1080,7 +1057,7 @@ $("#file-input").addEventListener("change", async e => {
     const res = mapRows(rows);
     confirmImport(file.name, res);
   } catch (err) {
-    showDialog(`<div class="d-body"><h2>Ce fichier n'a pas pu être lu</h2><p>${esc(err.message || String(err))}</p><p>Enregistrez-le depuis Excel au format « Classeur Excel (.xlsx) » ou « CSV UTF-8 », avec une ligne d'en-têtes (Société, Adresse, Code postal, Ville, Compta…), puis réessayez.</p></div><div class="d-actions"><button class="btn primary" data-close>Compris</button></div>`);
+    showDialog(`<div class="d-body"><h2>Ce fichier n'a pas pu être lu</h2><p>${esc(err.message || String(err))}</p><p>Le plus simple : téléchargez le modèle Excel (onglet Clients), recopiez-y vos clients sans changer la ligne de titres, puis importez-le.</p></div><div class="d-actions"><button class="btn primary" data-close>Compris</button></div>`);
   }
 });
 async function decodeText(buf) {
@@ -1173,11 +1150,10 @@ const HEADS = [
   ["cp", ["codepostal", "cp"]],
   ["ville", ["ville", "commune", "localite"]],
   ["email", ["email", "mail", "courriel", "adressemail", "adresseemail"]],
-  ["compta", ["comptaactuelht", "comptaactuel", "compta", "comptabilite", "honorairescompta", "missioncomptable", "honorairescomptables"]],
-  ["paye", ["payeactuelht", "payeactuel", "paye", "paie", "social", "honorairespaye", "missionsociale"]],
-  ["jur", ["juridiqueactuelht", "juridiqueactuel", "juridique", "jur", "honorairesjuridique", "missionjuridique"]],
-  ["pa", ["paactuelht", "paactuel", "pa", "plateforme", "plateformeagreee", "facturationelectronique"]],
-  ["tauxPerso", ["tauxpersooptionnel", "tauxperso", "tauxparticulier", "taux"]],
+  ["compta", ["comptabiliteht", "comptaht", "compta", "comptabilite", "honorairescompta", "missioncomptable", "honorairescomptables"]],
+  ["paye", ["payeht", "paieht", "paye", "paie", "social", "honorairespaye", "missionsociale"]],
+  ["jur", ["juridiqueht", "juridique", "jur", "honorairesjuridique", "missionjuridique"]],
+  ["pa", ["plateformeagreeeht", "paht", "panouveauht", "paactuelht", "panouveau", "paactuel", "pa", "plateforme", "plateformeagreee", "facturationelectronique"]],
   ["envoyer", ["aenvoyer", "envoyer", "envoi"]],
   ["mode", ["modedenvoi", "mode", "modeenvoi"]],
 ];
@@ -1185,13 +1161,19 @@ function mapRows(rows) {
   if (!rows.length) throw new Error("Le fichier est vide.");
   let hi = rows.findIndex(r => r.filter(v => matchHead(v)).length >= 2);
   if (hi < 0) throw new Error("Aucune ligne d'en-têtes reconnue (par exemple « Société », « Adresse », « Code postal », « Ville »).");
-  const cols = {}; rows[hi].forEach((h, i) => { const k = matchHead(h); if (k && cols[k] == null) cols[k] = i; });
+  const cols = {}, prio = {};
+  rows[hi].forEach((h, i) => {
+    const k = matchHead(h); if (!k) return;
+    const pr = /nouveau/.test(norm(h)) ? 2 : 1; /* ancien classeur : « Compta nouveau HT » l'emporte sur « actuel » */
+    if (cols[k] == null || pr > prio[k]) { cols[k] = i; prio[k] = pr; }
+  });
   if (cols.societe == null && cols.nom == null) throw new Error("Il manque une colonne « Société » (ou « Nom »).");
   const found = HEADS.map(([k]) => k).filter(k => cols[k] != null);
   const clients = []; let skipped = 0;
   const mapped = Object.values(cols);
   for (const r of rows.slice(hi + 1)) {
     const g = k => cols[k] == null ? "" : String(r[cols[k]] ?? "").trim();
+    if (g("email") === "p.durand@exemple.fr" && g("societe") === "SARL DURAND BÂTIMENT") { continue; } /* ligne d'exemple du modèle */
     if (!g("societe") && !g("nom")) { if (mapped.some(i => String(r[i] ?? "").trim() !== "" && String(r[i]).trim() !== "0")) skipped++; continue; }
     const c = blankClient(g("code"));
     for (const k of ["civ", "prenom", "nom", "societe", "adr1", "adr2", "ville", "email"]) c[k] = g(k);
@@ -1199,7 +1181,6 @@ function mapRows(rows) {
     c.civ = /^(mme|madame)$/i.test(c.civ) ? "Mme" : /^(m|m\.|mr|monsieur)$/i.test(c.civ) ? "M." : /et/i.test(c.civ) ? "M. et Mme" : "";
     if (!c.societe) c.societe = [c.prenom, c.nom].filter(Boolean).join(" ");
     for (const k of ["compta", "paye", "jur", "pa"]) c[k] = Math.max(0, Math.round(num(g(k)) * 100) / 100);
-    const tp = g("tauxPerso"); c.tauxPerso = tp === "" ? null : (num(tp) <= 1 ? Math.round(num(tp) * 1000) / 10 : num(tp));
     const env = norm(g("envoyer")); c.envoyer = env === "" ? true : !/^(non|n|0|false|faux)$/.test(env);
     const mode = norm(g("mode")); c.mode = /deux|2/.test(mode) ? "deux" : /mail/.test(mode) ? "email" : "courrier";
     clients.push(c);
@@ -1208,19 +1189,19 @@ function mapRows(rows) {
 }
 function matchHead(h) {
   const n = norm(h).replace(/[^a-z0-9]/g, "");
-  if (!n || n.includes("nouveau") || n.includes("total") || n.includes("ecart") || n.includes("impression")) return null;
+  if (!n || n.includes("total") || n.includes("ecart") || n.includes("impression") || n.includes("taux")) return null;
   for (const [k, syn] of HEADS) if (syn.includes(n)) return k;
   for (const [k, syn] of HEADS) if (syn.some(s => s.length > 3 && n.startsWith(s))) return k;
   return null;
 }
-const LABELS = { code: "Réf. client", civ: "Civilité", prenom: "Prénom", nom: "Nom", societe: "Société", adr1: "Adresse", adr2: "Complément", cp: "Code postal", ville: "Ville", email: "E-mail", compta: "Comptabilité", paye: "Paye", jur: "Juridique", pa: "Plateforme agréée", tauxPerso: "Taux particulier", envoyer: "À envoyer", mode: "Mode d'envoi" };
+const LABELS = { code: "Réf. client", civ: "Civilité", prenom: "Prénom", nom: "Nom", societe: "Société", adr1: "Adresse", adr2: "Complément", cp: "Code postal", ville: "Ville", email: "E-mail", compta: "Comptabilité", paye: "Paye", jur: "Juridique", pa: "Plateforme agréée", envoyer: "À envoyer", mode: "Mode d'envoi" };
 function confirmImport(name, res) {
   if (!res.clients.length) throw new Error("Aucun client trouvé sous la ligne d'en-têtes.");
   const hasReal = state.clients.some(c => !c.exemple);
   const missing = ["compta", "paye", "jur", "pa"].filter(k => !res.found.includes(k));
   showDialog(`<div class="d-body"><h2>${res.clients.length} client${res.clients.length > 1 ? "s" : ""} trouvé${res.clients.length > 1 ? "s" : ""}</h2>
     <p>Dans « ${esc(name)} ». Colonnes reconnues : ${res.found.map(k => esc(LABELS[k])).join(", ")}.</p>
-    ${missing.length ? `<p>Colonnes d'honoraires absentes : ${missing.map(k => esc(LABELS[k])).join(", ")}. Ces montants seront à 0 : vous pourrez les saisir ensuite.</p>` : ""}
+    ${missing.length ? `<p>Colonnes d'honoraires absentes : ${missing.map(k => esc(LABELS[k])).join(", ")}. Ces montants seront vides : vous pourrez les saisir ensuite.</p>` : ""}
     ${res.skipped ? `<p>${res.skipped} ligne${res.skipped > 1 ? "s" : ""} sans société ni nom ignorée${res.skipped > 1 ? "s" : ""}.</p>` : ""}
     ${hasReal ? "<p>Vous avez déjà des clients. Que faire de la liste actuelle ?</p>" : "<p>Les clients d'exemple seront retirés.</p>"}</div>
     <div class="d-actions"><button class="btn quiet" data-close>Annuler</button>
@@ -1250,14 +1231,17 @@ function download(name, content, type) {
   document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
 }
 function exportCSV() {
-  const H = ["Code client", "Civilité", "Prénom", "Nom", "Société", "Adresse 1", "Adresse 2", "Code postal", "Ville", "Email", "Compta actuel HT", "Paye actuel HT", "Juridique actuel HT", "PA actuel HT", "Taux perso", "Compta nouveau HT", "Paye nouveau HT", "Juridique nouveau HT", "PA nouveau HT", "Total actuel HT", "Total nouveau HT", "À envoyer", "Mode d'envoi"];
+  const H = ["Réf. client", "Civilité", "Prénom", "Nom", "Société", "Adresse", "Complément d'adresse", "Code postal", "Ville", "E-mail", "Comptabilité HT", "Paye HT", "Juridique HT", "Plateforme agréée HT", "À envoyer", "Mode d'envoi", "Total HT"];
   const cell = v => { const s = typeof v === "number" ? String(v).replace(".", ",") : String(v ?? ""); return /[;"\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s; };
-  const lines = [H.join(";")].concat(state.clients.map(c => {
-    const t = totals(c);
-    return [c.code, c.civ, c.prenom, c.nom, c.societe, c.adr1, c.adr2, c.cp, c.ville, c.email, num(c.compta), num(c.paye), num(c.jur), num(c.pa), c.tauxPerso ?? "",
-      nouveau(c, "compta"), nouveau(c, "paye"), nouveau(c, "jur"), nouveau(c, "pa"), t.a, t.n, c.envoyer ? "Oui" : "Non", { courrier: "Courrier", email: "Email", deux: "Les deux" }[c.mode]].map(cell).join(";");
-  }));
-  download(`Clients_honoraires_${new Date().toISOString().slice(0, 10)}.csv`, "﻿" + lines.join("\r\n"), "text/csv;charset=utf-8");
+  const lines = [H.join(";")].concat(state.clients.map(c => [c.code, c.civ, c.prenom, c.nom, c.societe, c.adr1, c.adr2, c.cp, c.ville, c.email,
+    amt(c, "compta"), amt(c, "paye"), amt(c, "jur"), amt(c, "pa"), c.envoyer ? "Oui" : "Non", { courrier: "Courrier", email: "Email", deux: "Les deux" }[c.mode], totals(c).n].map(cell).join(";")));
+  download(`Clients_honoraires_${new Date().toISOString().slice(0, 10)}.csv`, "\ufeff" + lines.join("\r\n"), "text/csv;charset=utf-8");
+}
+function downloadModele() {
+  const bin = atob(MODELE_XLSX), u8 = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) u8[i] = bin.charCodeAt(i);
+  download("Modele_import_clients_ALTHO.xlsx", u8, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+  toast("Modèle enregistré dans vos Téléchargements. Remplissez-le puis importez-le ici.");
 }
 function backup() {
   download(`Sauvegarde_courriers_${safeName(state.settings.cabNom)}_${new Date().toISOString().slice(0, 10)}.json`, JSON.stringify({ app: "altho-courriers", version: 1, ...state }, null, 1), "application/json");
@@ -1270,7 +1254,7 @@ function restore(text) {
     <div class="d-actions"><button class="btn quiet" data-close>Annuler</button><button class="btn primary" data-imp="restore">Restaurer</button></div>`, b => {
     if (b.dataset.imp !== "restore") return;
     try { localStorage.setItem(STORE_KEY, JSON.stringify(data)); } catch (e) { /* stockage indisponible */ }
-    const prev = state; state = (() => { const d = defaultSettings(), s = data.settings || {}; const clients = data.clients.map(c => ({ ...blankClient(""), ...c })); return { settings: { ...d, ...s, taux: { ...d.taux, ...(s.taux || {}) }, lib: { ...d.lib, ...(s.lib || {}) }, txt: { ...d.txt, ...(s.txt || {}) } }, clients, selectedId: (clients[0] || {}).id || null }; })();
+    const prev = state; state = (() => { const d = defaultSettings(), s = data.settings || {}; const clients = data.clients.map(c => ({ ...blankClient(""), ...c })); const txt = { ...d.txt, ...(s.txt || {}) }; if (/\{hausse\}/.test(txt.p4 || "")) txt.p4 = d.txt.p4; return { settings: { ...d, ...s, lib: { ...d.lib, ...(s.lib || {}) }, txt }, clients, selectedId: (clients[0] || {}).id || null }; })();
     save(); show(view); toast("Copie restaurée.", "Annuler", () => { state = prev; save(); show(view); });
   });
 }

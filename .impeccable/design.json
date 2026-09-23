@@ -4,94 +4,94 @@
   "title": "Design System: ALTHO Expertise, révision des honoraires",
   "extensions": {
     "colorMeta": {
-      "navy": {
+      "bordeaux": {
         "role": "primary",
-        "displayName": "ALTHO Navy",
-        "canonical": "#1f3864 (approx. oklch(33% 0.075 262))",
+        "displayName": "ALTHO Bordeaux",
+        "canonical": "#9d202e (approx. oklch(33% 0.075 18))",
         "tonalRamp": [
-          "oklch(15% 0.075 262)",
-          "oklch(26% 0.075 262)",
-          "oklch(37% 0.075 262)",
-          "oklch(48% 0.075 262)",
-          "oklch(59% 0.075 262)",
-          "oklch(70% 0.075 262)",
-          "oklch(82% 0.075 262)",
-          "oklch(95% 0.075 262)"
+          "oklch(15% 0.075 18)",
+          "oklch(26% 0.075 18)",
+          "oklch(37% 0.075 18)",
+          "oklch(48% 0.075 18)",
+          "oklch(59% 0.075 18)",
+          "oklch(70% 0.075 18)",
+          "oklch(82% 0.075 18)",
+          "oklch(95% 0.075 18)"
         ]
       },
-      "navy-hover": {
+      "bordeaux-hover": {
         "role": "primary",
-        "displayName": "Deep Navy",
-        "canonical": "#172b4d",
+        "displayName": "Deep Bordeaux",
+        "canonical": "#7c1823",
         "tonalRamp": [
-          "oklch(15% 0.065 262)",
-          "oklch(26% 0.065 262)",
-          "oklch(37% 0.065 262)",
-          "oklch(48% 0.065 262)",
-          "oklch(59% 0.065 262)",
-          "oklch(70% 0.065 262)",
-          "oklch(82% 0.065 262)",
-          "oklch(95% 0.065 262)"
+          "oklch(15% 0.065 18)",
+          "oklch(26% 0.065 18)",
+          "oklch(37% 0.065 18)",
+          "oklch(48% 0.065 18)",
+          "oklch(59% 0.065 18)",
+          "oklch(70% 0.065 18)",
+          "oklch(82% 0.065 18)",
+          "oklch(95% 0.065 18)"
         ]
       },
-      "navy-tint": {
+      "bordeaux-tint": {
         "role": "primary",
-        "displayName": "Navy Tint",
-        "canonical": "oklch(94.5% 0.022 262)",
+        "displayName": "Bordeaux Tint",
+        "canonical": "oklch(95.5% 0.018 18)",
         "tonalRamp": [
-          "oklch(15% 0.04 262)",
-          "oklch(26% 0.04 262)",
-          "oklch(37% 0.04 262)",
-          "oklch(48% 0.04 262)",
-          "oklch(59% 0.04 262)",
-          "oklch(70% 0.04 262)",
-          "oklch(82% 0.04 262)",
-          "oklch(95% 0.04 262)"
+          "oklch(15% 0.04 18)",
+          "oklch(26% 0.04 18)",
+          "oklch(37% 0.04 18)",
+          "oklch(48% 0.04 18)",
+          "oklch(59% 0.04 18)",
+          "oklch(70% 0.04 18)",
+          "oklch(82% 0.04 18)",
+          "oklch(95% 0.04 18)"
         ]
       },
-      "navy-tint-2": {
+      "bordeaux-tint-2": {
         "role": "primary",
-        "displayName": "Navy Tint Strong",
-        "canonical": "oklch(90% 0.035 262)",
+        "displayName": "Bordeaux Tint Strong",
+        "canonical": "oklch(90.5% 0.042 18)",
         "tonalRamp": [
-          "oklch(15% 0.05 262)",
-          "oklch(26% 0.05 262)",
-          "oklch(37% 0.05 262)",
-          "oklch(48% 0.05 262)",
-          "oklch(59% 0.05 262)",
-          "oklch(70% 0.05 262)",
-          "oklch(82% 0.05 262)",
-          "oklch(95% 0.05 262)"
+          "oklch(15% 0.05 18)",
+          "oklch(26% 0.05 18)",
+          "oklch(37% 0.05 18)",
+          "oklch(48% 0.05 18)",
+          "oklch(59% 0.05 18)",
+          "oklch(70% 0.05 18)",
+          "oklch(82% 0.05 18)",
+          "oklch(95% 0.05 18)"
         ]
       },
       "letter-highlight": {
         "role": "primary",
         "displayName": "Letter Highlight",
-        "canonical": "oklch(91% 0.045 262)",
+        "canonical": "oklch(92% 0.04 18)",
         "tonalRamp": [
-          "oklch(15% 0.05 262)",
-          "oklch(26% 0.05 262)",
-          "oklch(37% 0.05 262)",
-          "oklch(48% 0.05 262)",
-          "oklch(59% 0.05 262)",
-          "oklch(70% 0.05 262)",
-          "oklch(82% 0.05 262)",
-          "oklch(95% 0.05 262)"
+          "oklch(15% 0.05 18)",
+          "oklch(26% 0.05 18)",
+          "oklch(37% 0.05 18)",
+          "oklch(48% 0.05 18)",
+          "oklch(59% 0.05 18)",
+          "oklch(70% 0.05 18)",
+          "oklch(82% 0.05 18)",
+          "oklch(95% 0.05 18)"
         ]
       },
       "letter-hover": {
         "role": "primary",
         "displayName": "Letter Hover",
-        "canonical": "oklch(96.5% 0.018 262)",
+        "canonical": "oklch(96.5% 0.016 18)",
         "tonalRamp": [
-          "oklch(15% 0.03 262)",
-          "oklch(26% 0.03 262)",
-          "oklch(37% 0.03 262)",
-          "oklch(48% 0.03 262)",
-          "oklch(59% 0.03 262)",
-          "oklch(70% 0.03 262)",
-          "oklch(82% 0.03 262)",
-          "oklch(95% 0.03 262)"
+          "oklch(15% 0.03 18)",
+          "oklch(26% 0.03 18)",
+          "oklch(37% 0.03 18)",
+          "oklch(48% 0.03 18)",
+          "oklch(59% 0.03 18)",
+          "oklch(70% 0.03 18)",
+          "oklch(82% 0.03 18)",
+          "oklch(95% 0.03 18)"
         ]
       },
       "desk": {
@@ -157,46 +157,46 @@
       "ink": {
         "role": "neutral",
         "displayName": "Ink",
-        "canonical": "oklch(23% 0.02 262)",
+        "canonical": "oklch(21% 0.006 30)",
         "tonalRamp": [
-          "oklch(15% 0.02 262)",
-          "oklch(26% 0.02 262)",
-          "oklch(37% 0.02 262)",
-          "oklch(48% 0.02 262)",
-          "oklch(59% 0.02 262)",
-          "oklch(70% 0.02 262)",
-          "oklch(82% 0.02 262)",
-          "oklch(95% 0.02 262)"
+          "oklch(15% 0.02 18)",
+          "oklch(26% 0.02 18)",
+          "oklch(37% 0.02 18)",
+          "oklch(48% 0.02 18)",
+          "oklch(59% 0.02 18)",
+          "oklch(70% 0.02 18)",
+          "oklch(82% 0.02 18)",
+          "oklch(95% 0.02 18)"
         ]
       },
       "ink-2": {
         "role": "neutral",
         "displayName": "Ink 2",
-        "canonical": "oklch(40% 0.018 262)",
+        "canonical": "oklch(38% 0.008 30)",
         "tonalRamp": [
-          "oklch(15% 0.018 262)",
-          "oklch(26% 0.018 262)",
-          "oklch(37% 0.018 262)",
-          "oklch(48% 0.018 262)",
-          "oklch(59% 0.018 262)",
-          "oklch(70% 0.018 262)",
-          "oklch(82% 0.018 262)",
-          "oklch(95% 0.018 262)"
+          "oklch(15% 0.018 18)",
+          "oklch(26% 0.018 18)",
+          "oklch(37% 0.018 18)",
+          "oklch(48% 0.018 18)",
+          "oklch(59% 0.018 18)",
+          "oklch(70% 0.018 18)",
+          "oklch(82% 0.018 18)",
+          "oklch(95% 0.018 18)"
         ]
       },
       "ink-3": {
         "role": "neutral",
         "displayName": "Ink 3",
-        "canonical": "oklch(50% 0.014 262)",
+        "canonical": "oklch(48% 0.008 30)",
         "tonalRamp": [
-          "oklch(15% 0.014 262)",
-          "oklch(26% 0.014 262)",
-          "oklch(37% 0.014 262)",
-          "oklch(48% 0.014 262)",
-          "oklch(59% 0.014 262)",
-          "oklch(70% 0.014 262)",
-          "oklch(82% 0.014 262)",
-          "oklch(95% 0.014 262)"
+          "oklch(15% 0.014 18)",
+          "oklch(26% 0.014 18)",
+          "oklch(37% 0.014 18)",
+          "oklch(48% 0.014 18)",
+          "oklch(59% 0.014 18)",
+          "oklch(70% 0.014 18)",
+          "oklch(82% 0.014 18)",
+          "oklch(95% 0.014 18)"
         ]
       },
       "rule": {
@@ -307,61 +307,61 @@
       "letter-ink": {
         "role": "neutral",
         "displayName": "Letter Ink",
-        "canonical": "#111a2b",
+        "canonical": "#1a1a1a",
         "tonalRamp": [
-          "oklch(15% 0.03 262)",
-          "oklch(26% 0.03 262)",
-          "oklch(37% 0.03 262)",
-          "oklch(48% 0.03 262)",
-          "oklch(59% 0.03 262)",
-          "oklch(70% 0.03 262)",
-          "oklch(82% 0.03 262)",
-          "oklch(95% 0.03 262)"
+          "oklch(15% 0.03 18)",
+          "oklch(26% 0.03 18)",
+          "oklch(37% 0.03 18)",
+          "oklch(48% 0.03 18)",
+          "oklch(59% 0.03 18)",
+          "oklch(70% 0.03 18)",
+          "oklch(82% 0.03 18)",
+          "oklch(95% 0.03 18)"
         ]
       },
       "letter-ink-2": {
         "role": "neutral",
         "displayName": "Letter Ink 2",
-        "canonical": "#3a4457",
+        "canonical": "#3d3d3d",
         "tonalRamp": [
-          "oklch(15% 0.03 262)",
-          "oklch(26% 0.03 262)",
-          "oklch(37% 0.03 262)",
-          "oklch(48% 0.03 262)",
-          "oklch(59% 0.03 262)",
-          "oklch(70% 0.03 262)",
-          "oklch(82% 0.03 262)",
-          "oklch(95% 0.03 262)"
+          "oklch(15% 0.03 18)",
+          "oklch(26% 0.03 18)",
+          "oklch(37% 0.03 18)",
+          "oklch(48% 0.03 18)",
+          "oklch(59% 0.03 18)",
+          "oklch(70% 0.03 18)",
+          "oklch(82% 0.03 18)",
+          "oklch(95% 0.03 18)"
         ]
       },
       "letter-rule": {
         "role": "neutral",
         "displayName": "Letter Rule",
-        "canonical": "#d7dce5",
+        "canonical": "#e3dcdc",
         "tonalRamp": [
-          "oklch(15% 0.015 262)",
-          "oklch(26% 0.015 262)",
-          "oklch(37% 0.015 262)",
-          "oklch(48% 0.015 262)",
-          "oklch(59% 0.015 262)",
-          "oklch(70% 0.015 262)",
-          "oklch(82% 0.015 262)",
-          "oklch(95% 0.015 262)"
+          "oklch(15% 0.015 18)",
+          "oklch(26% 0.015 18)",
+          "oklch(37% 0.015 18)",
+          "oklch(48% 0.015 18)",
+          "oklch(59% 0.015 18)",
+          "oklch(70% 0.015 18)",
+          "oklch(82% 0.015 18)",
+          "oklch(95% 0.015 18)"
         ]
       },
       "letter-total": {
         "role": "primary",
         "displayName": "Letter Total",
-        "canonical": "#e3e9f3",
+        "canonical": "#f6ebec",
         "tonalRamp": [
-          "oklch(15% 0.02 262)",
-          "oklch(26% 0.02 262)",
-          "oklch(37% 0.02 262)",
-          "oklch(48% 0.02 262)",
-          "oklch(59% 0.02 262)",
-          "oklch(70% 0.02 262)",
-          "oklch(82% 0.02 262)",
-          "oklch(95% 0.02 262)"
+          "oklch(15% 0.02 18)",
+          "oklch(26% 0.02 18)",
+          "oklch(37% 0.02 18)",
+          "oklch(48% 0.02 18)",
+          "oklch(59% 0.02 18)",
+          "oklch(70% 0.02 18)",
+          "oklch(82% 0.02 18)",
+          "oklch(95% 0.02 18)"
         ]
       },
       "letter-foot": {
@@ -369,14 +369,14 @@
         "displayName": "Letter Foot",
         "canonical": "#6b7280",
         "tonalRamp": [
-          "oklch(15% 0.02 262)",
-          "oklch(26% 0.02 262)",
-          "oklch(37% 0.02 262)",
-          "oklch(48% 0.02 262)",
-          "oklch(59% 0.02 262)",
-          "oklch(70% 0.02 262)",
-          "oklch(82% 0.02 262)",
-          "oklch(95% 0.02 262)"
+          "oklch(15% 0.02 18)",
+          "oklch(26% 0.02 18)",
+          "oklch(37% 0.02 18)",
+          "oklch(48% 0.02 18)",
+          "oklch(59% 0.02 18)",
+          "oklch(70% 0.02 18)",
+          "oklch(82% 0.02 18)",
+          "oklch(95% 0.02 18)"
         ]
       },
       "letter-placeholder": {
@@ -384,14 +384,14 @@
         "displayName": "Letter Placeholder",
         "canonical": "#9aa3b2",
         "tonalRamp": [
-          "oklch(15% 0.02 262)",
-          "oklch(26% 0.02 262)",
-          "oklch(37% 0.02 262)",
-          "oklch(48% 0.02 262)",
-          "oklch(59% 0.02 262)",
-          "oklch(70% 0.02 262)",
-          "oklch(82% 0.02 262)",
-          "oklch(95% 0.02 262)"
+          "oklch(15% 0.02 18)",
+          "oklch(26% 0.02 18)",
+          "oklch(37% 0.02 18)",
+          "oklch(48% 0.02 18)",
+          "oklch(59% 0.02 18)",
+          "oklch(70% 0.02 18)",
+          "oklch(82% 0.02 18)",
+          "oklch(95% 0.02 18)"
         ]
       }
     },
@@ -422,7 +422,7 @@
       },
       "letter-letterhead": {
         "displayName": "Letterhead",
-        "purpose": "Cabinet name on the letter, navy."
+        "purpose": "Cabinet name on the letter, bordeaux."
       },
       "letter-body": {
         "displayName": "Letter Body",
@@ -444,32 +444,32 @@
     "shadows": [
       {
         "name": "paper",
-        "value": "0 1px 2px oklch(30% 0.02 262 / 0.10), 0 8px 24px oklch(30% 0.02 262 / 0.10), 0 24px 60px oklch(30% 0.02 262 / 0.08)",
+        "value": "0 1px 2px oklch(28% 0.01 30 / 0.10), 0 8px 24px oklch(28% 0.01 30 / 0.10), 0 24px 60px oklch(28% 0.01 30 / 0.08)",
         "purpose": "The on-screen letter only; removed in print."
       },
       {
         "name": "pop",
-        "value": "0 4px 12px oklch(30% 0.02 262 / 0.14), 0 16px 40px oklch(30% 0.02 262 / 0.12)",
+        "value": "0 4px 12px oklch(28% 0.01 30 / 0.14), 0 16px 40px oklch(28% 0.01 30 / 0.12)",
         "purpose": "Print menu, dialogs, toast."
       },
       {
         "name": "thumb",
-        "value": "0 1px 2px oklch(30% 0.02 262 / 0.14)",
+        "value": "0 1px 2px oklch(28% 0.01 30 / 0.14)",
         "purpose": "Selected segment or radio option; toggle knob."
       },
       {
         "name": "sticky-edge",
-        "value": "6px 0 8px -6px oklch(30% 0.02 262 / 0.22)",
+        "value": "6px 0 8px -6px oklch(28% 0.01 30 / 0.22)",
         "purpose": "Right edge of the sticky columns in the Clients table."
       },
       {
         "name": "focus-halo",
-        "value": "0 0 0 3px oklch(90% 0.035 262)",
-        "purpose": "Input focus halo (navy-tint-2) paired with a navy border."
+        "value": "0 0 0 3px oklch(90.5% 0.042 18)",
+        "purpose": "Input focus halo (bordeaux-tint-2) paired with a bordeaux border."
       },
       {
         "name": "focus-outline",
-        "value": "outline: 2px solid #1f3864; outline-offset: 2px",
+        "value": "outline: 2px solid #9d202e; outline-offset: 2px",
         "purpose": "Focus-visible ring on every focusable control."
       }
     ],
@@ -513,7 +513,7 @@
       "refersTo": "button-primary",
       "description": "The one main action per view, e.g. printing the selection.",
       "html": "<button class=\"ds-btn ds-btn-primary\">Imprimer les courriers postaux (2)</button>",
-      "css": ":host{--navy:#1f3864;--navy-hover:#172b4d;--navy-tint:oklch(94.5% 0.022 262);--navy-tint-2:oklch(90% 0.035 262);--desk:oklch(93.5% 0.006 75);--desk-deep:oklch(90% 0.008 75);--panel:oklch(98.6% 0.003 75);--paper:#fff;--ink:oklch(23% 0.02 262);--ink-2:oklch(40% 0.018 262);--ink-3:oklch(50% 0.014 262);--rule:oklch(87.5% 0.007 75);--rule-soft:oklch(92% 0.005 75);--up:oklch(45% 0.11 150);--danger:oklch(50% 0.17 27);--danger-tint:oklch(95.5% 0.03 27);--r-s:6px;--r-m:8px;--ease:cubic-bezier(0.16,1,0.3,1);font-family:'Hanken Grotesk','Segoe UI',system-ui,sans-serif;font-variant-numeric:tabular-nums;color:var(--ink);} .ds-btn{display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 14px;border-radius:var(--r-s);border:1px solid var(--rule);background:var(--paper);font:600 14px 'Hanken Grotesk','Segoe UI',system-ui,sans-serif;color:var(--ink);cursor:pointer;transition:background .15s,border-color .15s,color .15s;} .ds-btn:focus-visible{outline:2px solid var(--navy);outline-offset:2px;} .ds-btn-primary{background:var(--navy);border-color:var(--navy);color:#fff;} .ds-btn-primary:hover{background:var(--navy-hover);} .ds-btn-primary:disabled{opacity:.45;cursor:not-allowed;}"
+      "css": ":host{--brand:#9d202e;--brand-hover:#7c1823;--brand-tint:oklch(95.5% 0.018 18);--brand-tint-2:oklch(90.5% 0.042 18);--desk:oklch(93.5% 0.006 75);--desk-deep:oklch(90% 0.008 75);--panel:oklch(98.6% 0.003 75);--paper:#fff;--ink:oklch(21% 0.006 30);--ink-2:oklch(38% 0.008 30);--ink-3:oklch(48% 0.008 30);--rule:oklch(87.5% 0.007 75);--rule-soft:oklch(92% 0.005 75);--up:oklch(45% 0.11 150);--danger:oklch(50% 0.17 27);--danger-tint:oklch(95.5% 0.03 27);--r-s:6px;--r-m:8px;--ease:cubic-bezier(0.16,1,0.3,1);font-family:'Hanken Grotesk','Segoe UI',system-ui,sans-serif;font-variant-numeric:tabular-nums;color:var(--ink);} .ds-btn{display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 14px;border-radius:var(--r-s);border:1px solid var(--rule);background:var(--paper);font:600 14px 'Hanken Grotesk','Segoe UI',system-ui,sans-serif;color:var(--ink);cursor:pointer;transition:background .15s,border-color .15s,color .15s;} .ds-btn:focus-visible{outline:2px solid var(--brand);outline-offset:2px;} .ds-btn-primary{background:var(--brand);border-color:var(--brand);color:#fff;} .ds-btn-primary:hover{background:var(--brand-hover);} .ds-btn-primary:disabled{opacity:.45;cursor:not-allowed;}"
     },
     {
       "name": "Secondary Button",
@@ -521,7 +521,7 @@
       "refersTo": "button-secondary",
       "description": "Default paper button with a hairline stroke.",
       "html": "<button class=\"ds-btn\">Ajouter un client</button>",
-      "css": ":host{--navy:#1f3864;--navy-hover:#172b4d;--navy-tint:oklch(94.5% 0.022 262);--navy-tint-2:oklch(90% 0.035 262);--desk:oklch(93.5% 0.006 75);--desk-deep:oklch(90% 0.008 75);--panel:oklch(98.6% 0.003 75);--paper:#fff;--ink:oklch(23% 0.02 262);--ink-2:oklch(40% 0.018 262);--ink-3:oklch(50% 0.014 262);--rule:oklch(87.5% 0.007 75);--rule-soft:oklch(92% 0.005 75);--up:oklch(45% 0.11 150);--danger:oklch(50% 0.17 27);--danger-tint:oklch(95.5% 0.03 27);--r-s:6px;--r-m:8px;--ease:cubic-bezier(0.16,1,0.3,1);font-family:'Hanken Grotesk','Segoe UI',system-ui,sans-serif;font-variant-numeric:tabular-nums;color:var(--ink);} .ds-btn{display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 14px;border-radius:var(--r-s);border:1px solid var(--rule);background:var(--paper);font:600 14px 'Hanken Grotesk','Segoe UI',system-ui,sans-serif;color:var(--ink);cursor:pointer;transition:background .15s,border-color .15s,color .15s;} .ds-btn:focus-visible{outline:2px solid var(--navy);outline-offset:2px;} .ds-btn:hover{background:var(--rule-soft);}"
+      "css": ":host{--brand:#9d202e;--brand-hover:#7c1823;--brand-tint:oklch(95.5% 0.018 18);--brand-tint-2:oklch(90.5% 0.042 18);--desk:oklch(93.5% 0.006 75);--desk-deep:oklch(90% 0.008 75);--panel:oklch(98.6% 0.003 75);--paper:#fff;--ink:oklch(21% 0.006 30);--ink-2:oklch(38% 0.008 30);--ink-3:oklch(48% 0.008 30);--rule:oklch(87.5% 0.007 75);--rule-soft:oklch(92% 0.005 75);--up:oklch(45% 0.11 150);--danger:oklch(50% 0.17 27);--danger-tint:oklch(95.5% 0.03 27);--r-s:6px;--r-m:8px;--ease:cubic-bezier(0.16,1,0.3,1);font-family:'Hanken Grotesk','Segoe UI',system-ui,sans-serif;font-variant-numeric:tabular-nums;color:var(--ink);} .ds-btn{display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 14px;border-radius:var(--r-s);border:1px solid var(--rule);background:var(--paper);font:600 14px 'Hanken Grotesk','Segoe UI',system-ui,sans-serif;color:var(--ink);cursor:pointer;transition:background .15s,border-color .15s,color .15s;} .ds-btn:focus-visible{outline:2px solid var(--brand);outline-offset:2px;} .ds-btn:hover{background:var(--rule-soft);}"
     },
     {
       "name": "Quiet Button",
@@ -529,7 +529,7 @@
       "refersTo": "button-quiet",
       "description": "Less frequent actions; no fill until hover.",
       "html": "<button class=\"ds-btn ds-btn-quiet\">Exporter pour Excel</button>",
-      "css": ":host{--navy:#1f3864;--navy-hover:#172b4d;--navy-tint:oklch(94.5% 0.022 262);--navy-tint-2:oklch(90% 0.035 262);--desk:oklch(93.5% 0.006 75);--desk-deep:oklch(90% 0.008 75);--panel:oklch(98.6% 0.003 75);--paper:#fff;--ink:oklch(23% 0.02 262);--ink-2:oklch(40% 0.018 262);--ink-3:oklch(50% 0.014 262);--rule:oklch(87.5% 0.007 75);--rule-soft:oklch(92% 0.005 75);--up:oklch(45% 0.11 150);--danger:oklch(50% 0.17 27);--danger-tint:oklch(95.5% 0.03 27);--r-s:6px;--r-m:8px;--ease:cubic-bezier(0.16,1,0.3,1);font-family:'Hanken Grotesk','Segoe UI',system-ui,sans-serif;font-variant-numeric:tabular-nums;color:var(--ink);} .ds-btn{display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 14px;border-radius:var(--r-s);border:1px solid var(--rule);background:var(--paper);font:600 14px 'Hanken Grotesk','Segoe UI',system-ui,sans-serif;color:var(--ink);cursor:pointer;transition:background .15s,border-color .15s,color .15s;} .ds-btn:focus-visible{outline:2px solid var(--navy);outline-offset:2px;} .ds-btn-quiet{border-color:transparent;background:transparent;color:var(--ink-2);} .ds-btn-quiet:hover{background:var(--desk-deep);color:var(--ink);}"
+      "css": ":host{--brand:#9d202e;--brand-hover:#7c1823;--brand-tint:oklch(95.5% 0.018 18);--brand-tint-2:oklch(90.5% 0.042 18);--desk:oklch(93.5% 0.006 75);--desk-deep:oklch(90% 0.008 75);--panel:oklch(98.6% 0.003 75);--paper:#fff;--ink:oklch(21% 0.006 30);--ink-2:oklch(38% 0.008 30);--ink-3:oklch(48% 0.008 30);--rule:oklch(87.5% 0.007 75);--rule-soft:oklch(92% 0.005 75);--up:oklch(45% 0.11 150);--danger:oklch(50% 0.17 27);--danger-tint:oklch(95.5% 0.03 27);--r-s:6px;--r-m:8px;--ease:cubic-bezier(0.16,1,0.3,1);font-family:'Hanken Grotesk','Segoe UI',system-ui,sans-serif;font-variant-numeric:tabular-nums;color:var(--ink);} .ds-btn{display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 14px;border-radius:var(--r-s);border:1px solid var(--rule);background:var(--paper);font:600 14px 'Hanken Grotesk','Segoe UI',system-ui,sans-serif;color:var(--ink);cursor:pointer;transition:background .15s,border-color .15s,color .15s;} .ds-btn:focus-visible{outline:2px solid var(--brand);outline-offset:2px;} .ds-btn-quiet{border-color:transparent;background:transparent;color:var(--ink-2);} .ds-btn-quiet:hover{background:var(--desk-deep);color:var(--ink);}"
     },
     {
       "name": "Danger Button",
@@ -537,63 +537,63 @@
       "refersTo": "button-danger",
       "description": "Destructive actions; red text, red-tint wash on hover.",
       "html": "<button class=\"ds-btn ds-btn-danger\">Supprimer ce client</button>",
-      "css": ":host{--navy:#1f3864;--navy-hover:#172b4d;--navy-tint:oklch(94.5% 0.022 262);--navy-tint-2:oklch(90% 0.035 262);--desk:oklch(93.5% 0.006 75);--desk-deep:oklch(90% 0.008 75);--panel:oklch(98.6% 0.003 75);--paper:#fff;--ink:oklch(23% 0.02 262);--ink-2:oklch(40% 0.018 262);--ink-3:oklch(50% 0.014 262);--rule:oklch(87.5% 0.007 75);--rule-soft:oklch(92% 0.005 75);--up:oklch(45% 0.11 150);--danger:oklch(50% 0.17 27);--danger-tint:oklch(95.5% 0.03 27);--r-s:6px;--r-m:8px;--ease:cubic-bezier(0.16,1,0.3,1);font-family:'Hanken Grotesk','Segoe UI',system-ui,sans-serif;font-variant-numeric:tabular-nums;color:var(--ink);} .ds-btn{display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 14px;border-radius:var(--r-s);border:1px solid var(--rule);background:var(--paper);font:600 14px 'Hanken Grotesk','Segoe UI',system-ui,sans-serif;color:var(--ink);cursor:pointer;transition:background .15s,border-color .15s,color .15s;} .ds-btn:focus-visible{outline:2px solid var(--navy);outline-offset:2px;} .ds-btn-danger{color:var(--danger);} .ds-btn-danger:hover{background:var(--danger-tint);}"
+      "css": ":host{--brand:#9d202e;--brand-hover:#7c1823;--brand-tint:oklch(95.5% 0.018 18);--brand-tint-2:oklch(90.5% 0.042 18);--desk:oklch(93.5% 0.006 75);--desk-deep:oklch(90% 0.008 75);--panel:oklch(98.6% 0.003 75);--paper:#fff;--ink:oklch(21% 0.006 30);--ink-2:oklch(38% 0.008 30);--ink-3:oklch(48% 0.008 30);--rule:oklch(87.5% 0.007 75);--rule-soft:oklch(92% 0.005 75);--up:oklch(45% 0.11 150);--danger:oklch(50% 0.17 27);--danger-tint:oklch(95.5% 0.03 27);--r-s:6px;--r-m:8px;--ease:cubic-bezier(0.16,1,0.3,1);font-family:'Hanken Grotesk','Segoe UI',system-ui,sans-serif;font-variant-numeric:tabular-nums;color:var(--ink);} .ds-btn{display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 14px;border-radius:var(--r-s);border:1px solid var(--rule);background:var(--paper);font:600 14px 'Hanken Grotesk','Segoe UI',system-ui,sans-serif;color:var(--ink);cursor:pointer;transition:background .15s,border-color .15s,color .15s;} .ds-btn:focus-visible{outline:2px solid var(--brand);outline-offset:2px;} .ds-btn-danger{color:var(--danger);} .ds-btn-danger:hover{background:var(--danger-tint);}"
     },
     {
       "name": "Text Field",
       "kind": "input",
       "refersTo": "input",
-      "description": "Labelled field; navy border and navy-tint halo on focus, right-aligned when numeric.",
+      "description": "Labelled field; bordeaux border and bordeaux-tint halo on focus, right-aligned when numeric.",
       "html": "<label class=\"ds-f\"><span>Code postal</span><input class=\"ds-input\" value=\"95120\"></label>",
-      "css": ":host{--navy:#1f3864;--navy-hover:#172b4d;--navy-tint:oklch(94.5% 0.022 262);--navy-tint-2:oklch(90% 0.035 262);--desk:oklch(93.5% 0.006 75);--desk-deep:oklch(90% 0.008 75);--panel:oklch(98.6% 0.003 75);--paper:#fff;--ink:oklch(23% 0.02 262);--ink-2:oklch(40% 0.018 262);--ink-3:oklch(50% 0.014 262);--rule:oklch(87.5% 0.007 75);--rule-soft:oklch(92% 0.005 75);--up:oklch(45% 0.11 150);--danger:oklch(50% 0.17 27);--danger-tint:oklch(95.5% 0.03 27);--r-s:6px;--r-m:8px;--ease:cubic-bezier(0.16,1,0.3,1);font-family:'Hanken Grotesk','Segoe UI',system-ui,sans-serif;font-variant-numeric:tabular-nums;color:var(--ink);} .ds-f{display:grid;gap:4px;} .ds-f span{font-size:12.5px;font-weight:600;color:var(--ink-2);} .ds-input{height:34px;padding:0 9px;border:1px solid var(--rule);border-radius:var(--r-s);background:var(--paper);font:400 14px 'Hanken Grotesk',system-ui,sans-serif;color:var(--ink);transition:border-color .15s,box-shadow .15s;} .ds-input:hover{border-color:oklch(80% 0.01 75);} .ds-input:focus{outline:none;border-color:var(--navy);box-shadow:0 0 0 3px var(--navy-tint-2);}"
+      "css": ":host{--brand:#9d202e;--brand-hover:#7c1823;--brand-tint:oklch(95.5% 0.018 18);--brand-tint-2:oklch(90.5% 0.042 18);--desk:oklch(93.5% 0.006 75);--desk-deep:oklch(90% 0.008 75);--panel:oklch(98.6% 0.003 75);--paper:#fff;--ink:oklch(21% 0.006 30);--ink-2:oklch(38% 0.008 30);--ink-3:oklch(48% 0.008 30);--rule:oklch(87.5% 0.007 75);--rule-soft:oklch(92% 0.005 75);--up:oklch(45% 0.11 150);--danger:oklch(50% 0.17 27);--danger-tint:oklch(95.5% 0.03 27);--r-s:6px;--r-m:8px;--ease:cubic-bezier(0.16,1,0.3,1);font-family:'Hanken Grotesk','Segoe UI',system-ui,sans-serif;font-variant-numeric:tabular-nums;color:var(--ink);} .ds-f{display:grid;gap:4px;} .ds-f span{font-size:12.5px;font-weight:600;color:var(--ink-2);} .ds-input{height:34px;padding:0 9px;border:1px solid var(--rule);border-radius:var(--r-s);background:var(--paper);font:400 14px 'Hanken Grotesk',system-ui,sans-serif;color:var(--ink);transition:border-color .15s,box-shadow .15s;} .ds-input:hover{border-color:oklch(80% 0.01 75);} .ds-input:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px var(--brand-tint-2);}"
     },
     {
       "name": "Top Tabs",
       "kind": "nav",
       "refersTo": "tab",
-      "description": "Text tabs with a 2px navy underline on the selected view.",
+      "description": "Text tabs with a 2px bordeaux underline on the selected view.",
       "html": "<nav class=\"ds-tabs\"><button class=\"ds-tab\" aria-selected=\"true\">Courriers</button><button class=\"ds-tab\">Clients<span>3</span></button><button class=\"ds-tab\">Réglages</button></nav>",
-      "css": ":host{--navy:#1f3864;--navy-hover:#172b4d;--navy-tint:oklch(94.5% 0.022 262);--navy-tint-2:oklch(90% 0.035 262);--desk:oklch(93.5% 0.006 75);--desk-deep:oklch(90% 0.008 75);--panel:oklch(98.6% 0.003 75);--paper:#fff;--ink:oklch(23% 0.02 262);--ink-2:oklch(40% 0.018 262);--ink-3:oklch(50% 0.014 262);--rule:oklch(87.5% 0.007 75);--rule-soft:oklch(92% 0.005 75);--up:oklch(45% 0.11 150);--danger:oklch(50% 0.17 27);--danger-tint:oklch(95.5% 0.03 27);--r-s:6px;--r-m:8px;--ease:cubic-bezier(0.16,1,0.3,1);font-family:'Hanken Grotesk','Segoe UI',system-ui,sans-serif;font-variant-numeric:tabular-nums;color:var(--ink);} .ds-tabs{display:flex;gap:2px;height:56px;background:var(--panel);border-bottom:1px solid var(--rule);} .ds-tab{position:relative;display:flex;align-items:center;padding:0 14px;border:0;background:none;color:var(--ink-2);font:600 14.5px 'Hanken Grotesk',system-ui,sans-serif;cursor:pointer;} .ds-tab span{margin-left:6px;font-size:12.5px;color:var(--ink-3);} .ds-tab:hover{color:var(--ink);} .ds-tab:focus-visible{outline:2px solid var(--navy);outline-offset:2px;} .ds-tab[aria-selected=true]{color:var(--navy);} .ds-tab[aria-selected=true]::after{content:'';position:absolute;left:10px;right:10px;bottom:0;height:2px;background:var(--navy);border-radius:2px 2px 0 0;}"
+      "css": ":host{--brand:#9d202e;--brand-hover:#7c1823;--brand-tint:oklch(95.5% 0.018 18);--brand-tint-2:oklch(90.5% 0.042 18);--desk:oklch(93.5% 0.006 75);--desk-deep:oklch(90% 0.008 75);--panel:oklch(98.6% 0.003 75);--paper:#fff;--ink:oklch(21% 0.006 30);--ink-2:oklch(38% 0.008 30);--ink-3:oklch(48% 0.008 30);--rule:oklch(87.5% 0.007 75);--rule-soft:oklch(92% 0.005 75);--up:oklch(45% 0.11 150);--danger:oklch(50% 0.17 27);--danger-tint:oklch(95.5% 0.03 27);--r-s:6px;--r-m:8px;--ease:cubic-bezier(0.16,1,0.3,1);font-family:'Hanken Grotesk','Segoe UI',system-ui,sans-serif;font-variant-numeric:tabular-nums;color:var(--ink);} .ds-tabs{display:flex;gap:2px;height:56px;background:var(--panel);border-bottom:1px solid var(--rule);} .ds-tab{position:relative;display:flex;align-items:center;padding:0 14px;border:0;background:none;color:var(--ink-2);font:600 14.5px 'Hanken Grotesk',system-ui,sans-serif;cursor:pointer;} .ds-tab span{margin-left:6px;font-size:12.5px;color:var(--ink-3);} .ds-tab:hover{color:var(--ink);} .ds-tab:focus-visible{outline:2px solid var(--brand);outline-offset:2px;} .ds-tab[aria-selected=true]{color:var(--brand);} .ds-tab[aria-selected=true]::after{content:'';position:absolute;left:10px;right:10px;bottom:0;height:2px;background:var(--brand);border-radius:2px 2px 0 0;}"
     },
     {
       "name": "Segmented Filter",
       "kind": "nav",
       "refersTo": "segmented",
-      "description": "Desk-coloured track, paper thumb with navy text for the selected option.",
+      "description": "Desk-coloured track, paper thumb with bordeaux text for the selected option.",
       "html": "<div class=\"ds-seg\"><button aria-pressed=\"true\">Tous</button><button>Poste</button><button>E-mail</button><button>Non envoyés</button></div>",
-      "css": ":host{--navy:#1f3864;--navy-hover:#172b4d;--navy-tint:oklch(94.5% 0.022 262);--navy-tint-2:oklch(90% 0.035 262);--desk:oklch(93.5% 0.006 75);--desk-deep:oklch(90% 0.008 75);--panel:oklch(98.6% 0.003 75);--paper:#fff;--ink:oklch(23% 0.02 262);--ink-2:oklch(40% 0.018 262);--ink-3:oklch(50% 0.014 262);--rule:oklch(87.5% 0.007 75);--rule-soft:oklch(92% 0.005 75);--up:oklch(45% 0.11 150);--danger:oklch(50% 0.17 27);--danger-tint:oklch(95.5% 0.03 27);--r-s:6px;--r-m:8px;--ease:cubic-bezier(0.16,1,0.3,1);font-family:'Hanken Grotesk','Segoe UI',system-ui,sans-serif;font-variant-numeric:tabular-nums;color:var(--ink);} .ds-seg{display:flex;padding:3px;gap:3px;background:var(--desk);border-radius:var(--r-s);width:280px;} .ds-seg button{flex:1;height:28px;border:0;border-radius:5px;background:none;font:600 13px 'Hanken Grotesk',system-ui,sans-serif;color:var(--ink-2);cursor:pointer;} .ds-seg button:hover{color:var(--ink);} .ds-seg button:focus-visible{outline:2px solid var(--navy);outline-offset:1px;} .ds-seg button[aria-pressed=true]{background:var(--paper);color:var(--navy);box-shadow:0 1px 2px oklch(30% 0.02 262 / 0.14);}"
+      "css": ":host{--brand:#9d202e;--brand-hover:#7c1823;--brand-tint:oklch(95.5% 0.018 18);--brand-tint-2:oklch(90.5% 0.042 18);--desk:oklch(93.5% 0.006 75);--desk-deep:oklch(90% 0.008 75);--panel:oklch(98.6% 0.003 75);--paper:#fff;--ink:oklch(21% 0.006 30);--ink-2:oklch(38% 0.008 30);--ink-3:oklch(48% 0.008 30);--rule:oklch(87.5% 0.007 75);--rule-soft:oklch(92% 0.005 75);--up:oklch(45% 0.11 150);--danger:oklch(50% 0.17 27);--danger-tint:oklch(95.5% 0.03 27);--r-s:6px;--r-m:8px;--ease:cubic-bezier(0.16,1,0.3,1);font-family:'Hanken Grotesk','Segoe UI',system-ui,sans-serif;font-variant-numeric:tabular-nums;color:var(--ink);} .ds-seg{display:flex;padding:3px;gap:3px;background:var(--desk);border-radius:var(--r-s);width:280px;} .ds-seg button{flex:1;height:28px;border:0;border-radius:5px;background:none;font:600 13px 'Hanken Grotesk',system-ui,sans-serif;color:var(--ink-2);cursor:pointer;} .ds-seg button:hover{color:var(--ink);} .ds-seg button:focus-visible{outline:2px solid var(--brand);outline-offset:1px;} .ds-seg button[aria-pressed=true]{background:var(--paper);color:var(--brand);box-shadow:0 1px 2px oklch(28% 0.01 30 / 0.14);}"
     },
     {
       "name": "Chips",
       "kind": "chip",
       "refersTo": "chip",
-      "description": "Status pills on the stage bar: neutral, go (navy tint), warn (amber tint).",
+      "description": "Status pills on the stage bar: neutral, go (bordeaux tint), warn (amber tint).",
       "html": "<span class=\"ds-chip\">Non envoyé</span> <span class=\"ds-chip ds-go\">Par courrier</span> <span class=\"ds-chip ds-warn\">Adresse incomplète</span>",
-      "css": ":host{--navy:#1f3864;--navy-hover:#172b4d;--navy-tint:oklch(94.5% 0.022 262);--navy-tint-2:oklch(90% 0.035 262);--desk:oklch(93.5% 0.006 75);--desk-deep:oklch(90% 0.008 75);--panel:oklch(98.6% 0.003 75);--paper:#fff;--ink:oklch(23% 0.02 262);--ink-2:oklch(40% 0.018 262);--ink-3:oklch(50% 0.014 262);--rule:oklch(87.5% 0.007 75);--rule-soft:oklch(92% 0.005 75);--up:oklch(45% 0.11 150);--danger:oklch(50% 0.17 27);--danger-tint:oklch(95.5% 0.03 27);--r-s:6px;--r-m:8px;--ease:cubic-bezier(0.16,1,0.3,1);font-family:'Hanken Grotesk','Segoe UI',system-ui,sans-serif;font-variant-numeric:tabular-nums;color:var(--ink);} .ds-chip{display:inline-flex;align-items:center;height:26px;padding:0 10px;border-radius:13px;font:600 12.5px 'Hanken Grotesk',system-ui,sans-serif;background:var(--desk-deep);color:var(--ink-2);} .ds-go{background:var(--navy-tint);color:var(--navy);} .ds-warn{background:oklch(95% 0.045 80);color:oklch(38% 0.1 60);}"
+      "css": ":host{--brand:#9d202e;--brand-hover:#7c1823;--brand-tint:oklch(95.5% 0.018 18);--brand-tint-2:oklch(90.5% 0.042 18);--desk:oklch(93.5% 0.006 75);--desk-deep:oklch(90% 0.008 75);--panel:oklch(98.6% 0.003 75);--paper:#fff;--ink:oklch(21% 0.006 30);--ink-2:oklch(38% 0.008 30);--ink-3:oklch(48% 0.008 30);--rule:oklch(87.5% 0.007 75);--rule-soft:oklch(92% 0.005 75);--up:oklch(45% 0.11 150);--danger:oklch(50% 0.17 27);--danger-tint:oklch(95.5% 0.03 27);--r-s:6px;--r-m:8px;--ease:cubic-bezier(0.16,1,0.3,1);font-family:'Hanken Grotesk','Segoe UI',system-ui,sans-serif;font-variant-numeric:tabular-nums;color:var(--ink);} .ds-chip{display:inline-flex;align-items:center;height:26px;padding:0 10px;border-radius:13px;font:600 12.5px 'Hanken Grotesk',system-ui,sans-serif;background:var(--desk-deep);color:var(--ink-2);} .ds-go{background:var(--brand-tint);color:var(--brand);} .ds-warn{background:oklch(95% 0.045 80);color:oklch(38% 0.1 60);}"
     },
     {
       "name": "Client List Item",
       "kind": "custom",
       "refersTo": "list-item",
-      "description": "Rail row: send checkbox, company and ref, new total with green delta; navy tint when current.",
+      "description": "Rail row: send checkbox, company and ref, new total with green delta; bordeaux tint when current.",
       "html": "<button class=\"ds-item\" aria-current=\"true\"><input type=\"checkbox\" checked tabindex=\"-1\"><span class=\"ds-who\"><b>SARL DURAND BÂTIMENT</b><span>C001 · Ermont</span></span><span class=\"ds-amt\">6 456 €<span>+3,5 %</span></span></button>",
-      "css": ":host{--navy:#1f3864;--navy-hover:#172b4d;--navy-tint:oklch(94.5% 0.022 262);--navy-tint-2:oklch(90% 0.035 262);--desk:oklch(93.5% 0.006 75);--desk-deep:oklch(90% 0.008 75);--panel:oklch(98.6% 0.003 75);--paper:#fff;--ink:oklch(23% 0.02 262);--ink-2:oklch(40% 0.018 262);--ink-3:oklch(50% 0.014 262);--rule:oklch(87.5% 0.007 75);--rule-soft:oklch(92% 0.005 75);--up:oklch(45% 0.11 150);--danger:oklch(50% 0.17 27);--danger-tint:oklch(95.5% 0.03 27);--r-s:6px;--r-m:8px;--ease:cubic-bezier(0.16,1,0.3,1);font-family:'Hanken Grotesk','Segoe UI',system-ui,sans-serif;font-variant-numeric:tabular-nums;color:var(--ink);} .ds-item{display:grid;grid-template-columns:22px 1fr auto;gap:4px 10px;align-items:center;width:300px;padding:9px 8px;border:0;border-radius:var(--r-s);background:none;text-align:left;cursor:pointer;font-family:inherit;accent-color:var(--navy);} .ds-item:hover{background:var(--desk);} .ds-item:focus-visible{outline:2px solid var(--navy);outline-offset:2px;} .ds-item[aria-current=true]{background:var(--navy-tint);} .ds-who b{display:block;font-weight:600;font-size:14px;color:var(--ink);} .ds-item[aria-current=true] .ds-who b{color:var(--navy);} .ds-who span{display:block;font-size:12.5px;color:var(--ink-3);} .ds-amt{text-align:right;font-size:13.5px;font-weight:600;color:var(--ink);} .ds-amt span{display:block;font-size:12px;color:var(--up);}"
+      "css": ":host{--brand:#9d202e;--brand-hover:#7c1823;--brand-tint:oklch(95.5% 0.018 18);--brand-tint-2:oklch(90.5% 0.042 18);--desk:oklch(93.5% 0.006 75);--desk-deep:oklch(90% 0.008 75);--panel:oklch(98.6% 0.003 75);--paper:#fff;--ink:oklch(21% 0.006 30);--ink-2:oklch(38% 0.008 30);--ink-3:oklch(48% 0.008 30);--rule:oklch(87.5% 0.007 75);--rule-soft:oklch(92% 0.005 75);--up:oklch(45% 0.11 150);--danger:oklch(50% 0.17 27);--danger-tint:oklch(95.5% 0.03 27);--r-s:6px;--r-m:8px;--ease:cubic-bezier(0.16,1,0.3,1);font-family:'Hanken Grotesk','Segoe UI',system-ui,sans-serif;font-variant-numeric:tabular-nums;color:var(--ink);} .ds-item{display:grid;grid-template-columns:22px 1fr auto;gap:4px 10px;align-items:center;width:300px;padding:9px 8px;border:0;border-radius:var(--r-s);background:none;text-align:left;cursor:pointer;font-family:inherit;accent-color:var(--brand);} .ds-item:hover{background:var(--desk);} .ds-item:focus-visible{outline:2px solid var(--brand);outline-offset:2px;} .ds-item[aria-current=true]{background:var(--brand-tint);} .ds-who b{display:block;font-weight:600;font-size:14px;color:var(--ink);} .ds-item[aria-current=true] .ds-who b{color:var(--brand);} .ds-who span{display:block;font-size:12.5px;color:var(--ink-3);} .ds-amt{text-align:right;font-size:13.5px;font-weight:600;color:var(--ink);} .ds-amt span{display:block;font-size:12px;color:var(--up);}"
     },
     {
       "name": "Letter Sheet (excerpt)",
       "kind": "card",
       "refersTo": "letter-sheet",
-      "description": "The signature object: paper with a layered shadow, navy letterhead, left-aligned body, navy fee-table header, superscript ordinals, navy-tint field highlight.",
+      "description": "The signature object: paper with a layered shadow, bordeaux letterhead, left-aligned body, bordeaux fee-table header, superscript ordinals, bordeaux-tint field highlight.",
       "html": "<div class=\"ds-sheet\"><div class=\"ds-lh\">ALTHO EXPERTISE</div><p class=\"ds-obj\">Objet : révision de nos honoraires au 1<sup>er</sup> janvier 2027</p><p>Nous tenons tout d'abord à vous remercier pour la confiance que vous accordez à <span class=\"ds-hl\">ALTHO EXPERTISE</span>.</p><table><tr><th>Mission</th><th>Actuel HT</th><th>Nouveau HT</th></tr><tr><td>Mission comptable</td><td>3 600 €</td><td>3 726 €</td></tr><tr class=\"ds-tot\"><td>Total annuel HT</td><td>6 240 €</td><td>6 456 €</td></tr></table></div>",
-      "css": ":host{--navy:#1f3864;--navy-hover:#172b4d;--navy-tint:oklch(94.5% 0.022 262);--navy-tint-2:oklch(90% 0.035 262);--desk:oklch(93.5% 0.006 75);--desk-deep:oklch(90% 0.008 75);--panel:oklch(98.6% 0.003 75);--paper:#fff;--ink:oklch(23% 0.02 262);--ink-2:oklch(40% 0.018 262);--ink-3:oklch(50% 0.014 262);--rule:oklch(87.5% 0.007 75);--rule-soft:oklch(92% 0.005 75);--up:oklch(45% 0.11 150);--danger:oklch(50% 0.17 27);--danger-tint:oklch(95.5% 0.03 27);--r-s:6px;--r-m:8px;--ease:cubic-bezier(0.16,1,0.3,1);font-family:'Hanken Grotesk','Segoe UI',system-ui,sans-serif;font-variant-numeric:tabular-nums;color:var(--ink);} .ds-sheet{width:420px;padding:28px 36px;background:#fff;color:#111a2b;font:400 13px/1.34 'Source Serif 4',Georgia,serif;font-variant-numeric:tabular-nums;box-shadow:0 1px 2px oklch(30% 0.02 262 / 0.10),0 8px 24px oklch(30% 0.02 262 / 0.10),0 24px 60px oklch(30% 0.02 262 / 0.08);} .ds-lh{font-family:'Hanken Grotesk',Arial,sans-serif;font-size:20px;font-weight:700;letter-spacing:.02em;color:#1f3864;padding-bottom:8px;border-bottom:2px solid #1f3864;margin-bottom:16px;} .ds-sheet p{margin:0 0 8px;text-align:left;} .ds-obj{font-weight:700;} .ds-sheet sup{font-size:.66em;line-height:0;vertical-align:.5em;} .ds-hl{border-radius:3px;background:oklch(91% 0.045 262);box-shadow:0 0 0 3px oklch(91% 0.045 262);} .ds-sheet table{font-family:'Hanken Grotesk',Arial,sans-serif;width:100%;border-collapse:collapse;font-size:12px;} .ds-sheet th{background:#1f3864;color:#fff;font-weight:600;text-align:right;padding:4px 6px;} .ds-sheet th:first-child,.ds-sheet td:first-child{text-align:left;} .ds-sheet td{padding:3px 6px;text-align:right;border-bottom:1px solid #d7dce5;} .ds-tot td{font-weight:700;background:#e3e9f3;border-top:1px solid #1f3864;border-bottom:1px solid #1f3864;}"
+      "css": ":host{--brand:#9d202e;--brand-hover:#7c1823;--brand-tint:oklch(95.5% 0.018 18);--brand-tint-2:oklch(90.5% 0.042 18);--desk:oklch(93.5% 0.006 75);--desk-deep:oklch(90% 0.008 75);--panel:oklch(98.6% 0.003 75);--paper:#fff;--ink:oklch(21% 0.006 30);--ink-2:oklch(38% 0.008 30);--ink-3:oklch(48% 0.008 30);--rule:oklch(87.5% 0.007 75);--rule-soft:oklch(92% 0.005 75);--up:oklch(45% 0.11 150);--danger:oklch(50% 0.17 27);--danger-tint:oklch(95.5% 0.03 27);--r-s:6px;--r-m:8px;--ease:cubic-bezier(0.16,1,0.3,1);font-family:'Hanken Grotesk','Segoe UI',system-ui,sans-serif;font-variant-numeric:tabular-nums;color:var(--ink);} .ds-sheet{width:420px;padding:28px 36px;background:#fff;color:#1a1a1a;font:400 13px/1.34 'Source Serif 4',Georgia,serif;font-variant-numeric:tabular-nums;box-shadow:0 1px 2px oklch(28% 0.01 30 / 0.10),0 8px 24px oklch(28% 0.01 30 / 0.10),0 24px 60px oklch(28% 0.01 30 / 0.08);} .ds-lh{font-family:'Hanken Grotesk',Arial,sans-serif;font-size:20px;font-weight:700;letter-spacing:.02em;color:#9d202e;padding-bottom:8px;border-bottom:2px solid #9d202e;margin-bottom:16px;} .ds-sheet p{margin:0 0 8px;text-align:left;} .ds-obj{font-weight:700;} .ds-sheet sup{font-size:.66em;line-height:0;vertical-align:.5em;} .ds-hl{border-radius:3px;background:oklch(92% 0.04 18);box-shadow:0 0 0 3px oklch(92% 0.04 18);} .ds-sheet table{font-family:'Hanken Grotesk',Arial,sans-serif;width:100%;border-collapse:collapse;font-size:12px;} .ds-sheet th{background:#9d202e;color:#fff;font-weight:600;text-align:right;padding:4px 6px;} .ds-sheet th:first-child,.ds-sheet td:first-child{text-align:left;} .ds-sheet td{padding:3px 6px;text-align:right;border-bottom:1px solid #e3dcdc;} .ds-tot td{font-weight:700;background:#f6ebec;border-top:1px solid #9d202e;border-bottom:1px solid #9d202e;}"
     }
   ],
   "narrative": {
     "northStar": "The Letter on the Desk",
-    "overview": "The printed letter is the product. A white A4 sheet at true scale lies at the centre of a warm-grey daylight desk, with a real paper shadow under it, and every control around it (the client list on the left, the client record on the right, the settings form) exists to change what is on that paper. The interface is quiet so the sheet can be the loudest object on screen. There are no dashboard cards, no metric tiles and no spreadsheet chrome in the working view. The Clients view is a table because editing thirty rows of fees is table work, but it still sits on the same desk as a single bordered sheet.\n\nThe world is lit like an office in daylight. It has one ink: the navy of the ALTHO letterhead. That navy carries the primary action, the selection, the focus ring and the letter's own letterhead and table header. Everything else is warm-grey paper, hairline rules and blue-grey ink. Density is that of a working tool used once a year by a non-technical accountant. Labels are explicit French words, targets are 30 to 36px tall, and every amount uses tabular figures so columns of euros line up.\n\nType follows the Anthropic pairing the user asked for (a geometric grotesque over a text serif), set with free look-alikes embedded in the file: Hanken Grotesk for the interface and the letter's structure (letterhead, references, fee table, footer), Source Serif 4 for the letter's prose and address. The fonts print the same on every machine. The theme is light only. The office-daylight scene is the world, and a dark mode would turn the paper metaphor upside down.",
+    "overview": "The printed letter is the product. A white A4 sheet at true scale lies at the centre of a warm-grey daylight desk, with a real paper shadow under it, and every control around it (the client list on the left, the client record on the right, the settings form) exists to change what is on that paper. The interface is quiet so the sheet can be the loudest object on screen. There are no dashboard cards, no metric tiles and no spreadsheet chrome in the working view. The Clients view is a table because editing thirty rows of fees is table work, but it still sits on the same desk as a single bordered sheet.\n\nThe world is lit like an office in daylight. It has one ink: the bordeaux of the ALTHO letterhead. That bordeaux carries the primary action, the selection, the focus ring and the letter's own letterhead and table header. Everything else is warm-grey paper, hairline rules and near-black ink. Density is that of a working tool used once a year by a non-technical accountant. Labels are explicit French words, targets are 30 to 36px tall, and every amount uses tabular figures so columns of euros line up.\n\nType follows the Anthropic pairing the user asked for (a geometric grotesque over a text serif), set with free look-alikes embedded in the file: Hanken Grotesk for the interface and the letter's structure (letterhead, references, fee table, footer), Source Serif 4 for the letter's prose and address. The fonts print the same on every machine. The theme is light only. The office-daylight scene is the world, and a dark mode would turn the paper metaphor upside down.",
     "keyCharacteristics": [
       "A real-scale A4 sheet with a layered paper shadow is the centrepiece; panels frame it rather than compete with it.",
-      "One accent ink (navy #1f3864); all tints are navy tints, never a second hue.",
+      "One accent ink (bordeaux #9d202e); all tints are bordeaux tints, never a second hue.",
       "Two families, one pairing: Hanken Grotesk (UI and letter structure) and Source Serif 4 (letter prose); tabular numerals everywhere.",
       "Hairline rules (1px) and 6–8px radii instead of cards and heavy borders.",
       "Flat panels; shadows are reserved for paper and for floating layers.",
@@ -602,12 +602,12 @@
     "rules": [
       {
         "name": "The One Ink Rule",
-        "body": "Navy is the only accent. Emphasis, selection, focus and the letter-to-field highlight are all navy or navy tints. There is no second highlight hue. Green, amber and red are status signals, not accents.",
+        "body": "Bordeaux is the only accent. Emphasis, selection, focus and the letter-to-field highlight are all bordeaux or bordeaux tints. There is no second highlight hue. Green, amber and red are status signals, not accents.",
         "section": "colors"
       },
       {
         "name": "The Desk Is Warm, the Ink Is Cool Rule",
-        "body": "Surfaces sit at hue 75 (warm grey) and inks sit at hue 262 (the navy's blue). Don't introduce neutrals outside these two hues.",
+        "body": "Surfaces sit at hue 75 (warm grey) and inks sit at hue 30 (a near-black with the faintest warmth). Don't introduce neutrals outside these two hues.",
         "section": "colors"
       },
       {
@@ -638,7 +638,7 @@
     ],
     "dos": [
       "Do keep the A4 sheet at the centre of any view that edits letter content, and let the controls around it change it live.",
-      "Do use navy (#1f3864) as the single accent for the primary action, selection and focus, and navy tints for every highlight, including the letter-to-field link.",
+      "Do use bordeaux (#9d202e) as the single accent for the primary action, selection and focus, and bordeaux tints for every highlight, including the letter-to-field link.",
       "Do set every amount in tabular figures and right-align it.",
       "Do keep letter paragraphs left-aligned and set \"1er\" as a superscript ordinal.",
       "Do show placeholder text only on the on-screen letter and make sure the print render never contains it.",
@@ -646,7 +646,7 @@
       "Do embed Hanken Grotesk and Source Serif 4 in the file so the app and the letter render identically offline."
     ],
     "donts": [
-      "Don't introduce a second accent hue. Amber, green and red are status signals only, and the field highlight is navy, not yellow.",
+      "Don't introduce a second accent hue. Amber, green and red are status signals only, and the field highlight is bordeaux, not yellow.",
       "Don't justify letter text.",
       "Don't add a second type family or a system display face.",
       "Don't add a dark theme; the world is an office in daylight.",
