@@ -1,0 +1,1508 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Courriers d'honoraires — ALTHO EXPERTISE</title>
+<style>
+@font-face { font-family: "Hanken Grotesk"; font-style: normal; font-weight: 400 700; font-display: block;
+  src: url(data:font/woff2;base64,/*FONT_SANS*/) format("woff2"); }
+@font-face { font-family: "Source Serif 4"; font-style: normal; font-weight: 400 700; font-display: block;
+  src: url(data:font/woff2;base64,/*FONT_SERIF*/) format("woff2"); }
+@font-face { font-family: "Source Serif 4"; font-style: italic; font-weight: 400; font-display: block;
+  src: url(data:font/woff2;base64,/*FONT_SERIF_ITALIC*/) format("woff2"); }
+
+:root {
+  --desk: oklch(93.5% 0.006 75);
+  --desk-deep: oklch(90% 0.008 75);
+  --panel: oklch(98.6% 0.003 75);
+  --paper: #fff;
+  --ink: oklch(21% 0.006 30);
+  --ink-2: oklch(38% 0.008 30);
+  --ink-3: oklch(48% 0.008 30);
+  --rule: oklch(87.5% 0.007 75);
+  --rule-soft: oklch(92% 0.005 75);
+  --brand: #9d202e;
+  --brand-hover: #7c1823;
+  --brand-tint: oklch(95.5% 0.018 18);
+  --brand-tint-2: oklch(90.5% 0.042 18);
+  --up: oklch(45% 0.11 150);
+  --warn-tint: oklch(95% 0.045 80);
+  --danger: oklch(50% 0.17 27);
+  --danger-tint: oklch(95.5% 0.03 27);
+  --r-s: 6px;
+  --r-m: 8px;
+  --shadow-paper: 0 1px 2px oklch(28% 0.01 30 / 0.10), 0 8px 24px oklch(28% 0.01 30 / 0.10), 0 24px 60px oklch(28% 0.01 30 / 0.08);
+  --shadow-pop: 0 4px 12px oklch(28% 0.01 30 / 0.14), 0 16px 40px oklch(28% 0.01 30 / 0.12);
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  font-family: "Hanken Grotesk", "Segoe UI", system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.45;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+  -webkit-font-smoothing: antialiased;
+  accent-color: var(--brand);
+  caret-color: var(--brand);
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; }
+body { background: var(--desk); }
+::selection { background: var(--brand-tint-2); color: var(--ink); }
+* { scrollbar-width: thin; scrollbar-color: oklch(78% 0.01 75) transparent; }
+:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; border-radius: 3px; }
+button, input, select, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; }
+[hidden] { display: none !important; }
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+svg.i { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ---------- Barre haute ---------- */
+.app { display: grid; grid-template-rows: 56px 1fr; grid-template-columns: minmax(0, 1fr); height: 100vh; }
+.topbar { display: flex; align-items: center; gap: 28px; padding: 0 20px; background: var(--panel); border-bottom: 1px solid var(--rule); }
+.brand { display: flex; align-items: center; gap: 12px; line-height: 1.1; min-width: 0; }
+.brand img { height: 30px; width: auto; display: block; }
+.brand span { font-size: 12.5px; color: var(--ink-3); white-space: nowrap; }
+.tabs { display: flex; gap: 2px; height: 100%; }
+.tab { position: relative; display: flex; align-items: center; padding: 0 14px; border: 0; background: none; color: var(--ink-2); font-weight: 600; font-size: 14.5px; }
+.tab:hover { color: var(--ink); }
+.tab[aria-selected="true"] { color: var(--brand); }
+.tab[aria-selected="true"]::after { content: ""; position: absolute; left: 10px; right: 10px; bottom: 0; height: 2px; background: var(--brand); border-radius: 2px 2px 0 0; }
+.tab .count { margin-left: 6px; font-weight: 600; font-size: 12.5px; color: var(--ink-3); }
+.topbar .spacer { flex: 1; }
+.saved { font-size: 12.5px; color: var(--ink-3); display: flex; align-items: center; gap: 6px; white-space: nowrap; }
+
+.btn { display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 14px; border-radius: var(--r-s); border: 1px solid var(--rule); background: var(--paper); font-weight: 600; font-size: 14px; color: var(--ink); white-space: nowrap; transition: background .15s, border-color .15s, color .15s; }
+.btn:hover { background: var(--rule-soft); }
+.btn:disabled { opacity: .45; cursor: not-allowed; }
+.btn.primary { background: var(--brand); border-color: var(--brand); color: #fff; }
+.btn.primary:hover { background: var(--brand-hover); }
+.btn.quiet { border-color: transparent; background: transparent; color: var(--ink-2); }
+.btn.quiet:hover { background: var(--desk-deep); color: var(--ink); }
+.btn.danger { color: var(--danger); }
+.btn.danger:hover { background: var(--danger-tint); }
+.btn.primary.danger-fill { background: var(--danger); border-color: var(--danger); color: #fff; }
+.btn.primary.danger-fill:hover { background: oklch(44% 0.16 27); }
+.btn.small { height: 30px; padding: 0 10px; font-size: 13.5px; }
+.split { display: inline-flex; }
+.label-short { display: none; }
+.split .btn.primary:first-child { border-radius: var(--r-s) 0 0 var(--r-s); }
+.split .btn.primary.more { border-radius: 0 var(--r-s) var(--r-s) 0; padding: 0 9px; border-left: 1px solid oklch(100% 0 0 / 0.25); }
+.menu { position: fixed; inset: auto; margin: 0; padding: 6px; border: 0; border-radius: var(--r-m); background: var(--paper); box-shadow: var(--shadow-pop); min-width: 300px; }
+.menu button { display: flex; width: 100%; align-items: flex-start; gap: 10px; padding: 9px 10px; border: 0; background: none; border-radius: var(--r-s); text-align: left; }
+.menu button:hover, .menu button:focus-visible { background: var(--brand-tint); }
+.menu button small { display: block; color: var(--ink-3); font-size: 12.5px; }
+.menu button:disabled { opacity: .45; cursor: not-allowed; background: none; }
+
+/* ---------- Vue Courriers : le bureau ---------- */
+.view { min-height: 0; }
+.desk { display: grid; grid-template-columns: 300px minmax(0, 1fr) 340px; height: 100%; min-height: 0; }
+.rail { display: flex; flex-direction: column; min-height: 0; background: var(--panel); border-right: 1px solid var(--rule); }
+.rail-head { padding: 14px 14px 10px; display: grid; gap: 10px; border-bottom: 1px solid var(--rule-soft); }
+.search { position: relative; }
+.search svg { position: absolute; left: 10px; top: 50%; translate: 0 -50%; color: var(--ink-3); }
+.search input { width: 100%; height: 36px; padding: 0 10px 0 34px; border: 1px solid var(--rule); border-radius: var(--r-s); background: var(--paper); }
+.search input::placeholder { color: var(--ink-3); }
+.seg { display: flex; padding: 3px; gap: 3px; background: var(--desk); border-radius: var(--r-s); }
+.seg button { flex: 1; height: 28px; border: 0; border-radius: 5px; background: none; font-size: 13px; font-weight: 600; color: var(--ink-2); white-space: nowrap; padding: 0 6px; }
+.seg button[aria-pressed="true"] { background: var(--paper); color: var(--brand); box-shadow: 0 1px 2px oklch(28% 0.01 30 / 0.14); }
+.notice { margin: 10px 14px 0; padding: 10px 12px; border-radius: var(--r-s); background: var(--warn-tint); font-size: 13px; color: oklch(35% 0.08 60); }
+.notice p { margin: 0 0 8px; }
+.notice .row { display: flex; gap: 6px; flex-wrap: wrap; }
+.notice .btn { height: 28px; font-size: 12.5px; padding: 0 9px; }
+.list { flex: 1; overflow: auto; padding: 6px 8px 8px; }
+.item { display: grid; grid-template-columns: 22px 1fr auto; gap: 4px 10px; align-items: center; width: 100%; padding: 9px 8px; border-radius: var(--r-s); border: 0; background: none; text-align: left; cursor: pointer; }
+.item:hover { background: var(--desk); }
+.item[aria-current="true"] { background: var(--brand-tint); }
+.item input { margin: 0; width: 16px; height: 16px; }
+.item .who { min-width: 0; }
+.item .who b { display: block; font-weight: 600; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.item[aria-current="true"] .who b { color: var(--brand); }
+.item .who span { display: block; font-size: 12.5px; color: var(--ink-3); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.item .amt { text-align: right; font-size: 13.5px; font-weight: 600; }
+.item .amt span { display: inline; font-size: 12px; font-weight: 600; color: var(--ink-3); margin-left: 1px; }
+.item.off .who b, .item.off .amt { color: var(--ink-3); }
+.empty-list { padding: 28px 16px; text-align: center; color: var(--ink-3); font-size: 13.5px; }
+.rail-foot { padding: 10px 14px 12px; border-top: 1px solid var(--rule-soft); font-size: 12.5px; color: var(--ink-3); display: grid; gap: 2px; }
+.rail-foot b { color: var(--ink); font-weight: 600; }
+
+.stage { display: flex; flex-direction: column; min-width: 0; min-height: 0; }
+.stage-bar { display: flex; align-items: center; gap: 8px; padding: 10px 18px; min-height: 52px; }
+.stage-bar .title { font-weight: 600; font-size: 14.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; flex: 0 1 auto; }
+#stage-chips { display: flex; gap: 6px; flex: none; }
+.stage-bar .title span { color: var(--ink-3); font-weight: 400; }
+.stage-bar .spacer { flex: 1; }
+.chip { display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 10px; border-radius: 13px; font-size: 12.5px; font-weight: 600; background: var(--desk-deep); color: var(--ink-2); white-space: nowrap; }
+.chip.go { background: var(--brand-tint); color: var(--brand); }
+.chip.warn { background: var(--warn-tint); color: oklch(38% 0.1 60); }
+.toggle { display: inline-flex; align-items: center; gap: 8px; font-size: 13.5px; font-weight: 600; color: var(--ink-2); cursor: pointer; white-space: nowrap; }
+.toggle input { appearance: none; width: 30px; height: 18px; margin: 0; border-radius: 9px; background: var(--rule); position: relative; transition: background .18s var(--ease); cursor: pointer; }
+.toggle input::after { content: ""; position: absolute; top: 2px; left: 2px; width: 14px; height: 14px; border-radius: 50%; background: #fff; box-shadow: 0 1px 2px oklch(28% 0.01 30 / 0.3); transition: translate .18s var(--ease); }
+.toggle input:checked { background: var(--brand); }
+.toggle input:checked::after { translate: 12px 0; }
+.stage-scroll { flex: 1; min-height: 0; overflow: auto; display: flex; justify-content: safe center; align-items: flex-start; padding: 6px 24px 32px; }
+.sheet-frame { position: relative; flex: none; }
+.sheet-frame > .sheet { position: absolute; left: 0; top: 0; transform-origin: 0 0; box-shadow: var(--shadow-paper); }
+.nav-arrows { display: inline-flex; gap: 2px; }
+.icon-btn { display: inline-grid; place-items: center; width: 32px; height: 32px; border-radius: var(--r-s); border: 0; background: none; color: var(--ink-2); }
+.icon-btn:hover { background: var(--desk-deep); color: var(--ink); }
+.icon-btn:disabled { opacity: .35; cursor: not-allowed; background: none; }
+
+/* ---------- Fiche client ---------- */
+.card-side { background: var(--panel); border-left: 1px solid var(--rule); overflow: auto; min-height: 0; }
+.fiche { padding: 16px 18px 28px; display: grid; gap: 22px; }
+.fiche h2 { margin: 0; font-size: 18px; font-weight: 700; line-height: 1.25; overflow-wrap: anywhere; }
+.fiche h3 { margin: 0 0 10px; font-size: 12.5px; font-weight: 700; color: var(--ink-2); text-transform: uppercase; letter-spacing: 0.06em; }
+.fields { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px 10px; }
+.f { display: grid; gap: 4px; grid-column: span 6; min-width: 0; }
+.f.s2 { grid-column: span 2; } .f.s3 { grid-column: span 3; } .f.s4 { grid-column: span 4; }
+.f label, .f .lab { font-size: 12.5px; font-weight: 600; color: var(--ink-2); }
+.f input, .f select, .f textarea { width: 100%; height: 34px; padding: 0 9px; border: 1px solid var(--rule); border-radius: var(--r-s); background: var(--paper); transition: border-color .15s, box-shadow .15s; }
+.f textarea { height: auto; padding: 8px 9px; resize: vertical; line-height: 1.45; }
+.f input:hover, .f select:hover, .f textarea:hover { border-color: oklch(80% 0.01 75); }
+.f input:focus, .f select:focus, .f textarea:focus { outline: none; border-color: var(--brand); box-shadow: 0 0 0 3px var(--brand-tint-2); }
+.f input.num { text-align: right; }
+.f .hint { font-size: 12px; color: var(--ink-3); }
+.f .toggle input { width: 30px; height: 18px; padding: 0; border: 0; box-shadow: none; }
+.f .toggle { font-size: 14px; color: var(--ink); }
+.f.invalid input { border-color: var(--danger); box-shadow: 0 0 0 3px var(--danger-tint); }
+.f .err { font-size: 12px; color: var(--danger); }
+.fees { width: 100%; border-collapse: collapse; font-size: 14px; }
+.fees th { font-size: 12px; font-weight: 600; color: var(--ink-3); text-align: right; padding: 0 0 6px; }
+.fees th:first-child { text-align: left; }
+.fees td { padding: 5px 0; border-top: 1px solid var(--rule-soft); vertical-align: middle; }
+.fees td.m { font-weight: 600; padding-right: 8px; }
+.fees td.m small { display: block; font-weight: 400; color: var(--ink-3); font-size: 12px; }
+.fees td.in { width: 96px; padding-left: 6px; }
+.fees td.in .pct input { padding-right: 24px; }
+.hint-line { margin: 10px 0 0; font-size: 12.5px; color: var(--ink-3); }
+.fees td.in input { width: 100%; height: 32px; padding: 0 8px; text-align: right; border: 1px solid var(--rule); border-radius: var(--r-s); background: var(--paper); }
+.fees td.in input:focus { outline: none; border-color: var(--brand); box-shadow: 0 0 0 3px var(--brand-tint-2); }
+.fees td.in input.ov { font-weight: 400; }
+.fees td.in input.ov::placeholder { color: var(--ink-3); font-style: normal; opacity: 1; }
+.fees tr.manual td.in input.ov { font-weight: 700; color: var(--brand); border-color: var(--brand-tint-2); }
+.fees th { padding-right: 4px; }
+.h3-note { font-weight: 400; text-transform: none; letter-spacing: 0; color: var(--ink-3); }
+.fees td.out { width: 88px; text-align: right; font-weight: 600; }
+.fees td.out small { display: block; font-weight: 600; font-size: 12px; color: var(--up); }
+.fees tr.tot td { border-top: 1px solid var(--rule); font-weight: 700; padding-top: 8px; }
+.fees tr.tot td.out small { color: var(--up); }
+.radios { display: flex; gap: 3px; padding: 3px; background: var(--desk); border-radius: var(--r-s); }
+.radios label { flex: 1; position: relative; }
+.radios input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.radios span { display: grid; place-items: center; height: 30px; border-radius: 5px; font-size: 13.5px; font-weight: 600; color: var(--ink-2); }
+.radios input:checked + span { background: var(--paper); color: var(--brand); box-shadow: 0 1px 2px oklch(28% 0.01 30 / 0.14); }
+.radios input:focus-visible + span { outline: 2px solid var(--brand); outline-offset: 1px; }
+.fiche-actions { display: flex; justify-content: space-between; gap: 8px; border-top: 1px solid var(--rule-soft); padding-top: 14px; }
+
+/* ---------- La lettre ---------- */
+.sheet { width: 210mm; height: 297mm; background: var(--paper); color: #1a1a1a; position: relative; overflow: hidden;
+  font-family: "Source Serif 4", Georgia, serif; font-size: 9.5pt; line-height: 1.33; font-optical-sizing: auto; font-variant-numeric: tabular-nums; }
+.sheet .lh { position: absolute; left: 14.8mm; top: 8mm; width: 181mm; height: auto; }
+.sheet .pied { position: absolute; left: 15.2mm; bottom: 7mm; width: 180mm; height: auto; }
+.sheet table, .sheet .refs { font-family: "Hanken Grotesk", Arial, sans-serif; }
+.sheet .dest { position: absolute; left: 110mm; top: 52mm; width: 82mm; font-size: 10.2pt; line-height: 1.38; }
+.sheet .dest b { font-weight: 700; }
+.sheet .refs { position: absolute; left: 20mm; top: 52mm; width: 80mm; font-size: 9pt; color: #3d3d3d; line-height: 1.5; }
+.sheet .refs b { color: #1a1a1a; font-weight: 600; }
+.sheet .flow { position: absolute; left: 20mm; right: 20mm; top: 95mm; font-size: var(--txt-size, 9.5pt); }
+.sheet .flow p { text-align: var(--txt-align, justify); }
+.sheet .flow .objet { text-align: left; }
+.sheet .objet { font-weight: 700; margin: 0 0 4.5mm; }
+.sheet p { margin: 0 0 2.2mm; text-align: justify; hyphens: auto; -webkit-hyphens: auto; }
+.sheet .flow strong { font-weight: 700; }
+.sheet .flow em { font-style: italic; }
+.sheet .salut { margin-bottom: 2.4mm; }
+.sheet table { width: 100%; border-collapse: collapse; margin: 1mm 0 1.5mm; font-size: 0.93em; }
+.sheet th { background: #9d202e; color: #fff; font-weight: 600; text-align: right; padding: 1.3mm 2mm; white-space: nowrap; }
+.sheet th:first-child { text-align: left; }
+.sheet td { padding: 1.1mm 2mm; text-align: right; border-bottom: 0.25mm solid #e3dcdc; white-space: nowrap; }
+.sheet td:first-child { text-align: left; white-space: normal; }
+.sheet th:last-child, .sheet td:last-child { width: 38mm; }
+.sheet table { margin-top: 2mm; margin-bottom: 4mm; }
+.sheet tr.total td { font-weight: 700; background: #f6ebec; border-bottom: 0.3mm solid #9d202e; border-top: 0.3mm solid #9d202e; }
+.sheet sup { font-size: 0.66em; line-height: 0; vertical-align: 0.5em; }
+.sheet .mens { font-size: 8.8pt; font-style: italic; color: #3d3d3d; margin: 0 0 3.5mm; }
+.sheet .sign { margin: 4mm 0 0 90mm; }
+.sheet .sign b { display: block; }
+.sheet .sign i { font-size: 9.4pt; color: #3d3d3d; }
+.sheet .empty-line { color: #9aa3b2; font-style: italic; }
+.sheet .window { position: absolute; left: 100mm; top: 47mm; width: 100mm; height: 45mm; border: 0.5mm dashed oklch(50% 0.14 18 / 0.8); border-radius: 2mm; background: oklch(55% 0.12 18 / 0.05); pointer-events: none; }
+.sheet .window span { position: absolute; right: 2mm; bottom: 1.4mm; font-size: 7pt; color: oklch(42% 0.13 18); font-weight: 600; }
+.sheet .fold { position: absolute; left: 0; width: 5mm; border-top: 0.3mm solid #c9ced8; pointer-events: none; }
+.sheet [data-f] { border-radius: 1mm; transition: background-color .18s var(--ease), box-shadow .18s var(--ease); }
+.sheet.live [data-f] { cursor: pointer; }
+.sheet.live [data-f]:hover { background: oklch(96.5% 0.016 18); }
+.sheet [data-f].hl { background: oklch(92% 0.04 18); box-shadow: 0 0 0 1.2mm oklch(92% 0.04 18); }
+
+/* ---------- Vue Clients ---------- */
+.sheetview { display: flex; flex-direction: column; height: 100%; min-height: 0; }
+.toolbar { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; padding: 14px 20px; background: var(--panel); border-bottom: 1px solid var(--rule); }
+.toolbar .spacer { flex: 1; }
+.totals { display: flex; gap: 22px; padding: 12px 20px; font-size: 13.5px; color: var(--ink-2); flex-wrap: wrap; }
+.totals b { color: var(--ink); font-weight: 700; font-size: 15px; }
+.totals .up { color: var(--up); }
+.grid-wrap { --gut: 20px; flex: 1; min-height: 0; overflow: auto; padding: 0 20px 24px 0; }
+table.grid { margin-left: var(--gut); }
+table.grid { border-collapse: separate; border-spacing: 0; font-size: 13.5px; background: var(--paper); border: 1px solid var(--rule); border-radius: var(--r-m); }
+.grid th { position: sticky; top: 0; z-index: 1; background: var(--panel); text-align: left; font-size: 12px; font-weight: 700; color: var(--ink-2); padding: 8px 6px; border-bottom: 1px solid var(--rule); white-space: nowrap; }
+.grid th.r { text-align: right; }
+.grid th:first-child { border-top-left-radius: var(--r-m); }
+.grid th:last-child { border-top-right-radius: var(--r-m); }
+.grid td { padding: 3px 3px; border-bottom: 1px solid var(--rule-soft); white-space: nowrap; }
+.grid tr:last-child td { border-bottom: 0; }
+.grid td:nth-child(-n+3), .grid th:nth-child(-n+3) { position: sticky; background: var(--paper); z-index: 1; }
+.grid th:nth-child(-n+3) { background: var(--panel); z-index: 2; }
+.grid td:nth-child(1), .grid th:nth-child(1) { left: var(--gut); width: 64px; min-width: 64px; box-shadow: calc(-1 * var(--gut)) 0 0 0 var(--desk); }
+.grid td:nth-child(2), .grid th:nth-child(2) { left: calc(var(--gut) + 64px); }
+.grid td:nth-child(3), .grid th:nth-child(3) { left: calc(var(--gut) + 134px); box-shadow: 6px 0 8px -6px oklch(28% 0.01 30 / 0.22); }
+.grid tr:hover td:nth-child(-n+3) { background: oklch(97.5% 0.004 75); }
+.grid tr:hover td { background: oklch(97.5% 0.004 75); }
+.grid td input, .grid td select { height: 30px; padding: 0 6px; border: 1px solid transparent; border-radius: 5px; background: none; width: 100%; }
+.grid td input:hover, .grid td select:hover { border-color: var(--rule); }
+.grid td input:focus, .grid td select:focus { outline: none; border-color: var(--brand); background: var(--paper); box-shadow: 0 0 0 3px var(--brand-tint-2); }
+.grid td input.num { text-align: right; }
+.grid td.ovc input::placeholder { color: var(--ink-3); opacity: 1; }
+.grid td.ovc.manual input { font-weight: 700; color: var(--brand); }
+.grid th.new, .grid td.ovc { background: oklch(98.5% 0.006 18); }
+.grid td.calc { text-align: right; font-weight: 600; padding: 0 8px; }
+.grid td.calc small { color: var(--up); font-weight: 600; margin-left: 4px; }
+.grid td.ck { text-align: center; }
+.grid td.ck input { width: 16px; height: 16px; }
+.grid .tag { font-size: 11.5px; font-weight: 600; color: oklch(40% 0.1 60); background: var(--warn-tint); padding: 1px 6px; border-radius: 4px; margin-left: 4px; }
+.grid-empty { max-width: 560px; margin: 56px auto; text-align: center; }
+.grid-empty h2 { font-size: 20px; margin: 0 0 6px; }
+.grid-empty p { color: var(--ink-2); margin: 0 0 18px; }
+.grid-empty .row { display: flex; gap: 8px; justify-content: center; }
+
+/* ---------- Vue Réglages ---------- */
+.settings { display: grid; grid-template-columns: minmax(0, 620px) minmax(0, 1fr); height: 100%; min-height: 0; }
+.settings-form { overflow: auto; background: var(--panel); border-right: 1px solid var(--rule); }
+.settings-form section { padding: 20px 24px 22px; border-bottom: 1px solid var(--rule-soft); }
+.settings-form h2 { margin: 0 0 4px; font-size: 16px; font-weight: 700; }
+.settings-form .lead { margin: 0 0 14px; font-size: 13px; color: var(--ink-3); }
+.pct { position: relative; }
+.pct input { padding-right: 26px; }
+.pct::after { content: "%"; position: absolute; right: 10px; top: 50%; translate: 0 -50%; font-size: 13px; color: var(--ink-3); pointer-events: none; }
+.eur::after { content: "€"; }
+.f-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+.fbar { display: inline-flex; align-items: center; gap: 2px; }
+.fb { display: inline-grid; place-items: center; min-width: 28px; height: 28px; padding: 0 4px; border: 0; border-radius: 5px; background: none; color: var(--ink-2); font-size: 14px; }
+.fb:hover { background: var(--desk-deep); color: var(--ink); }
+.fb[aria-pressed="true"] { background: var(--brand-tint); color: var(--brand); }
+.fb svg.i { width: 16px; height: 16px; }
+.fbar .sep { width: 1px; height: 18px; background: var(--rule); margin: 0 4px; }
+.fsize { height: 28px; border: 1px solid var(--rule); border-radius: 5px; background: var(--paper); font-size: 13px; padding: 0 4px; }
+.f select { width: 100%; height: 34px; padding: 0 8px; border: 1px solid var(--rule); border-radius: var(--r-s); background: var(--paper); }
+.balises { display: flex; gap: 6px; flex-wrap: wrap; margin: 0 0 12px; }
+.balises code { font-family: inherit; font-size: 12.5px; font-weight: 600; background: var(--desk); padding: 2px 7px; border-radius: 4px; color: var(--ink-2); }
+.settings .stage-scroll { padding-top: 18px; }
+
+/* ---------- Dialogue et toast ---------- */
+dialog { border: 0; border-radius: 10px; padding: 0; width: min(560px, calc(100vw - 32px)); box-shadow: var(--shadow-pop); color: var(--ink); }
+dialog::backdrop { background: oklch(25% 0.01 30 / 0.35); }
+dialog .d-body { padding: 22px 24px 8px; }
+dialog h2 { margin: 0 0 8px; font-size: 18px; }
+dialog p { margin: 0 0 10px; color: var(--ink-2); }
+dialog ul { margin: 0 0 12px; padding-left: 18px; color: var(--ink-2); font-size: 14px; }
+dialog .d-actions { display: flex; justify-content: flex-end; gap: 8px; padding: 14px 24px 20px; flex-wrap: wrap; }
+.toast { position: fixed; left: 50%; bottom: 24px; translate: -50% 0; display: flex; align-items: center; gap: 14px; padding: 10px 12px 10px 16px; border-radius: var(--r-m); background: var(--ink); color: #fff; font-size: 14px; box-shadow: var(--shadow-pop); z-index: 50; max-width: calc(100vw - 32px); }
+.toast .btn { height: 30px; background: transparent; color: #fff; border-color: oklch(100% 0 0 / 0.3); }
+.toast .btn:hover { background: oklch(100% 0 0 / 0.1); }
+
+/* ---------- Écrans étroits ---------- */
+@media (max-width: 1180px) {
+  .desk { grid-template-columns: 270px minmax(0, 1fr); grid-template-rows: auto; }
+  .card-side { grid-column: 1 / -1; border-left: 0; border-top: 1px solid var(--rule); }
+  .desk { overflow: auto; height: 100%; }
+  .stage { min-height: 70vh; }
+  .settings { grid-template-columns: 1fr; overflow: auto; }
+  .settings-form { overflow: visible; border-right: 0; }
+}
+@media (max-width: 760px) {
+  .app { grid-template-rows: auto 1fr; height: auto; min-height: 100vh; }
+  .topbar { flex-wrap: wrap; gap: 8px 14px; padding: 10px 16px 0; }
+  .tabs { order: 3; width: 100%; height: 42px; overflow-x: auto; }
+  .topbar .saved { display: none; }
+  .topbar .split { margin-left: auto; }
+  .topbar .split .label-long { display: none; }
+  .topbar .split .label-short { display: inline; }
+  .toggle.zoom { display: none; }
+  .desk { display: block; height: auto; overflow: visible; }
+  .rail { border-right: 0; border-bottom: 1px solid var(--rule); max-height: 46vh; }
+  .stage { min-height: 0; }
+  .stage-bar { flex-wrap: wrap; padding: 10px 16px; }
+  .stage-scroll { padding: 4px 16px 20px; overflow: hidden; }
+  .toolbar, .totals { padding-left: 16px; padding-right: 16px; }
+  .grid-wrap { --gut: 16px; padding: 0 16px 20px 0; }
+  .settings-form section { padding: 18px 16px; }
+  .f.s2, .f.s3, .f.s4 { grid-column: span 6; }
+  .fields .f.s2.keep { grid-column: span 2; }
+  .fields .f.s4.keep { grid-column: span 4; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+
+/* ---------- Impression ---------- */
+#print-root { display: none; }
+@media print {
+  @page { size: A4 portrait; margin: 0; }
+  html, body { background: #fff; height: auto; }
+  .app, dialog, .toast, .menu { display: none !important; }
+  #print-root { display: block; }
+  #print-root .sheet { break-after: page; page-break-after: always; box-shadow: none; }
+  #print-root .sheet:last-child { break-after: auto; page-break-after: auto; }
+  .sheet .window, .sheet [data-f].hl { background: none !important; box-shadow: none !important; }
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-print" viewBox="0 0 24 24"><path d="M6 9V3h12v6"/><rect x="3" y="9" width="18" height="8" rx="2"/><path d="M6 14h12v7H6z"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+  <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 15V3"/><path d="m7 8 5-5 5 5"/><path d="M4 15v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 15v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16"/><path d="M10 11v6M14 11v6"/><path d="M6 7l1 13h10l1-13"/><path d="M9 7V4h6v3"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></symbol>
+  <symbol id="i-al-left" viewBox="0 0 24 24"><path d="M4 6h16M4 10h10M4 14h16M4 18h10"/></symbol>
+  <symbol id="i-al-justify" viewBox="0 0 24 24"><path d="M4 6h16M4 10h16M4 14h16M4 18h16"/></symbol>
+  <symbol id="i-al-center" viewBox="0 0 24 24"><path d="M4 6h16M7 10h10M4 14h16M7 18h10"/></symbol>
+  <symbol id="i-al-auto" viewBox="0 0 24 24"><path d="M4 6h16M4 10h16M4 14h9"/><circle cx="18" cy="17" r="2.5"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 5 5L20 7"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/></symbol>
+</svg>
+
+<div class="app">
+  <header class="topbar">
+    <div class="brand"><img id="brand-logo" alt="ALTHO EXPERTISE" src="data:image/png;base64,/*IMG_LOGO*/"><span>Révision des honoraires</span></div>
+    <nav class="tabs" role="tablist" aria-label="Sections">
+      <button class="tab" role="tab" data-view="courriers" aria-selected="true">Courriers</button>
+      <button class="tab" role="tab" data-view="clients" aria-selected="false">Clients <span class="count" id="count-clients"></span></button>
+      <button class="tab" role="tab" data-view="reglages" aria-selected="false">Réglages</button>
+    </nav>
+    <div class="spacer"></div>
+    <span class="saved" id="saved"><svg class="i"><use href="#i-check"/></svg>Enregistré sur cet ordinateur</span>
+    <div class="split">
+      <button class="btn primary" id="print-main"><svg class="i"><use href="#i-print"/></svg><span><span class="label-long">Imprimer les courriers postaux</span><span class="label-short">Imprimer</span> <span id="print-main-n"></span></span></button>
+      <button class="btn primary more" id="print-more" aria-haspopup="menu" aria-expanded="false" aria-label="Autres impressions"><svg class="i"><use href="#i-down"/></svg></button>
+    </div>
+  </header>
+
+  <!-- Courriers -->
+  <main class="view" id="view-courriers">
+    <div class="desk">
+      <aside class="rail" aria-label="Clients">
+        <div class="rail-head">
+          <label class="search"><svg class="i"><use href="#i-search"/></svg><span class="visually-hidden">Rechercher un client</span>
+            <input type="search" id="search" placeholder="Rechercher un client, une ville…" autocomplete="off"></label>
+          <div class="seg" role="group" aria-label="Filtrer">
+            <button data-filter="tous" aria-pressed="true">Tous</button>
+            <button data-filter="poste" aria-pressed="false">Poste</button>
+            <button data-filter="email" aria-pressed="false">E-mail</button>
+            <button data-filter="non" aria-pressed="false">Non envoyés</button>
+          </div>
+        </div>
+        <div class="notice" id="demo-notice" hidden>
+          <p>Ces clients sont des exemples fictifs. Importez votre liste ou supprimez-les.</p>
+          <div class="row">
+            <button class="btn" data-action="import"><svg class="i"><use href="#i-upload"/></svg>Importer mes clients</button>
+            <button class="btn quiet" data-action="drop-demo">Supprimer les exemples</button>
+          </div>
+        </div>
+        <div class="list" id="list" role="listbox" aria-label="Liste des clients" tabindex="0"></div>
+        <div class="rail-foot" id="rail-foot"></div>
+      </aside>
+
+      <section class="stage" aria-label="Aperçu du courrier">
+        <div class="stage-bar">
+          <div class="nav-arrows">
+            <button class="icon-btn" id="prev" aria-label="Client précédent"><svg class="i"><use href="#i-left"/></svg></button>
+            <button class="icon-btn" id="next" aria-label="Client suivant"><svg class="i"><use href="#i-right"/></svg></button>
+          </div>
+          <div class="title" id="stage-title"></div>
+          <span id="stage-chips"></span>
+          <div class="spacer"></div>
+          <label class="toggle zoom" title="Affiche la lettre à sa taille réelle pour la relire"><input type="checkbox" id="zoom-toggle"> Taille réelle</label>
+          <label class="toggle" title="Affiche la fenêtre d'une enveloppe DL pour vérifier que l'adresse y tient"><input type="checkbox" id="window-toggle"> Enveloppe</label>
+          <button class="btn small" id="print-one" title="Imprimer ou enregistrer en PDF ce courrier seulement"><svg class="i"><use href="#i-print"/></svg>Cette lettre</button>
+        </div>
+        <div class="stage-scroll" id="stage-scroll"><div class="sheet-frame" id="sheet-frame"></div></div>
+      </section>
+
+      <aside class="card-side" aria-label="Fiche du client" id="fiche"></aside>
+    </div>
+  </main>
+
+  <!-- Clients -->
+  <main class="view" id="view-clients" hidden>
+    <div class="sheetview">
+      <div class="toolbar">
+        <button class="btn primary" data-action="import"><svg class="i"><use href="#i-upload"/></svg>Importer un fichier Excel ou CSV</button>
+        <button class="btn" data-action="modele"><svg class="i"><use href="#i-download"/></svg>Modèle Excel à remplir</button>
+        <button class="btn" data-action="add"><svg class="i"><use href="#i-plus"/></svg>Ajouter un client</button>
+        <div class="spacer"></div>
+        <button class="btn quiet" data-action="drop-demo" id="drop-demo-2" hidden>Supprimer les exemples</button>
+        <button class="btn quiet" data-action="export-csv"><svg class="i"><use href="#i-download"/></svg>Exporter pour Excel</button>
+      </div>
+      <div class="totals" id="totals"></div>
+      <div class="grid-wrap" id="grid-wrap"></div>
+    </div>
+  </main>
+
+  <!-- Réglages -->
+  <main class="view" id="view-reglages" hidden>
+    <div class="settings">
+      <form class="settings-form" id="settings-form" autocomplete="off" onsubmit="return false"></form>
+      <section class="stage" aria-label="Aperçu">
+        <div class="stage-bar"><div class="title" id="settings-title"></div></div>
+        <div class="stage-scroll" id="settings-scroll"><div class="sheet-frame" id="settings-frame"></div></div>
+      </section>
+    </div>
+  </main>
+</div>
+
+<div class="menu" id="print-menu" popover role="menu">
+  <button role="menuitem" data-print="poste"><svg class="i"><use href="#i-print"/></svg><span>Courriers postaux <b data-n="poste"></b><small>À envoyer, mode Courrier ou Les deux</small></span></button>
+  <button role="menuitem" data-print="email"><svg class="i"><use href="#i-mail"/></svg><span>Courriers pour e-mail <b data-n="email"></b><small>Choisissez « Enregistrer au format PDF » dans la fenêtre d'impression</small></span></button>
+  <button role="menuitem" data-print="tous"><svg class="i"><use href="#i-file"/></svg><span>Tous les courriers à envoyer <b data-n="tous"></b><small>Poste et e-mail, un courrier par page</small></span></button>
+</div>
+
+<dialog id="dialog"></dialog>
+<input type="file" id="file-input" hidden>
+<div id="print-root"></div>
+
+<script>
+"use strict";
+/* ================================================================== données */
+const STORE_KEY = "altho-courriers-v1";
+const IMG = { entete: "data:image/png;base64,/*IMG_ENTETE*/", pied: "data:image/png;base64,/*IMG_PIED*/" };
+const MODELE_XLSX = "/*MODELE_XLSX*/";
+/* Version personnelle : liste de clients du cabinet intégrée au fichier (jamais versée dans le dépôt) */
+const EMBED = /*EMBED_CLIENTS*/null;
+const MISSIONS = [{ k: "compta" }, { k: "paye" }, { k: "bilan" }, { k: "jur" }, { k: "pa" }];
+const MKEYS = MISSIONS.map(m => m.k);
+const ARRONDIS = { centime: { v: 0.01, lib: "Au centime" }, dix: { v: 0.1, lib: "Aux 10 centimes" }, euro: { v: 1, lib: "À l'euro" }, cinq: { v: 5, lib: "Aux 5 €" } };
+const RECURRENCE_ADJ = { mensuelle: "mensuelles", trimestrielle: "trimestrielles", semestrielle: "semestrielles", annuelle: "annuelles" };
+const RECURRENCE_SUFFIX = { mensuelle: "/mois", trimestrielle: "/trim.", semestrielle: "/sem.", annuelle: "/an" };
+const PERIODES = {
+  mensuelle: { n: 12, lib: "Mensuelle", par: "par mois" },
+  trimestrielle: { n: 4, lib: "Trimestrielle", par: "par trimestre" },
+  semestrielle: { n: 2, lib: "Semestrielle", par: "par semestre" },
+  annuelle: { n: 1, lib: "Annuelle", par: "par an" },
+};
+function periodeOf(c) { return PERIODES[c.periodicite] ? c.periodicite : (PERIODES[state.settings.periodicite] ? state.settings.periodicite : "aucune"); }
+function parsePeriode(v) {
+  const n = norm(v).replace(/[^a-z0-9]/g, "");
+  if (!n) return "";
+  if (/^(mens|mois|12)/.test(n)) return "mensuelle";
+  if (/^(trim|4)/.test(n)) return "trimestrielle";
+  if (/^(sem|2)/.test(n)) return "semestrielle";
+  if (/^(ann|an$|1$)/.test(n)) return "annuelle";
+  return "";
+}
+const MOIS = ["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"];
+
+function defaultSettings() {
+  const y = new Date().getFullYear();
+  return {
+    cabNom: "ALTHO EXPERTISE",
+    cabAdr1: "141 rue Charles de Gaulle",
+    cabCPVille: "95130 LE PLESSIS-BOUCHARD",
+    cabVille: "Le Plessis-Bouchard",
+    cabContact: "Tél. 01 34 14 53 45 · altho@altho-experts.com · altho-experts.com",
+    cabMentions: "ALTHO EXPERTISE · SAS au capital de 10 000 € · RCS Pontoise 919 706 325 · TVA FR62919706325 · Société d'expertise comptable inscrite au Tableau de l'Ordre des experts-comptables de Paris Île-de-France",
+    signataire: "ERIC PAYET",
+    signataireTitre: "Expert-comptable",
+    dateCourrier: "",
+    dateEffet: `${y + 1}-01-01`,
+    periodicite: "mensuelle",
+    tva: 20,
+    hausse: 3,
+    arrondi: "euro",
+    lib: {
+      compta: "Prestations comptables {recurrence}",
+      paye: "Gestion de la paie (par bulletin de salaire)",
+      bilan: "Facturation annuelle pour le bilan",
+      jur: "Prestation juridique – Approbation des comptes",
+      pa: "Plateforme agréée – facturation électronique",
+    },
+    fmt: { size: 9.5, align: "justify", p: {} },
+    txt: {
+      objet: "Objet : Mise à jour des honoraires à compter du {date_effet}",
+      p1: "Dans le cadre de notre engagement à vous fournir un service de qualité et à maintenir la pérennité de nos prestations, nous allons procéder à une révision de nos tarifs, effective à compter du {date_effet}.",
+      p2: "Cette révision tient compte de la hausse importante et régulière de nos coûts de fonctionnement.",
+      p3: "L'année à venir est également marquée par la généralisation de la facturation électronique : depuis le 1er septembre 2026, toutes les entreprises doivent être en mesure de recevoir leurs factures électroniques via une plateforme agréée, et l'obligation d'émission s'étendra aux PME et micro-entreprises au 1er septembre 2027. Notre cabinet vous accompagne dans cette transition.",
+      p4: "Les nouveaux honoraires sont détaillés comme suit :",
+      p5: "Nous tenons à vous assurer que cette mise à jour reste nécessaire afin de garantir la qualité des services auxquels vous êtes habitués, tout en vous accompagnant dans la gestion optimale de votre activité.",
+      p6: "Nous restons bien entendu à votre entière disposition pour toute information complémentaire concernant cette révision des tarifs. Nous vous remercions une nouvelle fois pour la confiance que vous nous accordez et espérons poursuivre cette collaboration fructueuse.",
+      politesse: "Nous vous prions d'agréer, {civilite}, l'expression de nos salutations distinguées.",
+    },
+  };
+}
+const OLD_DEFAULT_TXT = {"objet": "Objet : révision de nos honoraires au {date_effet}", "p1": "Nous tenons tout d'abord à vous remercier pour la confiance que vous accordez à {cabinet}. Comme chaque année, et conformément aux dispositions de votre lettre de mission, nous procédons à la révision de nos honoraires.", "p2": "Cette révision, que nous avons souhaitée mesurée, tient compte de l'évolution de nos charges (rémunération et formation continue de nos collaborateurs, logiciels, sécurité informatique) ainsi que du renforcement constant des obligations comptables, fiscales, sociales et juridiques qui s'imposent à votre entreprise.", "p3": "L'année à venir est également marquée par la généralisation de la facturation électronique : depuis le 1er septembre 2026, toutes les entreprises doivent être en mesure de recevoir leurs factures électroniques via une plateforme agréée, et l'obligation d'émission s'étendra aux PME et micro-entreprises au 1er septembre 2027. Notre cabinet vous accompagne dans cette transition grâce à une solution de plateforme agréée directement intégrée à votre dossier.", "p4": "À compter du {date_effet}, vos honoraires annuels hors taxes seront les suivants :", "p5": "Les autres conditions de votre lettre de mission demeurent inchangées. Les nouveaux montants seront appliqués automatiquement sur vos prochaines factures et échéances de prélèvement.", "p6": "Votre interlocuteur habituel reste à votre entière disposition pour répondre à vos questions et faire le point sur l'évolution de vos besoins.", "politesse": "Nous vous prions d'agréer, {civilite}, l'expression de nos salutations distinguées."};
+const OLD_DEFAULT_LIB = { compta: "Mission comptable (tenue, révision, bilan, liasse fiscale)", paye: "Mission sociale (bulletins de paie, DSN, déclarations sociales)", jur: "Mission juridique (approbation des comptes, secrétariat juridique)" };
+function demoClients() {
+  return [
+    { code: "C001", civ: "", prenom: "", nom: "", societe: "SARL DURAND BÂTIMENT", raison: "Durand Bâtiment (SARL)", adr1: "5 avenue des Tilleuls", adr2: "", cp: "95120", ville: "Ermont", email: "", cloture: "Décembre", periodicite: "mensuelle", compta: 250, paye: 26, bilan: 600, jur: 400, pa: 0, lm: "Signée", notes: "Exemple fictif", envoyer: true, mode: "courrier" },
+    { code: "C002", civ: "", prenom: "", nom: "", societe: "SAS LEROY CONSEIL", raison: "Leroy Conseil (SAS)", adr1: "Parc d'activités des Bellevues", adr2: "Bât. B – 3 allée Verte", cp: "95610", ville: "Éragny", email: "", cloture: "Juin", periodicite: "trimestrielle", compta: 780, paye: 0, bilan: 1200, jur: 450, pa: 0, lm: "Signée", notes: "", envoyer: true, mode: "email" },
+    { code: "C003", civ: "", prenom: "", nom: "", societe: "EURL LES JARDINS DE CLAIRE", raison: "", adr1: "18 chemin des Vignes", adr2: "", cp: "95130", ville: "Franconville", email: "", cloture: "Décembre", periodicite: "annuelle", compta: 1150, paye: 0, bilan: 0, jur: 350, pa: 0, lm: "", notes: "", envoyer: true, mode: "deux" },
+  ].map(c => ({ ...c, id: uid(), exemple: true }));
+}
+function uid() { return Math.random().toString(36).slice(2, 10); }
+function blankClient(code) {
+  return { id: uid(), code, civ: "", prenom: "", nom: "", societe: "", adr1: "", adr2: "", cp: "", ville: "", email: "", compta: 0, paye: 0, bilan: 0, jur: 0, pa: 0, ov: {}, raison: "", cloture: "", lm: "", ecf: "", notes: "", periodicite: "", envoyer: true, mode: "courrier", exemple: false };
+}
+
+let state = load();
+function load() {
+  let data = null;
+  try { data = JSON.parse(localStorage.getItem(STORE_KEY) || "null"); } catch (e) { data = null; }
+  const base = { settings: defaultSettings(), clients: demoClients(), selectedId: null };
+  if (!data || !Array.isArray(data.clients)) { base.selectedId = base.clients[0].id; return base; }
+  const d = defaultSettings();
+  const s = data.settings || {};
+  const settings = { ...d, ...s, lib: { ...d.lib, ...(s.lib || {}) }, txt: { ...d.txt, ...(s.txt || {}) }, fmt: { ...d.fmt, ...(s.fmt || {}), p: { ...((s.fmt || {}).p || {}) } } };
+  if (/\{hausse\}/.test(settings.txt.p4 || "")) settings.txt.p4 = d.txt.p4; /* ancienne version : taux calculés */
+  for (const k in OLD_DEFAULT_TXT) if (settings.txt[k] === OLD_DEFAULT_TXT[k] || /\{hausse\}/.test(settings.txt[k] || "")) settings.txt[k] = d.txt[k];
+  for (const k in OLD_DEFAULT_LIB) if (settings.lib[k] === OLD_DEFAULT_LIB[k]) settings.lib[k] = d.lib[k];
+  if (!s.signataire) settings.signataire = d.signataire;
+  if (!("periodicite" in s) && "echeances" in s) settings.periodicite = ({ 12: "mensuelle", 4: "trimestrielle", 2: "semestrielle", 1: "annuelle" })[num(s.echeances)] || "aucune";
+  const clients = data.clients.map(c => ({ ...blankClient(""), ...c, ov: { ...(c.ov || {}) } }));
+  return { settings, clients, embedId: data.embedId || null, selectedId: data.selectedId && clients.some(c => c.id === data.selectedId) ? data.selectedId : (clients[0] || {}).id || null };
+}
+let saveTimer = null;
+function save() {
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(() => {
+    const el = document.getElementById("saved");
+    try {
+      localStorage.setItem(STORE_KEY, JSON.stringify(state));
+      el.innerHTML = '<svg class="i"><use href="#i-check"/></svg>Enregistré sur cet ordinateur';
+      el.style.color = "";
+    } catch (e) {
+      el.textContent = "Non enregistré : faites une sauvegarde (Réglages)";
+      el.style.color = "var(--danger)";
+    }
+  }, 250);
+}
+
+/* ================================================================== calculs */
+const fmtEur = new Intl.NumberFormat("fr-FR", { style: "currency", currency: "EUR", maximumFractionDigits: 0 });
+const fmtEur2 = new Intl.NumberFormat("fr-FR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const fmtPct = new Intl.NumberFormat("fr-FR", { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+const eur = v => fmtEur.format(v || 0);
+
+function dec(v) { return v === "" || v == null ? "" : String(v).replace(".", ","); }
+function num(v) {
+  if (typeof v === "number") return isFinite(v) ? v : 0;
+  if (v == null) return 0;
+  const s = String(v).replace(/[\s  €]/g, "").replace(",", ".");
+  const n = parseFloat(s);
+  return isFinite(n) ? n : 0;
+}
+
+/* Nouveau montant : saisi à la main (case modifiée) ou montant actuel + augmentation générale, arrondi */
+function base(c, m) { return Math.max(0, num(c[m])); }
+function isOv(c, m) { return !!c.ov && c.ov[m] != null && c.ov[m] !== ""; }
+function auto(c, m) {
+  const b = base(c, m); if (!b) return 0;
+  const step = (ARRONDIS[state.settings.arrondi] || ARRONDIS.euro).v;
+  return Math.round(Math.round(b * (1 + num(state.settings.hausse) / 100) / step) * step * 100) / 100;
+}
+function amt(c, m) { return isOv(c, m) ? Math.max(0, num(c.ov[m])) : auto(c, m); }
+const eurx = v => (Math.round(v * 100) % 100 ? fmtEur2.format(v) + "\u00a0€" : eur(v));
+function libOf(c, m) { return (state.settings.lib[m] || "").replace(/\{recurrence\}/g, RECURRENCE_ADJ[periodeOf(c)] || "").replace(/\s+/g, " ").trim(); }
+function totals(c) {
+  let n = 0;
+  for (const m of MISSIONS) n += amt(c, m.k);
+  return { n };
+}
+function inPrint(c, kind) {
+  if (!c.envoyer) return false;
+  if (kind === "tous") return true;
+  if (kind === "poste") return c.mode !== "email";
+  if (kind === "email") return c.mode !== "courrier";
+  return false;
+}
+function dateTexte(iso) {
+  const d = iso ? new Date(iso + "T12:00:00") : new Date();
+  if (isNaN(d)) return "";
+  const j = d.getDate();
+  return `${j}${j === 1 ? "er" : ""} ${MOIS[d.getMonth()]} ${d.getFullYear()}`;
+}
+function civLongue(c) { return c.civ === "Mme" ? "Madame" : c.civ === "M." ? "Monsieur" : "Madame, Monsieur"; }
+
+/* ================================================================== rendu de la lettre */
+const esc = s => String(s ?? "").replace(/[&<>"']/g, ch => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch]));
+const sup = html => html.replace(/\b1er\b/g, "1<sup>er</sup>");
+/* Mise en forme dans le texte : **gras** et *italique* */
+const inline = html => html.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>").replace(/(^|[^*])\*(?!\s)(.+?)\*(?!\*)/g, "$1<em>$2</em>");
+const ALIGNS = { left: "left", justify: "justify", center: "center", right: "right" };
+function paraStyle(k) {
+  const f = (state.settings.fmt.p || {})[k] || {}, out = [];
+  if (f.align && ALIGNS[f.align]) out.push(`text-align:${f.align}`);
+  if (f.size) out.push(`font-size:${num(f.size)}pt`);
+  if (f.b) out.push("font-weight:700");
+  if (f.i) out.push("font-style:italic");
+  return out.length ? ` style="${out.join(";")}"` : "";
+}
+function balises(txt, c, t) {
+  const S = state.settings;
+  const map = { cabinet: S.cabNom, societe: c.societe, date_effet: dateTexte(S.dateEffet), hausse: "", civilite: civLongue(c) };
+  return sup(inline(esc(txt || "").replace(/\{(cabinet|societe|date_effet|hausse|civilite)\}/g, (_, k) => esc(map[k]))));
+}
+function letterHTML(c, opts = {}) {
+  const S = state.settings, t = totals(c);
+  const ph = label => opts.live ? `<span class="empty-line">${label}</span>` : "";
+  const attn = [c.civ, c.prenom, c.nom].filter(Boolean).join(" ");
+  const cpVille = [c.cp, (c.ville || "").toUpperCase()].filter(Boolean).join(" ");
+  const rows = MISSIONS.filter(m => amt(c, m.k) > 0).map(m =>
+    `<tr data-f="m-${m.k}"><td>${esc(libOf(c, m.k))}</td><td>${eurx(amt(c, m.k))} HT</td></tr>`).join("");
+  const mens = "";
+  const para = k => (S.txt[k] || "").trim() ? `<p data-f="t-${k}"${paraStyle(k)}>${balises(S.txt[k], c, t)}</p>` : "";
+  const window = opts.window ? '<div class="window"><span>Fenêtre d\'enveloppe DL (100 × 45 mm)</span></div>' : "";
+  const folds = opts.window ? '<div class="fold" style="top:99mm"></div><div class="fold" style="top:198mm"></div>' : "";
+  const F = S.fmt || {};
+  return `<article class="sheet${opts.live ? " live" : ""}" data-id="${esc(c.id)}" style="--txt-size:${num(F.size) || 9.5}pt;--txt-align:${ALIGNS[F.align] || "justify"}">
+    ${window}${folds}
+    <img class="lh" src="${IMG.entete}" alt="">
+    <div class="refs"><div data-f="s-date">${esc(S.cabVille)}, le ${sup(esc(dateTexte(S.dateCourrier)))}</div><div data-f="code">Réf. client : <b>${esc(c.code || "—")}</b></div></div>
+    <div class="dest">
+      <div data-f="societe"><b>${c.societe ? esc(c.societe) : ph("Société")}</b></div>
+      ${(c.prenom || c.civ) && c.nom ? `<div data-f="contact">À l'attention de ${esc(attn)}</div>` : ""}
+      <div data-f="adr1">${c.adr1 ? esc(c.adr1) : ph("Adresse")}</div>
+      ${c.adr2 ? `<div data-f="adr2">${esc(c.adr2)}</div>` : ""}
+      <div data-f="cpville">${cpVille ? esc(cpVille) : ph("Code postal et ville")}</div>
+    </div>
+    <div class="flow">
+      <p class="objet" data-f="t-objet"${paraStyle("objet")}>${balises(S.txt.objet, c, t)}</p>
+      <p class="salut" data-f="civ">${esc(civLongue(c))},</p>
+      ${para("p1")}${para("p2")}${para("p3")}${para("p4")}
+      <table data-f="fees"><thead><tr><th>Prestation</th><th>Honoraires</th></tr></thead>
+        <tbody>${rows || (opts.live ? '<tr><td colspan="2" class="empty-line">Aucune prestation : saisissez les honoraires du client.</td></tr>' : "")}</tbody></table>
+      ${mens}
+      ${para("p5")}${para("p6")}${para("politesse")}
+      <div class="sign" data-f="s-sign"><b>${S.signataire ? esc(S.signataire) : ph("Nom du signataire")}</b><i>${esc(S.signataireTitre)}</i></div>
+    </div>
+    <img class="pied" src="${IMG.pied}" alt="">
+  </article>`;
+}
+
+/* Place une feuille A4 dans un cadre, à l'échelle de l'espace disponible */
+function mountSheet(frame, scroller, html) {
+  frame.innerHTML = html;
+  const sheet = frame.firstElementChild;
+  fitSheet(frame, scroller);
+  return sheet;
+}
+function fitSheet(frame, scroller) {
+  const sheet = frame.firstElementChild;
+  if (!sheet) return;
+  const W = sheet.offsetWidth, H = sheet.offsetHeight;
+  const cs = getComputedStyle(scroller);
+  const availW = scroller.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+  const availH = scroller.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
+  const narrow = window.matchMedia("(max-width: 760px)").matches;
+  let s = narrow ? availW / W : Math.min(availW / W, Math.max(availH, 480) / H);
+  s = Math.max(0.25, Math.min(s, 1.25));
+  if (zoomReal && frame.id === "sheet-frame" && !narrow) s = 1;
+  sheet.style.transform = `scale(${s})`;
+  frame.style.width = W * s + "px";
+  frame.style.height = H * s + "px";
+}
+function overflowOf(sheet) {
+  const flow = sheet.querySelector(".flow"), foot = sheet.querySelector(".pied");
+  return flow.offsetTop + flow.offsetHeight > foot.offsetTop - 4;
+}
+
+/* ================================================================== vue Courriers */
+const $ = s => document.querySelector(s);
+let filter = "tous", search = "", view = "courriers";
+let zoomReal = false;
+try { zoomReal = sessionStorage.getItem("altho-zoom") === "1"; } catch (e) { /* stockage indisponible */ }
+function norm(s) { return String(s || "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase(); }
+function visibleClients() {
+  const q = norm(search);
+  return state.clients.filter(c => {
+    if (filter === "poste" && !inPrint(c, "poste")) return false;
+    if (filter === "email" && !inPrint(c, "email")) return false;
+    if (filter === "non" && c.envoyer) return false;
+    if (q && !norm([c.code, c.societe, c.raison, c.nom, c.prenom, c.ville, c.cp, c.notes].join(" ")).includes(q)) return false;
+    return true;
+  });
+}
+function selected() { return state.clients.find(c => c.id === state.selectedId) || null; }
+
+function renderList() {
+  const list = $("#list"), vis = visibleClients();
+  if (!state.clients.length) {
+    list.innerHTML = `<div class="empty-list">Aucun client pour l'instant.<br><br><button class="btn" data-action="import"><svg class="i"><use href="#i-upload"/></svg>Importer mes clients</button></div>`;
+  } else if (!vis.length) {
+    list.innerHTML = `<div class="empty-list">Aucun client ne correspond.</div>`;
+  } else {
+    list.innerHTML = vis.map(c => {
+      const t = totals(c);
+      const sub = [c.code, c.ville].filter(Boolean).join(" · ") + (c.envoyer ? "" : " · non envoyé");
+      return `<div class="item${c.envoyer ? "" : " off"}" role="option" data-id="${esc(c.id)}" aria-current="${c.id === state.selectedId}" aria-selected="${c.id === state.selectedId}">
+        <input type="checkbox" ${c.envoyer ? "checked" : ""} aria-label="À envoyer" data-toggle-send="${esc(c.id)}">
+        <span class="who"><b>${esc(c.societe || "Client sans nom")}</b><span>${esc(sub)}</span></span>
+        <span class="amt">${amt(c, "compta") ? eurx(amt(c, "compta")) + `<span>${RECURRENCE_SUFFIX[periodeOf(c)] || ""}</span>` : "—"}</span></div>`;
+    }).join("");
+  }
+  const all = state.clients.reduce((acc, c) => { if (!c.envoyer) return acc; acc.n += totals(c).n; acc.k++; return acc; }, { n: 0, k: 0 });
+  $("#rail-foot").innerHTML = state.clients.length
+    ? `<span><b>${all.k}</b> courrier${all.k > 1 ? "s" : ""} à envoyer sur ${state.clients.length} client${state.clients.length > 1 ? "s" : ""}</span><span>Augmentation générale : <b>${fmtPct.format(num(state.settings.hausse))}\u00a0%</b></span>` : "";
+  $("#demo-notice").hidden = !state.clients.some(c => c.exemple);
+  $("#drop-demo-2").hidden = !state.clients.some(c => c.exemple);
+}
+
+function renderStage() {
+  const c = selected();
+  const frame = $("#sheet-frame"), scroller = $("#stage-scroll");
+  const vis = visibleClients(), i = vis.findIndex(x => x.id === state.selectedId);
+  $("#prev").disabled = i <= 0; $("#next").disabled = i < 0 || i >= vis.length - 1;
+  $("#print-one").disabled = !c;
+  if (!c) { frame.innerHTML = ""; frame.style.height = "0"; $("#stage-title").textContent = ""; $("#stage-chips").innerHTML = ""; return; }
+  $("#stage-title").innerHTML = `${esc(c.societe || "Client sans nom")} <span>${esc(c.code)}</span>`;
+  const sheet = mountSheet(frame, scroller, letterHTML(c, { live: true, window: $("#window-toggle").checked }));
+  const modeLabel = { courrier: "Par courrier", email: "Par e-mail", deux: "Courrier et e-mail" }[c.mode] || "";
+  let chips = c.envoyer ? `<span class="chip go">${modeLabel}</span>` : `<span class="chip">Non envoyé</span>`;
+  if (overflowOf(sheet)) chips += ` <span class="chip warn" title="Raccourcissez les textes dans Réglages">Dépasse une page</span>`;
+  $("#stage-chips").innerHTML = chips;
+}
+
+const CIVS = [["", "—"], ["M.", "M."], ["Mme", "Mme"], ["M. et Mme", "M. et Mme"]];
+function renderFiche() {
+  const c = selected(), box = $("#fiche");
+  if (!c) { box.innerHTML = `<div class="fiche"><p class="empty-list">Sélectionnez ou ajoutez un client.</p></div>`; return; }
+  const S = state.settings, t = totals(c);
+  const inp = (k, label, cls = "", extra = "") => `<div class="f ${cls}"><label for="f-${k}">${label}</label><input id="f-${k}" data-k="${k}" data-link="${linkOf(k)}" value="${esc(c[k])}" ${extra}></div>`;
+  box.innerHTML = `<div class="fiche">
+    <h2>${esc(c.societe || "Nouveau client")}</h2>
+    <section><h3>Destinataire</h3><div class="fields">
+      ${inp("societe", "Société")}
+      <div class="f s2 keep"><label for="f-civ">Civilité</label><select id="f-civ" data-k="civ" data-link="civ">${CIVS.map(([v, l]) => `<option value="${v}" ${c.civ === v ? "selected" : ""}>${l}</option>`).join("")}</select></div>
+      ${inp("prenom", "Prénom", "s2 keep")}${inp("nom", "Nom", "s2 keep")}
+      ${inp("adr1", "Adresse")}${inp("adr2", "Complément d'adresse")}
+      ${inp("cp", "Code postal", "s2 keep", 'inputmode="numeric"')}${inp("ville", "Ville", "s4 keep")}
+      ${inp("email", "E-mail", "", 'type="email"')}${inp("code", "Réf. client", "s3")}
+    </div></section>
+    <section><h3>Honoraires HT</h3>
+      <div class="fields" style="margin-bottom:12px"><div class="f"><label for="f-periodicite">Récurrence des prestations comptables</label><select id="f-periodicite" data-k="periodicite" data-link="m-compta">
+        <option value="" ${!c.periodicite ? "selected" : ""}>Par défaut (${esc((PERIODES[state.settings.periodicite] || { lib: "aucune" }).lib.toLowerCase())})</option>
+        ${Object.entries(PERIODES).map(([v, o]) => `<option value="${v}" ${c.periodicite === v ? "selected" : ""}>${o.lib}</option>`).join("")}</select></div></div>
+      <table class="fees"><thead><tr><th>Prestation</th><th>Actuel</th><th>Nouveau</th></tr></thead><tbody>
+      ${MISSIONS.map(m => {
+        const b = base(c, m.k), o = isOv(c, m.k);
+        return `<tr class="${o ? "manual" : ""}" data-row="${m.k}"><td class="m">${esc(shortLib(m.k))}</td>
+          <td class="in"><input class="num" inputmode="decimal" data-k="${m.k}" data-link="m-${m.k}" value="${b ? dec(b) : ""}" placeholder="—" aria-label="${esc(shortLib(m.k))}, montant actuel HT"></td>
+          <td class="in"><input class="num ov" inputmode="decimal" data-ov="${m.k}" data-link="m-${m.k}" value="${o ? dec(num(c.ov[m.k])) : ""}" placeholder="${b ? esc(dec(auto(c, m.k))) : "—"}" aria-label="${esc(shortLib(m.k))}, nouveau montant HT (vide = calcul automatique)" title="Vide = montant actuel + ${esc(dec(num(state.settings.hausse)))} %. Tapez un montant pour le fixer."></td></tr>`;
+      }).join("")}
+      </tbody></table>
+      <p class="hint-line">« Nouveau » = actuel + ${esc(dec(num(state.settings.hausse)))} % (Réglages), en gris. Tapez un montant pour le fixer à la main (il passe en gras) ; videz la case pour revenir au calcul.</p>
+    </section>
+    <section><h3>Informations du dossier <span class="h3-note">— non imprimées</span></h3><div class="fields">
+      ${inp("raison", "Nom complet / raison sociale")}
+      ${inp("cloture", "Clôture", "s2 keep")}${inp("lm", "LM AE", "s2 keep")}${inp("ecf", "ECF", "s2 keep")}
+      <div class="f"><label for="f-notes">Informations complémentaires</label><textarea id="f-notes" rows="3" data-k="notes">${esc(c.notes)}</textarea></div>
+    </div></section>
+    <section><h3>Envoi</h3><div class="fields">
+      <div class="f"><label class="toggle"><input type="checkbox" data-k="envoyer" ${c.envoyer ? "checked" : ""}> Envoyer ce courrier</label></div>
+      <div class="f"><span class="lab" id="mode-lab">Mode d'envoi</span><div class="radios" role="radiogroup" aria-labelledby="mode-lab">
+        ${[["courrier", "Courrier"], ["email", "E-mail"], ["deux", "Les deux"]].map(([v, l]) => `<label><input type="radio" name="mode" value="${v}" data-k="mode" ${c.mode === v ? "checked" : ""}><span>${l}</span></label>`).join("")}
+      </div></div>
+    </div></section>
+    <div class="fiche-actions"><button class="btn quiet danger small" data-action="delete"><svg class="i"><use href="#i-trash"/></svg>Supprimer ce client</button><button class="btn quiet small" data-action="add"><svg class="i"><use href="#i-plus"/></svg>Nouveau client</button></div>
+  </div>`;
+}
+function shortLib(k) { return { compta: "Comptabilité", paye: "Paie (par bulletin)", bilan: "Bilan", jur: "Juridique", pa: "Plateforme agréée" }[k]; }
+function linkOf(k) { return ({ raison: "", cloture: "", lm: "", ecf: "",  cp: "cpville", ville: "cpville", prenom: "contact", nom: "contact", email: "", code: "code" })[k] ?? k; }
+
+/* Mise à jour ciblée pendant la saisie (sans reconstruire la fiche) */
+function refreshFicheNumbers() {
+  const c = selected(); if (!c) return;
+  const box = $("#fiche");
+  for (const m of MKEYS) {
+    const row = box.querySelector(`[data-row="${m}"]`); if (!row) continue;
+    row.classList.toggle("manual", isOv(c, m));
+    const o = row.querySelector("input.ov"); if (o) o.placeholder = base(c, m) ? dec(auto(c, m)) : "—";
+  }
+  box.querySelector("h2").textContent = c.societe || "Nouveau client";
+}
+
+function highlight(link, on) {
+  document.querySelectorAll("#sheet-frame [data-f].hl, #settings-frame [data-f].hl").forEach(el => el.classList.remove("hl"));
+  if (!on || !link) return;
+  document.querySelectorAll(`#sheet-frame [data-f="${link}"], #settings-frame [data-f="${link}"]`).forEach(el => el.classList.add("hl"));
+}
+let activeLink = null;
+
+function renderCounts() {
+  const n = k => state.clients.filter(c => inPrint(c, k)).length;
+  const p = n("poste");
+  $("#print-main-n").textContent = `(${p})`;
+  $("#print-main").disabled = p === 0;
+  document.querySelectorAll("[data-n]").forEach(el => { el.textContent = `(${n(el.dataset.n)})`; });
+  document.querySelectorAll("[data-print]").forEach(b => { b.disabled = n(b.dataset.print) === 0; });
+  $("#count-clients").textContent = state.clients.length || "";
+}
+function renderCourriers() { renderList(); renderStage(); renderFiche(); renderCounts(); }
+
+/* ================================================================== vue Clients (grille) */
+const COLS = [
+  ["envoyer", "Envoyer", "ck"], ["code", "Réf.", "", 70], ["societe", "Société", "", 220],
+  ["periodicite", "Récurrence", "per", 130],
+  ["compta", "Compta actuel", "num", 84], ["compta", "Compta nouveau", "ov", 84],
+  ["paye", "Bulletin actuel", "num", 84], ["paye", "Bulletin nouveau", "ov", 84],
+  ["bilan", "Bilan actuel", "num", 84], ["bilan", "Bilan nouveau", "ov", 84],
+  ["jur", "Juridique actuel", "num", 84], ["jur", "Juridique nouveau", "ov", 84],
+  ["pa", "Plateforme actuel", "num", 84], ["pa", "Plateforme nouveau", "ov", 84],
+  ["mode", "Mode", "mode", 110], ["cloture", "Clôture", "", 90], ["lm", "LM AE", "", 90], ["notes", "Informations complémentaires", "", 260], ["raison", "Nom complet", "", 180],
+  ["civ", "Civ.", "sel", 78], ["prenom", "Prénom", "", 100], ["nom", "Nom", "", 120],
+  ["adr1", "Adresse", "", 200], ["adr2", "Complément", "", 150], ["cp", "CP", "", 68], ["ville", "Ville", "", 140], ["email", "E-mail", "", 190],
+];
+function totalsLine() {
+  const n = state.clients.reduce((acc, c) => acc + totals(c).n, 0), k = state.clients.filter(c => c.envoyer).length;
+  const man = state.clients.reduce((a, c) => a + MKEYS.filter(m => isOv(c, m)).length, 0);
+  return `<span>${state.clients.length} client${state.clients.length > 1 ? "s" : ""}, dont ${k} à envoyer</span><span>Augmentation générale <b>${fmtPct.format(num(state.settings.hausse))}\u00a0%</b> (Réglages)</span><span>Colonnes « nouveau » : en gris = calcul automatique, en gras = montant saisi à la main${man ? ` (${man})` : ""}</span>`;
+}
+function renderGrid() {
+  const wrap = $("#grid-wrap");
+    $("#totals").innerHTML = state.clients.length
+    ? totalsLine() : "";
+  if (!state.clients.length) {
+    wrap.innerHTML = `<div class="grid-empty"><h2>Votre liste de clients est vide</h2><p>Téléchargez le modèle Excel, remplissez-le (une ligne par client) puis importez-le. Vous pouvez aussi ajouter vos clients un par un.</p>
+      <div class="row"><button class="btn" data-action="modele"><svg class="i"><use href="#i-download"/></svg>Télécharger le modèle Excel</button><button class="btn primary" data-action="import"><svg class="i"><use href="#i-upload"/></svg>Importer un fichier</button><button class="btn" data-action="add"><svg class="i"><use href="#i-plus"/></svg>Ajouter un client</button></div></div>`;
+    return;
+  }
+  const head = COLS.map(([, l, t]) => `<th class="${t === "num" || t === "calc" || t === "ov" ? "r" : ""}${t === "ov" ? " new" : ""}">${l}</th>`).join("") + `<th></th>`;
+  const body = state.clients.map(c => {
+    const t = totals(c);
+    const cells = COLS.map(([k, l, type, w]) => {
+      const st = w ? ` style="width:${w}px;min-width:${w}px"` : "";
+      if (type === "ov") return `<td${st} class="ovc${isOv(c, k) ? " manual" : ""}"><input class="num ov" inputmode="decimal" data-id="${c.id}" data-ov="${k}" value="${isOv(c, k) ? esc(dec(num(c.ov[k]))) : ""}" placeholder="${base(c, k) ? esc(dec(auto(c, k))) : ""}" aria-label="${l}"></td>`;
+      if (type === "calc") return `<td class="calc" data-calc="${c.id}">${eur(t.n)}${c.exemple ? '<span class="tag">exemple</span>' : ""}</td>`;
+      if (type === "ck") return `<td class="ck"><input type="checkbox" data-id="${c.id}" data-k="envoyer" ${c.envoyer ? "checked" : ""} aria-label="Envoyer à ${esc(c.societe)}"></td>`;
+      if (type === "sel") return `<td${st}><select data-id="${c.id}" data-k="civ" aria-label="${l}">${CIVS.map(([v, lb]) => `<option value="${v}" ${c.civ === v ? "selected" : ""}>${lb}</option>`).join("")}</select></td>`;
+      if (type === "per") return `<td${st}><select data-id="${c.id}" data-k="periodicite" aria-label="${l}"><option value="" ${!c.periodicite ? "selected" : ""}>Défaut</option>${Object.entries(PERIODES).map(([v, o]) => `<option value="${v}" ${c.periodicite === v ? "selected" : ""}>${o.lib}</option>`).join("")}</select></td>`;
+      if (type === "mode") return `<td${st}><select data-id="${c.id}" data-k="mode" aria-label="${l}">${[["courrier", "Courrier"], ["email", "E-mail"], ["deux", "Les deux"]].map(([v, lb]) => `<option value="${v}" ${c.mode === v ? "selected" : ""}>${lb}</option>`).join("")}</select></td>`;
+      const v = type === "num" ? dec(num(c[k]) || "") : c[k];
+      return `<td${st}><input ${type === "num" ? 'class="num" inputmode="decimal"' : ""} data-id="${c.id}" data-k="${k}" value="${esc(v)}" aria-label="${l}"></td>`;
+    }).join("");
+    return `<tr>${cells}
+      <td><button class="icon-btn" data-del="${c.id}" aria-label="Supprimer ${esc(c.societe)}"><svg class="i"><use href="#i-trash"/></svg></button></td></tr>`;
+  }).join("");
+  wrap.innerHTML = `<table class="grid"><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table>`;
+}
+
+/* ================================================================== vue Réglages */
+function renderSettingsForm() {
+  const S = state.settings;
+  const i = (path, label, cls = "", extra = "") => `<div class="f ${cls}"><label for="s-${path}">${label}</label><input id="s-${path}" data-s="${path}" value="${esc(get(S, path))}" ${extra}></div>`;
+  const p = (path, label, cls = "s2", unit = "pct") => `<div class="f ${cls}"><label for="s-${path}">${label}</label><div class="${unit === "none" ? "" : unit === "eur" ? "pct eur" : "pct"}"><input id="s-${path}" class="num" inputmode="decimal" data-s="${path}" data-num="1" value="${esc(dec(get(S, path)))}"></div></div>`;
+  const ta = (path, label, rows = 3) => {
+    const k = path.split(".")[1], f = (S.fmt.p || {})[k] || {};
+    const al = (v, t, ic) => `<button type="button" class="fb" data-fmt="align" data-v="${v}" data-k="${k}" aria-pressed="${(f.align || "") === v}" title="${t}">${ic}</button>`;
+    return `<div class="f"><div class="f-head"><label for="s-${path}">${label}</label>
+      <div class="fbar" role="toolbar" aria-label="Mise en forme : ${esc(label)}">
+        <button type="button" class="fb" data-fmt="b" data-k="${k}" aria-pressed="${!!f.b}" title="Gras (sélectionnez des mots pour ne mettre qu'eux en gras)"><b>G</b></button>
+        <button type="button" class="fb" data-fmt="i" data-k="${k}" aria-pressed="${!!f.i}" title="Italique (sélectionnez des mots pour ne mettre qu'eux en italique)"><i>I</i></button>
+        <span class="sep"></span>
+        ${al("", "Alignement par défaut", '<svg class="i"><use href="#i-al-auto"/></svg>')}${al("left", "Aligné à gauche", '<svg class="i"><use href="#i-al-left"/></svg>')}${al("justify", "Justifié", '<svg class="i"><use href="#i-al-justify"/></svg>')}${al("center", "Centré", '<svg class="i"><use href="#i-al-center"/></svg>')}
+        <span class="sep"></span>
+        <select class="fsize" data-fmt="size" data-k="${k}" aria-label="Taille du texte">${[["", "Taille auto"], ...SIZES.map(v => [v, dec(v) + " pt"])].map(([v, l]) => `<option value="${v}" ${String(f.size || "") === String(v) ? "selected" : ""}>${l}</option>`).join("")}</select>
+      </div></div>
+      <textarea id="s-${path}" rows="${rows}" data-s="${path}" data-link="t-${k}">${esc(get(S, path))}</textarea></div>`;
+  };
+  $("#settings-form").innerHTML = `
+    <section><h2>Augmentation générale</h2><p class="lead">Nouveau montant = montant actuel + ce pourcentage, pour tous les clients. Les cases que vous avez modifiées à la main ne bougent pas.</p><div class="fields">
+      ${p("hausse", "Augmentation générale", "s3")}
+      <div class="f s3"><label for="s-arrondi">Arrondi des nouveaux montants</label><select id="s-arrondi" data-s="arrondi">${Object.entries(ARRONDIS).map(([v, o]) => `<option value="${v}" ${S.arrondi === v ? "selected" : ""}>${o.lib}</option>`).join("")}</select></div>
+      <div class="f"><button class="btn quiet small" type="button" data-action="clear-ov">Effacer les montants saisis à la main</button></div>
+    </div></section>
+    <section><h2>Le cabinet</h2><p class="lead">L'en-tête et le pied de page sont ceux de votre papier à lettres (logo, adresse, mentions légales).</p><div class="fields">
+      ${i("cabNom", "Nom du cabinet dans les textes", "s3", 'data-link="t-p1"')}${i("cabVille", "Ville de signature", "s3", 'data-link="s-date"')}
+    </div></section>
+    <section><h2>Signature et dates</h2><p class="lead">La date du courrier vide = date du jour à l'impression.</p><div class="fields">
+      ${i("signataire", "Nom du signataire", "s3", 'data-link="s-sign" placeholder="Prénom NOM"')}${i("signataireTitre", "Fonction", "s3", 'data-link="s-sign"')}
+      ${i("dateCourrier", "Date du courrier", "s3", 'type="date" data-link="s-date"')}${i("dateEffet", "Date d'effet des nouveaux tarifs", "s3", 'type="date" data-link="t-p4"')}
+    </div></section>
+    <section><h2>Récurrence par défaut</h2><p class="lead">Pour les clients sans récurrence (« mensuelles », « trimestrielles »… dans « Prestations comptables mensuelles »).</p><div class="fields">
+      <div class="f s3"><label for="s-periodicite">Périodicité par défaut</label><select id="s-periodicite" data-s="periodicite" data-link="periode">
+        ${Object.entries(PERIODES).map(([v, o]) => `<option value="${v}" ${S.periodicite === v ? "selected" : ""}>${o.lib}</option>`).join("")}<option value="aucune" ${!PERIODES[S.periodicite] ? "selected" : ""}>Aucune</option></select></div>
+    </div></section>
+    <section><h2>Intitulés des prestations</h2><p class="lead">Tels qu'ils apparaissent sur la lettre. <code>{recurrence}</code> est remplacé par « mensuelles », « trimestrielles », « semestrielles » ou « annuelles ».</p><div class="fields">
+      ${MKEYS.map(k => i("lib." + k, shortLib(k), "", `data-link="m-${k}"`)).join("")}
+    </div></section>
+    <section><h2>Mise en forme du texte</h2><p class="lead">S'applique à tous les paragraphes, sauf ceux que vous réglez un par un plus bas.</p><div class="fields">
+      <div class="f s3"><label for="s-fmt-size">Taille du texte</label><select id="s-fmt-size" data-gfmt="size">${SIZES.map(v => `<option value="${v}" ${num(S.fmt.size) === v ? "selected" : ""}>${dec(v)} pt${v === 9.5 ? " (conseillé)" : ""}</option>`).join("")}</select></div>
+      <div class="f s3"><span class="lab" id="gal-lab">Alignement</span><div class="radios" role="radiogroup" aria-labelledby="gal-lab">
+        ${[["justify", "Justifié"], ["left", "À gauche"]].map(([v, l]) => `<label><input type="radio" name="galign" value="${v}" data-gfmt="align" ${S.fmt.align === v ? "checked" : ""}><span>${l}</span></label>`).join("")}</div></div>
+    </div></section>
+    <section><h2>Textes du courrier</h2><p class="lead">Laissez un paragraphe vide pour le retirer. Ces mots sont remplacés automatiquement :</p>
+      <div class="balises"><code>{cabinet}</code><code>{societe}</code><code>{date_effet}</code><code>{civilite}</code></div>
+      <p class="lead">Pour mettre seulement quelques mots en gras ou en italique, sélectionnez-les puis cliquez sur <b>G</b> ou <i>I</i> : ils s'écrivent alors **ainsi** (gras) ou *ainsi* (italique). Sans sélection, G et I s'appliquent à tout le paragraphe.</p>
+      <div class="fields">${ta("txt.objet", "Objet", 1)}${ta("txt.p1", "Paragraphe 1")}${ta("txt.p2", "Paragraphe 2")}${ta("txt.p3", "Paragraphe 3 — facturation électronique", 5)}${ta("txt.p4", "Avant le tableau", 2)}${ta("txt.p5", "Après le tableau")}${ta("txt.p6", "Paragraphe suivant", 2)}${ta("txt.politesse", "Formule de politesse", 2)}
+      <div class="f"><button class="btn quiet small" type="button" data-action="reset-texts">Rétablir les textes et la mise en forme d'origine</button></div></div>
+    </section>
+    <section><h2>Sauvegarde</h2><p class="lead">Vos données restent sur cet ordinateur, dans ce navigateur. Faites une copie de sécurité dans un fichier, surtout avant de vider l'historique du navigateur.</p>
+      <div class="row" style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn" type="button" data-action="backup"><svg class="i"><use href="#i-download"/></svg>Enregistrer une copie de sécurité</button><button class="btn quiet" type="button" data-action="restore"><svg class="i"><use href="#i-upload"/></svg>Restaurer une copie</button></div>
+    </section>`;
+}
+const SIZES = [8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12];
+function get(o, path) { return path.split(".").reduce((a, k) => a == null ? a : a[k], o) ?? ""; }
+function set(o, path, v) { const ks = path.split("."); const last = ks.pop(); ks.reduce((a, k) => a[k], o)[last] = v; }
+function renderSettingsPreview() {
+  const c = selected() || state.clients[0] || { ...blankClient("C000"), societe: "Exemple de société", adr1: "1 rue de l'Exemple", cp: "95000", ville: "Cergy", compta: 3000 };
+  $("#settings-title").innerHTML = `Aperçu avec ${esc(c.societe || "le client sélectionné")} <span style="color:var(--ink-3);font-weight:400">— survolez un champ pour le repérer</span>`;
+  mountSheet($("#settings-frame"), $("#settings-scroll"), letterHTML(c, { live: true }));
+  if (activeLink) highlight(activeLink, true);
+}
+
+/* ================================================================== navigation */
+function show(v) {
+  view = v;
+  document.querySelectorAll(".tab").forEach(t => t.setAttribute("aria-selected", t.dataset.view === v));
+  for (const id of ["courriers", "clients", "reglages"]) $("#view-" + id).hidden = id !== v;
+  if (v === "courriers") renderCourriers();
+  if (v === "clients") { renderGrid(); renderCounts(); }
+  if (v === "reglages") { renderSettingsForm(); renderSettingsPreview(); renderCounts(); }
+}
+document.querySelectorAll(".tab").forEach(t => t.addEventListener("click", () => show(t.dataset.view)));
+
+/* ----- liste */
+$("#list").addEventListener("click", e => {
+  const tog = e.target.closest("[data-toggle-send]");
+  if (tog) { const c = state.clients.find(x => x.id === tog.dataset.toggleSend); c.envoyer = tog.checked; save(); renderCourriers(); return; }
+  const it = e.target.closest(".item");
+  if (it) { state.selectedId = it.dataset.id; save(); renderCourriers(); }
+});
+$("#list").addEventListener("keydown", e => {
+  if (!["ArrowDown", "ArrowUp"].includes(e.key)) return;
+  e.preventDefault(); step(e.key === "ArrowDown" ? 1 : -1);
+  const cur = $("#list .item[aria-current='true']"); if (cur) cur.scrollIntoView({ block: "nearest" });
+});
+function step(d) {
+  const vis = visibleClients(); if (!vis.length) return;
+  let i = vis.findIndex(c => c.id === state.selectedId);
+  i = i < 0 ? 0 : Math.min(vis.length - 1, Math.max(0, i + d));
+  state.selectedId = vis[i].id; save(); renderCourriers();
+}
+$("#prev").addEventListener("click", () => step(-1));
+$("#next").addEventListener("click", () => step(1));
+$("#search").addEventListener("input", e => { search = e.target.value; renderList(); renderStage(); });
+document.querySelectorAll("[data-filter]").forEach(b => b.addEventListener("click", () => {
+  filter = b.dataset.filter;
+  document.querySelectorAll("[data-filter]").forEach(x => x.setAttribute("aria-pressed", x === b));
+  const vis = visibleClients();
+  if (vis.length && !vis.some(c => c.id === state.selectedId)) state.selectedId = vis[0].id;
+  renderCourriers();
+}));
+$("#window-toggle").addEventListener("change", renderStage);
+$("#zoom-toggle").checked = zoomReal;
+$("#zoom-toggle").addEventListener("change", e => {
+  zoomReal = e.target.checked;
+  try { sessionStorage.setItem("altho-zoom", zoomReal ? "1" : "0"); } catch (err) { /* stockage indisponible */ }
+  fitSheet($("#sheet-frame"), $("#stage-scroll"));
+});
+
+/* ----- fiche : saisie en direct */
+function applyClientField(c, k, el) {
+  if (k === "envoyer") c.envoyer = el.checked;
+  else if (k === "tauxPerso") c.tauxPerso = el.value.trim() === "" ? null : num(el.value);
+  else if (MKEYS.includes(k)) c[k] = Math.max(0, num(el.value));
+  else c[k] = el.value;
+  if (!["envoyer", "mode"].includes(k)) c.exemple = false;
+}
+function applyOverride(c, m, el) {
+  c.ov = c.ov || {};
+  c.ov[m] = el.value.trim() === "" ? null : Math.max(0, num(el.value));
+  c.exemple = false;
+}
+$("#fiche").addEventListener("input", e => {
+  const el = e.target, c = selected();
+  if (el.dataset.ov && c) { applyOverride(c, el.dataset.ov, el); save(); refreshFicheNumbers(); renderList(); renderStage(); if (activeLink) highlight(activeLink, true); return; }
+  const k = el.dataset.k; if (!k || !c) return;
+  applyClientField(c, k, el); save();
+  refreshFicheNumbers(); renderList(); renderStage(); renderCounts();
+  if (activeLink) highlight(activeLink, true);
+});
+$("#fiche").addEventListener("change", e => { if (e.target.dataset.k === "mode" || e.target.dataset.k === "envoyer") renderStage(); });
+for (const ev of ["focusin", "mouseover"]) $("#fiche").addEventListener(ev, e => {
+  const el = e.target.closest("[data-link]"); if (!el) return;
+  if (ev === "mouseover" && document.activeElement && document.activeElement.closest && document.activeElement.closest("#fiche [data-link]")) return;
+  activeLink = el.dataset.link; highlight(activeLink, true);
+});
+$("#fiche").addEventListener("focusout", () => { activeLink = null; highlight(null, false); });
+$("#fiche").addEventListener("mouseleave", () => { if (!document.activeElement.closest("#fiche [data-link]")) { activeLink = null; highlight(null, false); } });
+
+/* ----- clic sur la lettre : aller au champ */
+const FIELD_OF = { societe: "societe", contact: "nom", adr1: "adr1", adr2: "adr2", cpville: "cp", code: "code", civ: "civ" };
+$("#sheet-frame").addEventListener("click", e => {
+  const el = e.target.closest("[data-f]"); if (!el) return;
+  const f = el.dataset.f;
+  if (FIELD_OF[f]) { const inp = $(`#f-${FIELD_OF[f]}`); if (inp) { inp.focus(); inp.select && inp.select(); } return; }
+  if (f.startsWith("m-") || f === "fees") { const inp = $(`#fiche [data-link="${f === "fees" ? "m-compta" : f}"]`); if (inp) { inp.focus(); inp.select(); } return; }
+  if (f.startsWith("t-") || f.startsWith("s-")) {
+    show("reglages");
+    const target = document.querySelector(`#settings-form [data-link="${f}"]`);
+    if (target) { target.scrollIntoView({ block: "center" }); target.focus(); }
+  }
+});
+
+/* ----- grille */
+$("#grid-wrap").addEventListener("input", e => {
+  const el = e.target, id = el.dataset.id; if (!id) return;
+  const c = state.clients.find(x => x.id === id);
+  if (el.dataset.ov) { applyOverride(c, el.dataset.ov, el); el.closest("td").classList.toggle("manual", isOv(c, el.dataset.ov)); save(); return; }
+  const k = el.dataset.k; if (!k) return;
+  applyClientField(c, k, el); save();
+  if (MKEYS.includes(k)) { const o = $(`#grid-wrap input[data-id="${id}"][data-ov="${k}"]`); if (o) o.placeholder = base(c, k) ? dec(auto(c, k)) : ""; }
+  const t = totals(c), cell = $(`[data-calc="${id}"]`);
+  if (cell) cell.innerHTML = `${eur(t.n)}${c.exemple ? '<span class="tag">exemple</span>' : ""}`;
+  renderCounts();
+});
+$("#grid-wrap").addEventListener("change", () => {
+    $("#totals").innerHTML = totalsLine();
+});
+$("#grid-wrap").addEventListener("click", e => { const b = e.target.closest("[data-del]"); if (b) removeClient(b.dataset.del); });
+
+/* ----- réglages : mise en forme */
+function fmtOf(k) { const P = state.settings.fmt.p || (state.settings.fmt.p = {}); return P[k] || (P[k] = {}); }
+function wrapSelection(ta, mark) {
+  const a = ta.selectionStart, b = ta.selectionEnd, v = ta.value;
+  if (a === b) return false;
+  let sel = v.slice(a, b), lead = sel.match(/^\s*/)[0], trail = sel.match(/\s*$/)[0];
+  sel = sel.trim();
+  const already = sel.startsWith(mark) && sel.endsWith(mark) && sel.length > mark.length * 2;
+  const inner = already ? sel.slice(mark.length, -mark.length) : mark + sel + mark;
+  ta.value = v.slice(0, a) + lead + inner + trail + v.slice(b);
+  ta.setSelectionRange(a + lead.length, a + lead.length + inner.length);
+  ta.dispatchEvent(new Event("input", { bubbles: true }));
+  return true;
+}
+$("#settings-form").addEventListener("mousedown", e => { if (e.target.closest(".fb")) e.preventDefault(); /* garde la sélection du texte */ });
+$("#settings-form").addEventListener("click", e => {
+  const b = e.target.closest(".fb"); if (!b) return;
+  const k = b.dataset.k, what = b.dataset.fmt, f = fmtOf(k);
+  const area = document.getElementById("s-txt." + k);
+  if ((what === "b" || what === "i") && area && document.activeElement === area && wrapSelection(area, what === "b" ? "**" : "*")) return;
+  if (what === "b" || what === "i") { f[what] = !f[what]; b.setAttribute("aria-pressed", f[what]); }
+  if (what === "align") { f.align = b.dataset.v || undefined; b.parentElement.querySelectorAll('[data-fmt="align"]').forEach(x => x.setAttribute("aria-pressed", x === b)); }
+  save(); renderSettingsPreview();
+});
+$("#settings-form").addEventListener("change", e => {
+  const el = e.target;
+  if (el.dataset.fmt === "size") { const f = fmtOf(el.dataset.k); f.size = el.value ? num(el.value) : undefined; save(); renderSettingsPreview(); }
+  if (el.dataset.gfmt === "size") { state.settings.fmt.size = num(el.value); save(); renderSettingsPreview(); }
+  if (el.dataset.gfmt === "align") { state.settings.fmt.align = el.value; save(); renderSettingsPreview(); }
+});
+
+/* ----- réglages */
+$("#settings-form").addEventListener("input", e => {
+  const el = e.target, path = el.dataset.s; if (!path) return;
+  set(state.settings, path, el.dataset.num ? num(el.value) : el.value);
+  save(); renderSettingsPreview(); renderCounts();
+});
+for (const ev of ["focusin", "mouseover"]) $("#settings-form").addEventListener(ev, e => {
+  const el = e.target.closest("[data-link]"); if (!el) return;
+  activeLink = el.dataset.link; highlight(activeLink, true);
+});
+$("#settings-form").addEventListener("focusout", () => { activeLink = null; highlight(null, false); });
+$("#settings-frame").addEventListener("click", e => {
+  const el = e.target.closest("[data-f]"); if (!el) return;
+  const target = document.querySelector(`#settings-form [data-link="${el.dataset.f}"]`);
+  if (target) { target.scrollIntoView({ block: "center" }); target.focus(); }
+});
+
+/* ================================================================== actions */
+document.addEventListener("click", e => {
+  const a = e.target.closest("[data-action]"); if (!a) return;
+  const act = a.dataset.action;
+  if (act === "import") { fileMode = "import"; $("#file-input").accept = ".xlsx,.xlsm,.csv,.txt,.xls,.ods,.numbers"; $("#file-input").click(); }
+  if (act === "restore") { fileMode = "restore"; $("#file-input").accept = ".json"; $("#file-input").click(); }
+  if (act === "add") addClient();
+  if (act === "delete") { const c = selected(); if (c) removeClient(c.id); }
+  if (act === "drop-demo") dropDemo();
+  if (act === "export-csv") exportCSV();
+  if (act === "clear-ov") {
+    const n = state.clients.reduce((a, c) => a + MKEYS.filter(m => isOv(c, m)).length, 0);
+    if (!n) { toast("Aucun montant saisi à la main."); return; }
+    showDialog(`<div class="d-body"><h2>Effacer les montants saisis à la main ?</h2><p>${n} case${n > 1 ? "s" : ""} « nouveau » ${n > 1 ? "reviendront" : "reviendra"} au calcul automatique (actuel + ${esc(dec(num(state.settings.hausse)))} %).</p></div>
+      <div class="d-actions"><button class="btn" data-close>Annuler</button><button class="btn primary danger-fill" data-imp="ok">Effacer</button></div>`,
+      b => { if (b.dataset.imp !== "ok") return; const prev = state.clients.map(c => ({ ...c.ov })); state.clients.forEach(c => { c.ov = {}; }); save(); show(view);
+        toast("Montants manuels effacés.", "Annuler", () => { state.clients.forEach((c, i) => { c.ov = prev[i] || {}; }); save(); show(view); }); });
+  }
+  if (act === "modele") downloadModele();
+  if (act === "backup") backup();
+  if (act === "reset-texts") { state.settings.txt = defaultSettings().txt; state.settings.fmt = defaultSettings().fmt; save(); renderSettingsForm(); renderSettingsPreview(); toast("Textes d'origine rétablis."); }
+});
+function nextCode() {
+  let max = 0;
+  for (const c of state.clients) { const m = /^C(\d+)$/i.exec(c.code || ""); if (m) max = Math.max(max, +m[1]); }
+  return "C" + String(max + 1).padStart(3, "0");
+}
+function addClient() {
+  const c = blankClient(nextCode());
+  state.clients.push(c); state.selectedId = c.id; save();
+  filter = "tous"; search = ""; $("#search").value = "";
+  document.querySelectorAll("[data-filter]").forEach(x => x.setAttribute("aria-pressed", x.dataset.filter === "tous"));
+  show("courriers");
+  const f = $("#f-societe"); if (f) f.focus();
+}
+function removeClient(id, confirmed) {
+  const i = state.clients.findIndex(c => c.id === id); if (i < 0) return;
+  const c0 = state.clients[i];
+  if (!confirmed) {
+    showDialog(`<div class="d-body"><h2>Supprimer ce client ?</h2><p><b>${esc(c0.societe || "Client sans nom")}</b>${c0.code ? ` (${esc(c0.code)})` : ""} sera retiré de la liste, avec ses honoraires. Son courrier ne sera plus imprimé.</p></div>
+      <div class="d-actions"><button class="btn" data-close>Annuler</button><button class="btn primary danger-fill" data-imp="del">Supprimer</button></div>`,
+      b => { if (b.dataset.imp === "del") removeClient(id, true); });
+    return;
+  }
+  const [c] = state.clients.splice(i, 1);
+  if (state.selectedId === id) state.selectedId = (state.clients[i] || state.clients[i - 1] || {}).id || null;
+  save(); show(view);
+  toast(`${c.societe || "Client"} supprimé.`, "Annuler", () => { state.clients.splice(i, 0, c); state.selectedId = c.id; save(); show(view); });
+}
+function dropDemo(confirmed) {
+  const kept = state.clients.filter(c => !c.exemple), gone = state.clients.filter(c => c.exemple);
+  if (!gone.length) return;
+  if (!confirmed) {
+    showDialog(`<div class="d-body"><h2>Supprimer les clients d'exemple ?</h2><p>${gone.length} client${gone.length > 1 ? "s" : ""} fictif${gone.length > 1 ? "s" : ""} (${gone.map(c => esc(c.societe)).join(", ")}) ${gone.length > 1 ? "seront retirés" : "sera retiré"}. Vos propres clients ne sont pas touchés.</p></div>
+      <div class="d-actions"><button class="btn" data-close>Annuler</button><button class="btn primary danger-fill" data-imp="del">Supprimer les exemples</button></div>`,
+      b => { if (b.dataset.imp === "del") dropDemo(true); });
+    return;
+  }
+  const before = state.clients.slice(), sel = state.selectedId;
+  state.clients = kept; state.selectedId = (kept[0] || {}).id || null; save(); show(view);
+  toast(`${gone.length} client${gone.length > 1 ? "s" : ""} d'exemple supprimé${gone.length > 1 ? "s" : ""}.`, "Annuler", () => { state.clients = before; state.selectedId = sel; save(); show(view); });
+}
+let toastTimer = null;
+function toast(msg, actionLabel, action) {
+  document.querySelectorAll(".toast").forEach(t => t.remove());
+  const t = document.createElement("div"); t.className = "toast"; t.setAttribute("role", "status");
+  t.innerHTML = `<span>${esc(msg)}</span>`;
+  if (actionLabel) { const b = document.createElement("button"); b.className = "btn small"; b.textContent = actionLabel; b.onclick = () => { t.remove(); action(); }; t.appendChild(b); }
+  document.body.appendChild(t);
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => t.remove(), 7000);
+}
+
+/* ----- impression */
+function printClients(list, title, checked) {
+  if (!list.length) return;
+  if (!checked) {
+    const issues = [];
+    if (!state.settings.signataire.trim()) issues.push("Le nom du signataire n'est pas renseigné (Réglages).");
+    const noAddr = list.filter(c => !c.societe || !c.adr1 || !c.cp || !c.ville);
+    if (noAddr.length) issues.push(`${noAddr.length} courrier${noAddr.length > 1 ? "s ont" : " a"} une adresse incomplète : ${noAddr.slice(0, 4).map(c => esc(c.societe || c.code || "sans nom")).join(", ")}${noAddr.length > 4 ? "…" : ""}.`);
+    const noFee = list.filter(c => totals(c).n <= 0);
+    const probe = $("#print-root"); probe.style.cssText = "display:block;position:absolute;left:-4000px;top:0";
+    const tooLong = list.filter(c => { probe.innerHTML = letterHTML(c); return overflowOf(probe.firstElementChild); });
+    probe.innerHTML = ""; probe.style.cssText = "";
+    if (tooLong.length) issues.push(`${tooLong.length} courrier${tooLong.length > 1 ? "s dépassent" : " dépasse"} une page (texte trop long ou trop grand) : ${tooLong.slice(0, 4).map(c => esc(c.societe || c.code)).join(", ")}${tooLong.length > 4 ? "…" : ""}. Réduisez la taille du texte dans Réglages.`);
+    if (noFee.length) issues.push(`${noFee.length} courrier${noFee.length > 1 ? "s n'ont" : " n'a"} aucun honoraire saisi : ${noFee.slice(0, 4).map(c => esc(c.societe || c.code || "sans nom")).join(", ")}${noFee.length > 4 ? "…" : ""}.`);
+    if (issues.length) {
+      showDialog(`<div class="d-body"><h2>À vérifier avant d'imprimer</h2><ul>${issues.map(i => `<li>${i}</li>`).join("")}</ul><p>${list.length} courrier${list.length > 1 ? "s seront imprimés" : " sera imprimé"} tel${list.length > 1 ? "s" : ""} quel${list.length > 1 ? "s" : ""}.</p></div>
+        <div class="d-actions"><button class="btn quiet" data-close>Annuler</button>${!state.settings.signataire.trim() ? '<button class="btn" data-imp="print">Imprimer quand même</button><button class="btn primary" data-imp="settings">Renseigner le signataire</button>' : '<button class="btn primary" data-imp="print">Imprimer quand même</button>'}</div>`,
+        b => { if (b.dataset.imp === "print") printClients(list, title, true); if (b.dataset.imp === "settings") { show("reglages"); const f = $("#s-signataire"); if (f) f.focus(); } });
+      return;
+    }
+  }
+  const root = $("#print-root");
+  root.innerHTML = list.map(c => letterHTML(c)).join("");
+  const old = document.title; document.title = title;
+  const done = () => { document.title = old; root.innerHTML = ""; window.removeEventListener("afterprint", done); };
+  window.addEventListener("afterprint", done);
+  setTimeout(() => window.print(), 50);
+}
+function safeName(s) { return String(s || "").normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^\w-]+/g, "_").replace(/^_+|_+$/g, ""); }
+const PRINT_TITLES = { poste: "Courriers_postaux", email: "Courriers_email", tous: "Courriers_tous" };
+function printKind(kind) { printClients(state.clients.filter(c => inPrint(c, kind)), `${PRINT_TITLES[kind]}_${safeName(state.settings.cabNom)}`); }
+$("#print-main").addEventListener("click", () => printKind("poste"));
+$("#print-one").addEventListener("click", () => { const c = selected(); if (c) printClients([c], `Courrier_${safeName(c.code)}_${safeName(c.societe)}`); });
+const menu = $("#print-menu"), more = $("#print-more");
+more.addEventListener("click", () => {
+  const r = more.getBoundingClientRect();
+  menu.style.top = r.bottom + 6 + "px";
+  menu.style.left = Math.max(12, r.right - 320) + "px";
+  menu.togglePopover ? menu.togglePopover() : (menu.hidden = !menu.hidden);
+});
+menu.addEventListener("toggle", e => more.setAttribute("aria-expanded", e.newState === "open"));
+menu.addEventListener("click", e => {
+  const b = e.target.closest("[data-print]"); if (!b || b.disabled) return;
+  menu.hidePopover && menu.hidePopover(); printKind(b.dataset.print);
+});
+
+/* ================================================================== import Excel / CSV */
+let fileMode = "import";
+$("#file-input").addEventListener("change", async e => {
+  const file = e.target.files[0]; e.target.value = ""; if (!file) return;
+  try {
+    if (fileMode === "restore") return restore(await file.text());
+    if (/\.(xls|ods|numbers)$/i.test(file.name)) throw new Error(`Le format « ${file.name.split(".").pop()} » n'est pas lu par l'application. Dans votre tableur, faites « Enregistrer sous » et choisissez « Classeur Excel (.xlsx) » ou « CSV », puis importez ce nouveau fichier.`);
+    const buf = await file.arrayBuffer(), head = new Uint8Array(buf.slice(0, 4));
+    const isZip = head[0] === 0x50 && head[1] === 0x4b; /* un .xlsx est une archive zip, quel que soit son nom */
+    const rows = isZip ? await readXlsx(buf) : readCsv(await decodeText(buf));
+    const res = mapRows(rows);
+    confirmImport(file.name, res);
+  } catch (err) {
+    showDialog(`<div class="d-body"><h2>Ce fichier n'a pas pu être lu</h2><p>${esc(err.message || String(err))}</p><p>Le plus simple : téléchargez le modèle Excel (onglet Clients), recopiez-y vos clients sans changer la ligne de titres, puis importez-le.</p></div><div class="d-actions"><button class="btn primary" data-close>Compris</button></div>`);
+  }
+});
+async function decodeText(buf) {
+  const u8 = new Uint8Array(buf);
+  let t = new TextDecoder("utf-8").decode(u8);
+  if (t.includes("�")) t = new TextDecoder("windows-1252").decode(u8);
+  return t.replace(/^﻿/, "");
+}
+function readCsv(text) {
+  const first = text.split(/\r?\n/)[0] || "";
+  const delim = [";", "\t", ","].map(d => [d, first.split(d).length]).sort((a, b) => b[1] - a[1])[0][0];
+  const rows = []; let row = [], cur = "", q = false;
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i];
+    if (q) { if (ch === '"') { if (text[i + 1] === '"') { cur += '"'; i++; } else q = false; } else cur += ch; }
+    else if (ch === '"') q = true;
+    else if (ch === delim) { row.push(cur); cur = ""; }
+    else if (ch === "\n" || ch === "\r") { if (ch === "\r" && text[i + 1] === "\n") i++; row.push(cur); rows.push(row); row = []; cur = ""; }
+    else cur += ch;
+  }
+  if (cur || row.length) { row.push(cur); rows.push(row); }
+  return rows.filter(r => r.some(v => String(v).trim() !== ""));
+}
+/* Lecteur .xlsx minimal : zip + XML, sans bibliothèque externe */
+const tags = (node, name) => [...node.getElementsByTagNameNS("*", name)];
+async function readXlsx(buf) {
+  const files = await unzip(buf, n => /^xl\/(workbook\.xml|_rels\/workbook\.xml\.rels|sharedStrings\.xml|worksheets\/[^/]+\.xml)$/.test(n));
+  const xml = s => new DOMParser().parseFromString(s, "application/xml");
+  const wb = xml(files["xl/workbook.xml"] || ""), rels = xml(files["xl/_rels/workbook.xml.rels"] || "");
+  const sheets = tags(wb, "sheet").map(s => ({ name: s.getAttribute("name"), rid: s.getAttribute("r:id") || s.getAttribute("id") || s.getAttributeNS("http://schemas.openxmlformats.org/officeDocument/2006/relationships", "id") }));
+  if (!sheets.length) throw new Error("Aucune feuille trouvée dans le classeur.");
+  const order = [...sheets].sort((a, b) => (norm(b.name) === "clients") - (norm(a.name) === "clients"));
+  let best = null;
+  for (const pick of order) {
+    const rows = await readSheet(pick);
+    if (rows.some(r => r.filter(v => matchHead(v)).length >= 2)) return rows;
+    if (!best && rows.length) best = rows;
+  }
+  return best || [];
+  async function readSheet(pick) {
+  const rel = tags(rels, "Relationship").find(r => r.getAttribute("Id") === pick.rid);
+  let target = rel ? rel.getAttribute("Target") : "worksheets/sheet1.xml";
+  target = target.replace(/^\/?xl\//, "").replace(/^\//, "");
+  const sheetXml = files["xl/" + target];
+  if (!sheetXml) return [];
+  const shared = files["xl/sharedStrings.xml"] ? tags(xml(files["xl/sharedStrings.xml"]), "si").map(si => tags(si, "t").filter(t => t.parentNode.localName !== "rPh").map(t => t.textContent).join("")) : [];
+  const doc = xml(sheetXml), rows = [];
+  for (const r of tags(doc, "row")) {
+    const out = [];
+    for (const cEl of tags(r, "c")) {
+      const ref = cEl.getAttribute("r") || "", col = colIndex(ref.replace(/\d+/g, ""));
+      const tp = cEl.getAttribute("t"), vEl = tags(cEl, "v")[0];
+      let v = "";
+      if (tp === "s") v = shared[+(vEl ? vEl.textContent : 0)] ?? "";
+      else if (tp === "inlineStr") v = tags(cEl, "t").map(t => t.textContent).join("");
+      else if (tp === "b") v = vEl && vEl.textContent === "1" ? "Oui" : "Non";
+      else v = vEl ? vEl.textContent : "";
+      out[col >= 0 ? col : out.length] = v;
+    }
+    rows.push(Array.from(out, x => x ?? ""));
+  }
+  return rows.filter(r => r.some(v => String(v).trim() !== ""));
+  }
+}
+function colIndex(s) { let n = 0; for (const ch of s.toUpperCase()) n = n * 26 + ch.charCodeAt(0) - 64; return n - 1; }
+async function unzip(buf, want) {
+  const dv = new DataView(buf), u8 = new Uint8Array(buf);
+  let eocd = -1;
+  for (let i = u8.length - 22; i >= Math.max(0, u8.length - 65557); i--) if (dv.getUint32(i, true) === 0x06054b50) { eocd = i; break; }
+  if (eocd < 0) throw new Error("Ce fichier n'est pas un classeur Excel valide.");
+  const count = dv.getUint16(eocd + 10, true); let p = dv.getUint32(eocd + 16, true);
+  const out = {}, dec = new TextDecoder("utf-8");
+  for (let k = 0; k < count; k++) {
+    if (dv.getUint32(p, true) !== 0x02014b50) break;
+    const method = dv.getUint16(p + 10, true), csize = dv.getUint32(p + 20, true);
+    const nlen = dv.getUint16(p + 28, true), elen = dv.getUint16(p + 30, true), clen = dv.getUint16(p + 32, true), off = dv.getUint32(p + 42, true);
+    const name = dec.decode(u8.subarray(p + 46, p + 46 + nlen));
+    p += 46 + nlen + elen + clen;
+    if (!want(name)) continue;
+    const lnlen = dv.getUint16(off + 26, true), lelen = dv.getUint16(off + 28, true);
+    const data = u8.subarray(off + 30 + lnlen + lelen, off + 30 + lnlen + lelen + csize);
+    if (method === 0) out[name] = dec.decode(data);
+    else if (method === 8) {
+      if (typeof DecompressionStream === "undefined") throw new Error("Ce navigateur ne sait pas lire les fichiers .xlsx. Utilisez Chrome ou Edge à jour, ou enregistrez le fichier en CSV.");
+      const stream = new Blob([data]).stream().pipeThrough(new DecompressionStream("deflate-raw"));
+      out[name] = dec.decode(await new Response(stream).arrayBuffer());
+    }
+  }
+  return out;
+}
+/* Reconnaissance des colonnes par leur en-tête */
+const HEADS = [
+  ["code", ["codeclient", "code", "ref", "refclient", "reference", "numeroclient", "nclient", "noclient", "numero"]],
+  ["civ", ["civilite", "civ", "titre"]],
+  ["prenom", ["prenom", "prenomcontact"]],
+  ["nom", ["nom", "nomcontact", "contact", "nomdudirigeant", "dirigeant"]],
+  ["societe", ["societenom", "societeounom", "societe", "raisonsociale", "entreprise", "denomination", "client", "nomsociete", "nomclient", "dossier", "nomdelasociete", "nomdelentreprise", "nomdudossier"]],
+  ["adr1", ["adresse1", "adresse", "adresseligne1", "rue", "voie"]],
+  ["adr2", ["adresse2", "complement", "complementadresse", "adresseligne2", "complementdadresse"]],
+  ["cp", ["codepostal", "cp"]],
+  ["ville", ["ville", "commune", "localite"]],
+  ["email", ["email", "mail", "courriel", "adressemail", "adresseemail"]],
+  ["compta", ["honoraires", "honorairesconfirmes", "honorairesrecurrents", "prestationscomptables", "comptabiliteht", "comptaht", "compta", "comptabilite", "honorairescompta", "missioncomptable", "honorairescomptables"]],
+  ["paye", ["prixbulletin", "prixdubulletin", "bulletin", "prixbulletinht", "payeht", "paieht", "paye", "paie", "social", "honorairespaye", "missionsociale"]],
+  ["bilan", ["bilan", "bilanht", "facturationbilan", "honorairesbilan"]],
+  ["jur", ["juridiqueht", "juridique", "jur", "honorairesjuridique", "missionjuridique"]],
+  ["pa", ["plateformeagreeeht", "paht", "panouveauht", "paactuelht", "panouveau", "paactuel", "pa", "plateforme", "plateformeagreee", "facturationelectronique"]],
+  ["envoyer", ["aenvoyer", "envoyer", "envoi"]],
+  ["mode", ["modedenvoi", "mode", "modeenvoi"]],
+  ["cloture", ["cloture", "datecloture", "datedecloture", "exercice"]],
+  ["lm", ["lmae", "lm", "lettredemission"]],
+  ["ecf", ["ecf"]],
+  ["notes", ["informationscomplementaires", "informations", "notes", "commentaires", "remarques", "observations"]],
+  ["periodicite", ["recurrence", "periodicite", "periodicitedefacturation", "frequence", "frequencedefacturation", "echeancier"]],
+];
+function mapRows(rows) {
+  if (!rows.length) throw new Error("Le fichier est vide.");
+  let hi = rows.findIndex(r => r.filter(v => matchHead(v)).length >= 2);
+  if (hi < 0) throw new Error("Aucune ligne d'en-têtes reconnue (par exemple « Société », « Adresse », « Code postal », « Ville »).");
+  const cols = {}, prio = {};
+  rows[hi].forEach((h, i) => {
+    const k = matchHead(h); if (!k) return;
+    const key = MKEYS.includes(k) && /nouveau/.test(norm(h)) ? "ov_" + k : k; /* « … nouveau » = montant fixé à la main */
+    if (cols[key] == null) { cols[key] = i; prio[key] = 1; }
+  });
+  if (cols.societe == null && cols.nom == null) throw new Error("Il manque une colonne « Société » (ou « Nom »).");
+  const found = HEADS.map(([k]) => k).filter(k => cols[k] != null);
+  const clients = [], warns = []; let skipped = 0, sample = false;
+  /* « Société / Nom » + « Nom » sans prénom ni civilité : « Nom » est la raison sociale complète, pas un contact */
+  const asRaison = cols.societe != null && cols.nom != null && cols.prenom == null && cols.civ == null;
+  const mapped = Object.values(cols);
+  for (const r of rows.slice(hi + 1)) {
+    const g = k => cols[k] == null ? "" : String(r[cols[k]] ?? "").trim();
+    if (g("email") === "p.durand@exemple.fr" && g("societe") === "SARL DURAND BÂTIMENT") { sample = true; continue; } /* ligne d'exemple du modèle */
+    if (!g("societe") && !g("nom")) { if (mapped.some(i => String(r[i] ?? "").trim() !== "" && String(r[i]).trim() !== "0")) skipped++; continue; }
+    const c = blankClient(g("code"));
+    for (const k of ["civ", "prenom", "nom", "societe", "adr1", "adr2", "ville", "email"]) c[k] = g(k);
+    c.ov = {};
+    c.cp = g("cp").replace(/\.0$/, ""); if (/^\d{4}$/.test(c.cp)) c.cp = "0" + c.cp;
+    c.civ = /^(mme|madame)$/i.test(c.civ) ? "Mme" : /^(m|m\.|mr|monsieur)$/i.test(c.civ) ? "M." : /et/i.test(c.civ) ? "M. et Mme" : "";
+    if (!c.societe) c.societe = [c.prenom, c.nom].filter(Boolean).join(" ");
+    for (const k of MKEYS) {
+      const raw = g(k), clean = raw.replace(/[\s\u00a0\u202f€]/g, "").replace(",", ".");
+      if (raw && !/^-?\d+(\.\d+)?$/.test(clean)) { warns.push(`${c.societe || c.nom} : ${LABELS[k]} « ${raw} »`); c.notes = [c.notes, `${LABELS[k]} : ${raw}`].filter(Boolean).join(" · "); c[k] = 0; }
+      else c[k] = Math.max(0, Math.round(num(raw) * 100) / 100);
+      const o = g("ov_" + k); if (o !== "") c.ov[k] = Math.max(0, Math.round(num(o) * 100) / 100);
+    }
+    for (const k of ["cloture", "lm", "ecf"]) c[k] = g(k);
+    c.notes = [g("notes"), c.notes].filter(Boolean).join(" · ");
+    if (asRaison) { c.raison = g("nom"); c.nom = ""; }
+    const env = norm(g("envoyer")); c.envoyer = env === "" ? true : !/^(non|n|0|false|faux)$/.test(env);
+    const mode = norm(g("mode")); c.mode = /deux|2/.test(mode) ? "deux" : /mail/.test(mode) ? "email" : "courrier";
+    c.periodicite = parsePeriode(g("periodicite"));
+    clients.push(c);
+  }
+  return { clients, skipped, found, sample, warns };
+}
+function matchHead(h) {
+  const n = norm(h).replace(/[^a-z0-9]/g, "");
+  if (!n || n.includes("total") || n.includes("ecart") || n.includes("impression") || n.includes("taux")) return null;
+  for (const [k, syn] of HEADS) if (syn.includes(n)) return k;
+  for (const [k, syn] of HEADS) if (syn.some(s => s.length > 3 && n.startsWith(s))) return k;
+  return null;
+}
+const LABELS = { bilan: "Bilan", cloture: "Clôture", lm: "LM AE", ecf: "ECF", notes: "Informations complémentaires", code: "Réf. client", civ: "Civilité", prenom: "Prénom", nom: "Nom", societe: "Société", adr1: "Adresse", adr2: "Complément", cp: "Code postal", ville: "Ville", email: "E-mail", compta: "Honoraires", paye: "Prix bulletin", jur: "Juridique", pa: "Plateforme agréée", envoyer: "À envoyer", mode: "Mode d'envoi", periodicite: "Périodicité" };
+function confirmImport(name, res) {
+  if (!res.clients.length) throw new Error(res.sample ? "Le fichier ne contient que la ligne d'exemple du modèle. Ajoutez vos clients à partir de la ligne 3 (ou remplacez la ligne d'exemple), enregistrez, puis importez à nouveau." : "Aucun client trouvé sous la ligne de titres : vérifiez que la colonne « Société » est remplie.");
+  const hasReal = state.clients.some(c => !c.exemple);
+  const missing = [];
+  showDialog(`<div class="d-body"><h2>${res.clients.length} client${res.clients.length > 1 ? "s" : ""} trouvé${res.clients.length > 1 ? "s" : ""}</h2>
+    <p>Dans « ${esc(name)} ». Colonnes reconnues : ${res.found.map(k => esc(LABELS[k])).join(", ")}.</p>
+    ${missing.length ? `<p>Colonnes d'honoraires absentes : ${missing.map(k => esc(LABELS[k])).join(", ")}. Ces montants seront vides : vous pourrez les saisir ensuite.</p>` : ""}
+    ${res.warns.length ? `<p>${res.warns.length} montant${res.warns.length > 1 ? "s" : ""} non chiffré${res.warns.length > 1 ? "s" : ""}, laissé${res.warns.length > 1 ? "s" : ""} vide${res.warns.length > 1 ? "s" : ""} et recopié${res.warns.length > 1 ? "s" : ""} dans les informations du dossier :</p><ul>${res.warns.slice(0, 6).map(w => `<li>${esc(w)}</li>`).join("")}${res.warns.length > 6 ? "<li>…</li>" : ""}</ul>` : ""}
+    ${res.skipped ? `<p>${res.skipped} ligne${res.skipped > 1 ? "s" : ""} sans société ni nom ignorée${res.skipped > 1 ? "s" : ""}.</p>` : ""}
+    ${hasReal ? "<p>Vous avez déjà des clients. Que faire de la liste actuelle ?</p>" : "<p>Les clients d'exemple seront retirés.</p>"}</div>
+    <div class="d-actions"><button class="btn quiet" data-close>Annuler</button>
+    ${hasReal ? '<button class="btn" data-imp="add">Ajouter à ma liste</button><button class="btn primary" data-imp="replace">Remplacer ma liste</button>' : '<button class="btn primary" data-imp="replace">Importer</button>'}</div>`,
+    btn => {
+      const mode = btn.dataset.imp; if (!mode) return;
+      const base = mode === "add" ? state.clients.filter(c => !c.exemple) : [];
+      let n = 0;
+      for (const c of res.clients) { if (!c.code) c.code = "C" + String(base.length + (++n)).padStart(3, "0"); }
+      state.clients = base.concat(res.clients); state.selectedId = res.clients[0].id; save();
+      show("clients"); toast(`${res.clients.length} client${res.clients.length > 1 ? "s" : ""} importé${res.clients.length > 1 ? "s" : ""}. Vérifiez les montants avant d'imprimer.`);
+    });
+}
+function showDialog(html, onClick) {
+  const d = $("#dialog"); d.innerHTML = html;
+  d.onclick = e => {
+    if (e.target === d || e.target.closest("[data-close]")) { d.close(); return; }
+    const b = e.target.closest("button"); if (b && onClick) { onClick(b); if (b.dataset.imp) d.close(); }
+  };
+  d.showModal();
+}
+
+/* ----- export CSV (ouvre dans Excel) et sauvegarde */
+function download(name, content, type) {
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([content], { type })); a.download = name;
+  document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+}
+function exportCSV() {
+  const H = ["Société / Nom", "Nom", "Adresse", "Complément d'adresse", "Code postal", "Ville", "E-mail", "Clôture", "Récurrence",
+    "Honoraires actuels", "Honoraires nouveau", "Prix bulletin actuel", "Prix bulletin nouveau", "Bilan actuel", "Bilan nouveau", "Juridique actuel", "Juridique nouveau", "Plateforme agréée actuel", "Plateforme agréée nouveau",
+    "LM AE", "ECF", "Informations complémentaires", "Réf. client", "À envoyer", "Mode d'envoi"];
+  const cell = v => { const s = typeof v === "number" ? String(v).replace(".", ",") : String(v ?? ""); return /[;"\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s; };
+  const lines = [H.join(";")].concat(state.clients.map(c => [c.societe, c.raison, c.adr1, c.adr2, c.cp, c.ville, c.email, c.cloture, (PERIODES[c.periodicite] || { lib: "" }).lib,
+    ...MKEYS.flatMap(m => [base(c, m) || "", amt(c, m) || ""]), c.lm, c.ecf, c.notes, c.code, c.envoyer ? "Oui" : "Non", { courrier: "Courrier", email: "Email", deux: "Les deux" }[c.mode]].map(cell).join(";")));
+  download(`Clients_honoraires_${new Date().toISOString().slice(0, 10)}.csv`, "\ufeff" + lines.join("\r\n"), "text/csv;charset=utf-8");
+}
+function downloadModele() {
+  const bin = atob(MODELE_XLSX), u8 = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) u8[i] = bin.charCodeAt(i);
+  download("Modele_import_clients_ALTHO.xlsx", u8, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+  toast("Modèle enregistré dans vos Téléchargements. Remplissez-le puis importez-le ici.");
+}
+function backup() {
+  download(`Sauvegarde_courriers_${safeName(state.settings.cabNom)}_${new Date().toISOString().slice(0, 10)}.json`, JSON.stringify({ app: "altho-courriers", version: 1, ...state }, null, 1), "application/json");
+  toast("Copie de sécurité enregistrée dans vos Téléchargements.");
+}
+function restore(text) {
+  let data; try { data = JSON.parse(text); } catch (e) { throw new Error("Ce fichier n'est pas une copie de sécurité de l'application."); }
+  if (!data || !Array.isArray(data.clients)) throw new Error("Ce fichier n'est pas une copie de sécurité de l'application.");
+  showDialog(`<div class="d-body"><h2>Restaurer cette copie ?</h2><p>${data.clients.length} client${data.clients.length > 1 ? "s" : ""}. La liste et les réglages actuels seront remplacés.</p></div>
+    <div class="d-actions"><button class="btn quiet" data-close>Annuler</button><button class="btn primary" data-imp="restore">Restaurer</button></div>`, b => {
+    if (b.dataset.imp !== "restore") return;
+    try { localStorage.setItem(STORE_KEY, JSON.stringify(data)); } catch (e) { /* stockage indisponible */ }
+    const prev = state; state = (() => { const d = defaultSettings(), s = data.settings || {}; const clients = data.clients.map(c => ({ ...blankClient(""), ...c })); const txt = { ...d.txt, ...(s.txt || {}) }; if (/\{hausse\}/.test(txt.p4 || "")) txt.p4 = d.txt.p4; return { settings: { ...d, ...s, lib: { ...d.lib, ...(s.lib || {}) }, txt, fmt: { ...d.fmt, ...(s.fmt || {}), p: { ...((s.fmt || {}).p || {}) } } }, clients, selectedId: (clients[0] || {}).id || null }; })();
+    save(); show(view); toast("Copie restaurée.", "Annuler", () => { state = prev; save(); show(view); });
+  });
+}
+
+/* ================================================================== démarrage */
+const ro = new ResizeObserver(() => {
+  if (view === "courriers") fitSheet($("#sheet-frame"), $("#stage-scroll"));
+  if (view === "reglages") fitSheet($("#settings-frame"), $("#settings-scroll"));
+});
+ro.observe($("#stage-scroll")); ro.observe($("#settings-scroll"));
+document.fonts && document.fonts.ready.then(() => show(view));
+show("courriers");
+loadEmbedded();
+function loadEmbedded() {
+  if (!EMBED || state.embedId === EMBED.id) return;
+  let res;
+  try { res = mapRows(EMBED.rows); } catch (e) { return; }
+  const apply = () => {
+    state.clients = res.clients; state.selectedId = (res.clients[0] || {}).id || null; state.embedId = EMBED.id; save(); show("courriers");
+    toast(`${res.clients.length} clients chargés depuis « ${EMBED.name} ». Vérifiez les montants avant d'imprimer.`);
+  };
+  if (!state.clients.some(c => !c.exemple)) { apply(); return; }
+  showDialog(`<div class="d-body"><h2>Charger vos ${res.clients.length} clients ?</h2><p>Ce fichier contient la liste « ${esc(EMBED.name)} ». Vous avez déjà des clients enregistrés dans l'application : les remplacer par cette liste ?</p></div>
+    <div class="d-actions"><button class="btn" data-imp="keep">Garder ma liste actuelle</button><button class="btn primary" data-imp="load">Remplacer par la liste du fichier</button></div>`,
+    b => { if (b.dataset.imp === "load") apply(); if (b.dataset.imp === "keep") { state.embedId = EMBED.id; save(); } });
+}
+</script>
+</body>
+</html>
