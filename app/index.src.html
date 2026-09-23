@@ -479,6 +479,8 @@ dialog .d-actions { display: flex; justify-content: flex-end; gap: 8px; padding:
 const STORE_KEY = "altho-courriers-v1";
 const IMG = { entete: "data:image/png;base64,/*IMG_ENTETE*/", pied: "data:image/png;base64,/*IMG_PIED*/" };
 const MODELE_XLSX = "/*MODELE_XLSX*/";
+/* Version personnelle : liste de clients du cabinet intégrée au fichier (jamais versée dans le dépôt) */
+const EMBED = /*EMBED_CLIENTS*/null;
 const MISSIONS = [{ k: "compta" }, { k: "paye" }, { k: "bilan" }, { k: "jur" }, { k: "pa" }];
 const MKEYS = MISSIONS.map(m => m.k);
 const ARRONDIS = { centime: { v: 0.01, lib: "Au centime" }, dix: { v: 0.1, lib: "Aux 10 centimes" }, euro: { v: 1, lib: "À l'euro" }, cinq: { v: 5, lib: "Aux 5 €" } };
@@ -568,7 +570,7 @@ function load() {
   if (!s.signataire) settings.signataire = d.signataire;
   if (!("periodicite" in s) && "echeances" in s) settings.periodicite = ({ 12: "mensuelle", 4: "trimestrielle", 2: "semestrielle", 1: "annuelle" })[num(s.echeances)] || "aucune";
   const clients = data.clients.map(c => ({ ...blankClient(""), ...c, ov: { ...(c.ov || {}) } }));
-  return { settings, clients, selectedId: data.selectedId && clients.some(c => c.id === data.selectedId) ? data.selectedId : (clients[0] || {}).id || null };
+  return { settings, clients, embedId: data.embedId || null, selectedId: data.selectedId && clients.some(c => c.id === data.selectedId) ? data.selectedId : (clients[0] || {}).id || null };
 }
 let saveTimer = null;
 function save() {
@@ -1487,6 +1489,20 @@ const ro = new ResizeObserver(() => {
 ro.observe($("#stage-scroll")); ro.observe($("#settings-scroll"));
 document.fonts && document.fonts.ready.then(() => show(view));
 show("courriers");
+loadEmbedded();
+function loadEmbedded() {
+  if (!EMBED || state.embedId === EMBED.id) return;
+  let res;
+  try { res = mapRows(EMBED.rows); } catch (e) { return; }
+  const apply = () => {
+    state.clients = res.clients; state.selectedId = (res.clients[0] || {}).id || null; state.embedId = EMBED.id; save(); show("courriers");
+    toast(`${res.clients.length} clients chargés depuis « ${EMBED.name} ». Vérifiez les montants avant d'imprimer.`);
+  };
+  if (!state.clients.some(c => !c.exemple)) { apply(); return; }
+  showDialog(`<div class="d-body"><h2>Charger vos ${res.clients.length} clients ?</h2><p>Ce fichier contient la liste « ${esc(EMBED.name)} ». Vous avez déjà des clients enregistrés dans l'application : les remplacer par cette liste ?</p></div>
+    <div class="d-actions"><button class="btn" data-imp="keep">Garder ma liste actuelle</button><button class="btn primary" data-imp="load">Remplacer par la liste du fichier</button></div>`,
+    b => { if (b.dataset.imp === "load") apply(); if (b.dataset.imp === "keep") { state.embedId = EMBED.id; save(); } });
+}
 </script>
 </body>
 </html>
