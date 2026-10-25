@@ -1,0 +1,441 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Comparateur SCI IR / IS</title>
+<style>
+@font-face{font-family:"Hanken Grotesk";src:url(data:font/woff2;base64,/*FONT_SANS*/) format("woff2");font-weight:100 900;font-display:swap}
+@font-face{font-family:"Source Serif 4";src:url(data:font/woff2;base64,/*FONT_SERIF*/) format("woff2");font-weight:200 900;font-display:swap}
+@font-face{font-family:"Source Serif 4";src:url(data:font/woff2;base64,/*FONT_SERIF_ITALIC*/) format("woff2");font-weight:200 900;font-style:italic;font-display:swap}
+:root{
+  --bordeaux:#9d202e;--bordeaux-hover:#7c1823;--bordeaux-tint:oklch(95.5% 0.018 18);
+  --desk:oklch(93.5% 0.006 75);--panel:oklch(98.6% 0.003 75);--paper:#fff;
+  --ink:oklch(21% 0.006 30);--ink-2:oklch(38% 0.008 30);--ink-3:oklch(48% 0.008 30);
+  --rule:oklch(87.5% 0.007 75);--rule-soft:oklch(92% 0.005 75);
+  --warn-tint:oklch(95% 0.045 80);--warn-ink:oklch(38% 0.1 60);
+  --sans:"Hanken Grotesk","Segoe UI",system-ui,sans-serif;--serif:"Source Serif 4",Georgia,serif;
+  --accent:#9d202e;--accent-tint:#f6ebec;
+}
+body.altho{--accent:#2b3440;--accent-tint:#eceef1}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{font:15px/1.45 var(--sans);color:var(--ink);background:var(--desk);font-feature-settings:"tnum"}
+button,input,select{font:inherit;color:inherit}
+
+/* Barre du haut */
+.top{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:16px;height:56px;padding:0 20px;background:var(--panel);border-bottom:1px solid var(--rule)}
+.top h1{font-size:16px;font-weight:700;letter-spacing:.02em;margin:0;white-space:nowrap}
+.top h1 span{color:var(--bordeaux)}
+.seg{display:inline-flex;background:var(--rule-soft);border-radius:8px;padding:3px}
+.seg button{border:0;background:transparent;padding:5px 12px;border-radius:6px;font-size:13.5px;font-weight:600;color:var(--ink-2);cursor:pointer}
+.seg button[aria-pressed=true]{background:var(--paper);color:var(--ink);box-shadow:0 1px 2px rgb(0 0 0 / .08)}
+.sp{flex:1}
+.btn{height:36px;padding:0 14px;border-radius:6px;border:1px solid var(--rule);background:var(--paper);font-weight:600;font-size:14px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
+.btn:hover{background:var(--rule-soft)}
+.btn.primary{background:var(--bordeaux);border-color:var(--bordeaux);color:#fff}
+.btn.primary:hover{background:var(--bordeaux-hover)}
+.btn svg{width:16px;height:16px}
+
+/* Mise en page */
+.wrap{display:grid;grid-template-columns:380px 1fr;height:calc(100% - 56px)}
+.form{overflow:auto;background:var(--panel);border-right:1px solid var(--rule);padding:6px 20px 40px}
+.desk{overflow:auto;padding:28px 24px 60px}
+.pages{display:flex;flex-direction:column;align-items:center;gap:24px}
+
+/* Formulaire */
+fieldset{border:0;margin:0;padding:18px 0 4px;border-bottom:1px solid var(--rule-soft)}
+legend{float:left;width:100%;font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2);padding:0;margin-bottom:10px}
+.grid{clear:both;display:grid;grid-template-columns:1fr 1fr;gap:10px 12px}
+.f{display:flex;flex-direction:column;gap:4px;min-width:0}
+.f.full{grid-column:1/-1}
+.f label{font-size:12.5px;font-weight:600;color:var(--ink-2)}
+.f .in{position:relative}
+.f input[type=text],.f input[type=date],.f select{width:100%;height:36px;border:1px solid var(--rule);border-radius:6px;background:var(--paper);padding:0 10px;font-size:14.5px}
+.f input.num{text-align:right;padding-right:26px}
+.f input.num[data-t=ans]{padding-right:38px}
+.f .u{position:absolute;right:9px;top:50%;transform:translateY(-50%);font-size:13px;color:var(--ink-3);pointer-events:none}
+.f input:focus,.f select:focus{outline:2px solid color-mix(in oklch,var(--bordeaux) 55%,transparent);outline-offset:0;border-color:var(--bordeaux)}
+.f .hint{font-size:12px;color:var(--ink-3);line-height:1.35}
+.chk{display:flex;gap:9px;align-items:flex-start;font-size:13.5px;line-height:1.35;cursor:pointer}
+.chk input{margin:2px 0 0;accent-color:var(--bordeaux);width:16px;height:16px;flex:none}
+details.taux summary{cursor:pointer;font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2);padding:18px 0 10px;list-style:none}
+details.taux summary::before{content:"+ ";}
+details.taux[open] summary::before{content:"− ";}
+.note{font-size:12.5px;color:var(--ink-3);margin:14px 0 0;line-height:1.45}
+
+/* Page A4 */
+.page{width:210mm;height:297mm;background:var(--paper);box-shadow:0 1px 2px rgb(0 0 0 / .06),0 8px 28px rgb(0 0 0 / .08);position:relative;overflow:hidden;color:#1a1a1a;padding:14mm 18mm 0;display:flex;flex-direction:column}
+.pg-body{flex:1;min-height:0}
+.lh{display:flex;align-items:flex-end;justify-content:space-between;gap:10mm;margin-bottom:8mm}
+.lh img{width:100%;display:block}
+.lh-altho{border-bottom:2.2pt solid var(--accent);padding-bottom:3mm}
+.lh-altho .wm{font:500 22pt/1 var(--sans);letter-spacing:.32em;color:var(--accent)}
+.lh-altho .ad{font:7.5pt/1.4 var(--sans);color:#555;text-align:right}
+.run{display:flex;justify-content:space-between;font:7.5pt var(--sans);color:#777;border-bottom:.6pt solid #e3dcdc;padding-bottom:2mm;margin-bottom:7mm}
+.run b{color:var(--accent);font-weight:700;letter-spacing:.04em}
+.kick{font:700 7.5pt var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin:0 0 2mm}
+.doc-title{font:700 17pt/1.15 var(--sans);margin:0 0 2.5mm;letter-spacing:-.005em}
+.doc-meta{font:9pt/1.4 var(--sans);color:#4a4a4a;margin:0 0 7mm}
+.verdict{background:var(--accent-tint);border-left:3pt solid var(--accent);padding:4mm 5.5mm;margin-bottom:6mm}
+.verdict p{margin:0;font:600 12.5pt/1.35 var(--serif)}
+.verdict p.sub{font:400 9pt/1.45 var(--sans);color:#3d3d3d;margin-top:1.8mm}
+h3.sec{font:700 7.5pt var(--sans);letter-spacing:.12em;text-transform:uppercase;color:#4a4a4a;margin:0 0 2.5mm;padding-bottom:1.5mm;border-bottom:.6pt solid #e3dcdc}
+table.cmp{width:100%;border-collapse:collapse;font:9pt/1.3 var(--sans);margin-bottom:6.5mm}
+table.cmp th{font-weight:600;text-align:right;padding:1.6mm 2mm;color:#555;font-size:8pt;border-bottom:.8pt solid #1a1a1a}
+table.cmp th:first-child{text-align:left}
+table.cmp td{padding:1.7mm 2mm;border-bottom:.5pt solid #e9e4e4;text-align:right;white-space:nowrap}
+table.cmp td:first-child{text-align:left;white-space:normal;color:#2a2a2a}
+table.cmp tr.tot td{font-weight:700;border-bottom:.8pt solid #1a1a1a}
+table.cmp td.best{color:var(--accent);font-weight:700}
+table.cmp td.ec{color:#555}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:8mm}
+dl.proj{margin:0;display:grid;grid-template-columns:auto 1fr;gap:1.2mm 4mm;font:8.6pt/1.3 var(--sans)}
+dl.proj dt{color:#555}
+dl.proj dd{margin:0;text-align:right;font-weight:600}
+ul.why{margin:0;padding:0;list-style:none;font:9pt/1.45 var(--serif);color:#222}
+ul.why li{padding-left:4mm;position:relative;margin-bottom:2mm}
+ul.why li::before{content:"";position:absolute;left:0;top:2.1mm;width:1.6mm;height:1.6mm;background:var(--accent)}
+.chart{margin:0 0 5mm}
+.kv{display:grid;grid-template-columns:repeat(4,1fr);gap:2.2mm 5mm;margin:0 0 6mm}
+.kv div{border-bottom:.4pt solid #eee;padding-bottom:1.2mm}
+.kv span{display:block;font:7.6pt/1.3 var(--sans);color:#666}
+.kv b{font:600 9pt/1.3 var(--sans)}
+.chart svg{width:100%;height:auto;display:block}
+.alert{background:#fbf3e3;color:#6b4a12;font:8.5pt/1.4 var(--sans);padding:2.5mm 3.5mm;margin-top:3mm}
+table.det{width:100%;border-collapse:collapse;font:7.6pt/1.2 var(--sans);margin-bottom:5mm}
+table.det th{font-weight:600;color:#555;text-align:right;padding:1.2mm 1.4mm;border-bottom:.8pt solid #1a1a1a;vertical-align:bottom}
+table.det th.grp{text-align:center;border-bottom:.6pt solid #bbb;color:#1a1a1a;font-weight:700}
+table.det td{text-align:right;padding:.8mm 1.4mm;border-bottom:.4pt solid #eee;white-space:nowrap}
+table.det td:first-child,table.det th:first-child{text-align:left}
+table.det tr.last td{font-weight:700;background:var(--accent-tint)}
+table.det .sep{border-left:.6pt solid #ccc}
+table.pv{width:100%;border-collapse:collapse;font:8.4pt/1.3 var(--sans)}
+table.pv td{padding:1.1mm 1.5mm;border-bottom:.4pt solid #eee}
+table.pv td:last-child{text-align:right;white-space:nowrap}
+table.pv tr.t td{font-weight:700;border-top:.8pt solid #1a1a1a;border-bottom:0}
+.notes{font:7.6pt/1.42 var(--sans);color:#3d3d3d}
+.notes p{margin:0 0 1.6mm}
+.notes ul{margin:0 0 2mm;padding-left:4mm}
+.notes li{margin-bottom:.8mm}
+.foot{margin:0 -18mm;padding:0 0 5mm}
+.foot img{width:100%;display:block}
+.foot-altho{margin:0 0 7mm;border-top:.6pt solid #ccc;padding-top:2.5mm;font:7pt/1.4 var(--sans);color:#6b7280;text-align:center}
+.pnum{position:absolute;right:18mm;bottom:3.5mm;font:7pt var(--sans);color:#9aa3b2}
+
+@media (max-width:900px){
+  .wrap{display:block;height:auto}
+  .form{border-right:0;border-bottom:1px solid var(--rule);overflow:visible}
+  .desk{overflow:visible;padding:20px 16px 48px}
+  .top{gap:10px;padding:0 16px}
+  .top h1 .full{display:none}
+  .btn .lbl{display:none}
+}
+@media (max-width:480px){.seg button{padding:5px 8px;font-size:12.5px}}
+@media print{
+  @page{size:A4;margin:0}
+  body{background:#fff}
+  .top,.form{display:none!important}
+  .wrap{display:block;height:auto}
+  .desk{padding:0;overflow:visible}
+  .pages{gap:0;display:block;zoom:1!important}
+  .page{box-shadow:none;break-after:page;margin:0}
+  .page:last-child{break-after:auto}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <h1><span>SCI</span> IR ou IS<span class="full" style="color:var(--ink-3);font-weight:500"> · comparateur</span></h1>
+  <div class="seg" role="group" aria-label="Cabinet">
+    <button type="button" data-cab="AE" aria-pressed="true">ALTHO EXPERTISE</button>
+    <button type="button" data-cab="ALTHO" aria-pressed="false">ALTHO</button>
+  </div>
+  <div class="sp"></div>
+  <button class="btn" type="button" id="reset" title="Revenir à l'exemple"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg><span class="lbl">Réinitialiser</span></button>
+  <button class="btn primary" type="button" id="print"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg><span class="lbl">Imprimer / PDF</span></button>
+</header>
+<div class="wrap">
+  <aside class="form" id="form"></aside>
+  <main class="desk"><div class="pages" id="pages"></div></main>
+</div>
+
+<script>/*MOTEUR*/</script>
+<script>
+const IMG = { entete: "data:image/png;base64,/*IMG_ENTETE*/", pied: "data:image/png;base64,/*IMG_PIED*/" };
+const CABINETS = {
+  AE: { nom: "ALTHO EXPERTISE", ville: "Le Plessis-Bouchard" },
+  ALTHO: { nom: "ALTHO", ville: "Franconville", adresse: "38 rue de la Station, 95130 Franconville", siren: "424 968 501" },
+};
+const aujourdhui = () => { const d = new Date(); return d.toISOString().slice(0, 10); };
+
+// [section, clé, libellé, type, défaut, aide]
+const CHAMPS = [
+  ["Dossier", "client", "Client (SCI ou associés)", "text", "SCI EXEMPLE", "Exemple fictif : remplacez par votre client.", "full"],
+  ["Dossier", "date", "Date de l'étude", "date", "", ""],
+  ["Dossier", "auteur", "Préparé par", "text", "", "Facultatif, apparaît sur le rapport."],
+  ["Acquisition", "prix", "Prix du bien", "eur", 300000, "Hors frais."],
+  ["Acquisition", "frais", "Frais d'acquisition", "eur", 22000, "Notaire, droits, garantie."],
+  ["Acquisition", "travaux", "Travaux initiaux", "eur", 20000, ""],
+  ["Acquisition", "typeTravaux", "Nature des travaux", "select", "amelioration", "", "full", [["amelioration", "Rénovation, amélioration"], ["construction", "Construction, agrandissement"]]],
+  ["Acquisition", "partTerrain", "Part du terrain", "pct", 20, "Non amortissable à l'IS."],
+  ["Financement", "emprunt", "Montant emprunté", "eur", 250000, ""],
+  ["Financement", "tauxEmprunt", "Taux du crédit", "pct", 3.5, ""],
+  ["Financement", "dureeEmprunt", "Durée du crédit", "ans", 20, ""],
+  ["Financement", "tauxAssurance", "Assurance emprunteur", "pct", 0.25, "% du capital, par an."],
+  ["Location nue", "loyers", "Loyers annuels", "eur", 18000, "Hors charges, année 1."],
+  ["Location nue", "charges", "Charges annuelles", "eur", 3500, "Taxe foncière, PNO, gestion, copropriété non récupérable, entretien."],
+  ["Location nue", "indexLoyers", "Hausse des loyers", "pct", 1.5, "Par an."],
+  ["Location nue", "indexCharges", "Hausse des charges", "pct", 2, "Par an."],
+  ["Revente", "duree", "Durée de détention", "ans", 15, "De 1 à 30 ans, revente en fin d'année."],
+  ["Revente", "revalorisation", "Revalorisation du bien", "pct", 1.5, "Par an, si le prix de revente est vide."],
+  ["Revente", "prixVente", "Prix de revente", "eur", "", "Facultatif, remplace l'estimation."],
+  ["Revente", "fraisCession", "Frais de cession", "eur", 0, "Diagnostics, agence à la charge du vendeur."],
+  ["Associés (SCI à l'IR)", "tmi", "Tranche marginale", "select", "0.30", "", "", [["0", "0 %"], ["0.11", "11 %"], ["0.30", "30 %"], ["0.41", "41 %"], ["0.45", "45 %"]]],
+  ["Associés (SCI à l'IR)", "nbAssocies", "Nombre d'associés", "int", 2, "Foyers fiscaux distincts, parts égales."],
+  ["SCI à l'IS", "dureeAmortBati", "Amortissement du bâti", "ans", 30, ""],
+  ["SCI à l'IS", "dureeAmortTravaux", "Amortissement des travaux", "ans", 15, "Rénovation, amélioration."],
+  ["SCI à l'IS", "fraisAuCout", "Frais d'acquisition", "select", "0", "", "full", [["0", "En charge la première année"], ["1", "Ajoutés au coût du bien, amortis"]]],
+  ["SCI à l'IS", "tauxDistribution", "Bénéfice distribué chaque année", "pct", 0, "Le reste est mis en réserve."],
+  ["SCI à l'IS", "honorairesIS", "Surcoût annuel de l'IS", "eur", 0, "Honoraires comptables en plus de l'IR."],
+  ["SCI à l'IS", "tauxReduit", "Taux réduit de 15 % applicable", "check", true, "Capital libéré, détenu à 75 % au moins par des personnes physiques, CA inférieur à 10 M€."],
+  ["SCI à l'IS", "liquidation", "Toutes les réserves distribuées à la revente", "check", true, "Sinon, l'impôt latent sur les réserves n'est pas compté."],
+];
+const TAUX_CHAMPS = [
+  ["psFoncier", "Prélèvements sociaux, revenus fonciers et plus-values", "pct"],
+  ["csgDeductible", "CSG déductible", "pct"],
+  ["irPV", "IR sur plus-value immobilière", "pct"],
+  ["pfu", "PFU sur dividendes", "pct"],
+  ["isReduit", "IS, taux réduit", "pct"],
+  ["isNormal", "IS, taux normal", "pct"],
+  ["isSeuil", "Plafond du taux réduit", "eur"],
+  ["plafondDeficit", "Déficit imputable sur le revenu global", "eur"],
+];
+
+const nf = new Intl.NumberFormat("fr-FR", { maximumFractionDigits: 0 });
+const eur = (v) => nf.format(Math.round(v)) + " €";
+const pct = (v, d = 1) => (v * 100).toLocaleString("fr-FR", { maximumFractionDigits: d, minimumFractionDigits: 0 }) + " %";
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const lire = (s) => { const v = parseFloat(String(s).replace(/[\s  €%]/g, "").replace(",", ".")); return isNaN(v) ? 0 : v; };
+const fmtSaisie = (v, type) => v === "" || v == null ? "" : type === "eur" ? nf.format(v) : String(v).replace(".", ",");
+
+const STOCKAGE = "comparateur-sci-ir-is-v1";
+let etat = defauts();
+function defauts() {
+  const e = { cabinet: "AE", taux: {} };
+  for (const c of CHAMPS) e[c[1]] = c[1] === "date" ? aujourdhui() : c[4];
+  for (const [k, , t] of TAUX_CHAMPS) e.taux[k] = t === "pct" ? Math.round(Moteur.TAUX_2026[k] * 1000) / 10 : Moteur.TAUX_2026[k];
+  return e;
+}
+try { const s = JSON.parse(localStorage.getItem(STOCKAGE) || "null"); if (s) etat = Object.assign(defauts(), s, { taux: Object.assign(defauts().taux, s.taux || {}) }); } catch (e) {}
+const sauver = () => { try { localStorage.setItem(STOCKAGE, JSON.stringify(etat)); } catch (e) {} };
+
+// ---------- Formulaire ----------
+function champHTML(c, val, prefix = "") {
+  const [, k, lab, type, , hint, cls, opts] = c;
+  const id = "f-" + prefix + k;
+  if (type === "check") return `<div class="f full"><label class="chk"><input type="checkbox" id="${id}" data-k="${prefix}${k}" ${val ? "checked" : ""}><span>${lab}${hint ? `<br><span class="hint">${hint}</span>` : ""}</span></label></div>`;
+  let ctrl;
+  if (type === "select") ctrl = `<select id="${id}" data-k="${prefix}${k}">${opts.map(([v, l]) => `<option value="${v}" ${String(val) === v ? "selected" : ""}>${l}</option>`).join("")}</select>`;
+  else if (type === "text" || type === "date") ctrl = `<input type="${type}" id="${id}" data-k="${prefix}${k}" value="${esc(val ?? "")}">`;
+  else ctrl = `<div class="in"><input type="text" inputmode="decimal" class="num" id="${id}" data-k="${prefix}${k}" data-t="${type}" value="${fmtSaisie(val, type)}"><span class="u">${type === "eur" ? "€" : type === "pct" ? "%" : type === "ans" ? "ans" : ""}</span></div>`;
+  return `<div class="f ${cls || ""}"><label for="${id}">${lab}</label>${ctrl}${hint ? `<span class="hint">${hint}</span>` : ""}</div>`;
+}
+function dessinerFormulaire() {
+  const sections = [...new Set(CHAMPS.map((c) => c[0]))];
+  let h = sections.map((s) => `<fieldset><legend>${s}</legend><div class="grid">${CHAMPS.filter((c) => c[0] === s).map((c) => champHTML(c, etat[c[1]])).join("")}</div></fieldset>`).join("");
+  h += `<details class="taux"><summary>Taux appliqués</summary><div class="grid">${TAUX_CHAMPS.map(([k, l, t]) => champHTML(["", k, l, t, 0, "", "full"], etat.taux[k], "taux.")).join("")}</div>
+  <p class="note">Valeurs au 25 octobre 2026 : LFSS 2026 (CSG des revenus du capital à 10,6 %, revenus fonciers et plus-values immobilières maintenus à 9,2 %), loi de finances 2026. Modifiables si la loi change.</p></details>
+  <p class="note">Les données restent sur cet ordinateur. Aucune information n'est envoyée.</p>`;
+  document.getElementById("form").innerHTML = h;
+}
+document.getElementById("form").addEventListener("input", (ev) => {
+  const el = ev.target, k = el.dataset.k; if (!k) return;
+  const v = el.type === "checkbox" ? el.checked : el.dataset.t ? (el.value.trim() === "" ? "" : lire(el.value)) : el.value;
+  if (k.startsWith("taux.")) etat.taux[k.slice(5)] = v; else etat[k] = v;
+  sauver(); rendre();
+});
+document.getElementById("form").addEventListener("change", (ev) => {
+  const el = ev.target; if (el.dataset.t && el.value.trim() !== "") el.value = fmtSaisie(lire(el.value), el.dataset.t);
+});
+document.querySelectorAll("[data-cab]").forEach((b) => b.addEventListener("click", () => { etat.cabinet = b.dataset.cab; sauver(); rendre(); }));
+document.getElementById("reset").addEventListener("click", () => {
+  if (!confirm("Effacer la saisie et revenir à l'exemple ?")) return;
+  const cab = etat.cabinet; etat = defauts(); etat.cabinet = cab; sauver(); dessinerFormulaire(); rendre();
+});
+document.getElementById("print").addEventListener("click", () => window.print());
+
+// ---------- Calcul ----------
+function parametres() {
+  const e = etat, P = (k) => lire(e[k]) / 100;
+  return {
+    prix: lire(e.prix), frais: lire(e.frais), travaux: lire(e.travaux), typeTravaux: e.typeTravaux, partTerrain: P("partTerrain"),
+    emprunt: lire(e.emprunt), tauxEmprunt: P("tauxEmprunt"), dureeEmprunt: lire(e.dureeEmprunt), tauxAssurance: P("tauxAssurance"),
+    loyers: lire(e.loyers), charges: lire(e.charges), indexLoyers: P("indexLoyers"), indexCharges: P("indexCharges"),
+    duree: Math.min(30, Math.max(1, Math.round(lire(e.duree)))), revalorisation: P("revalorisation"), prixVente: lire(e.prixVente), fraisCession: lire(e.fraisCession),
+    tmi: parseFloat(e.tmi), nbAssocies: Math.max(1, Math.round(lire(e.nbAssocies))),
+    dureeAmortBati: Math.max(1, lire(e.dureeAmortBati)), dureeAmortTravaux: Math.max(1, lire(e.dureeAmortTravaux)),
+    fraisAuCout: e.fraisAuCout === "1", tauxReduit: !!e.tauxReduit, tauxDistribution: Math.min(1, P("tauxDistribution")),
+    liquidation: !!e.liquidation, honorairesIS: lire(e.honorairesIS),
+  };
+}
+function tauxPerso() {
+  const o = {};
+  for (const [k, , t] of TAUX_CHAMPS) o[k] = t === "pct" ? lire(etat.taux[k]) / 100 : lire(etat.taux[k]);
+  return o;
+}
+
+// ---------- Rapport ----------
+function enTete() {
+  if (etat.cabinet === "AE") return `<div class="lh"><img src="${IMG.entete}" alt="ALTHO EXPERTISE"></div>`;
+  const c = CABINETS.ALTHO;
+  return `<div class="lh lh-altho"><div class="wm">ALTHO</div><div class="ad">${c.adresse}<br>SIREN ${c.siren}</div></div>`;
+}
+function pied(n, total) {
+  const num = `<div class="pnum">${n} / ${total}</div>`;
+  if (etat.cabinet === "AE") return `<div class="foot"><img src="${IMG.pied}" alt=""></div>${num}`;
+  const c = CABINETS.ALTHO;
+  return `<div class="foot-altho">ALTHO · ${c.adresse} · SIREN ${c.siren}</div>${num}`;
+}
+function dateLongue(iso) {
+  const d = iso ? new Date(iso + "T12:00:00") : new Date();
+  return isNaN(d) ? "" : d.toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" });
+}
+function graphique(r) {
+  const W = 620, H = 150, ml = 52, mr = 46, mt = 12, mb = 26;
+  const pts = r.cumul, N = r.N;
+  const vals = pts.flatMap((p) => [p.ir, p.is]).concat([0]);
+  let lo = Math.min(...vals), hi = Math.max(...vals);
+  const pas = (() => { const brut = (hi - lo) / 4 || 1, e = Math.pow(10, Math.floor(Math.log10(brut))); return [1, 2, 2.5, 5, 10].map((m) => m * e).find((m) => m >= brut); })();
+  lo = Math.floor(lo / pas) * pas; hi = Math.ceil(hi / pas) * pas;
+  const x = (t) => ml + (W - ml - mr) * (N === 1 ? 1 : (t - 1) / (N - 1));
+  const y = (v) => mt + (H - mt - mb) * (1 - (v - lo) / (hi - lo || 1));
+  let g = "";
+  for (let v = lo; v <= hi + 1e-6; v += pas) {
+    g += `<line x1="${ml}" x2="${W - mr}" y1="${y(v)}" y2="${y(v)}" stroke="${v === 0 ? "#9a9a9a" : "#ebe6e6"}" stroke-width="${v === 0 ? 0.8 : 0.6}"/>`;
+    g += `<text x="${ml - 6}" y="${y(v) + 3}" text-anchor="end" font-size="8.5" fill="#666">${nf.format(v / 1000)} k€</text>`;
+  }
+  const ticks = N <= 12 ? pts.map((p) => p.annee) : pts.map((p) => p.annee).filter((t) => t === 1 || t === N || t % 5 === 0);
+  for (const t of ticks) g += `<text x="${x(t)}" y="${H - 9}" text-anchor="middle" font-size="8.5" fill="#666">${t}</text>`;
+  g += `<text x="${W - mr}" y="${H}" text-anchor="end" font-size="8" fill="#888">année (revente en fin d'année ${N})</text>`;
+  const ligne = (k, coul, w, tir) => `<polyline fill="none" stroke="${coul}" stroke-width="${w}" ${tir ? 'stroke-dasharray="4 3"' : ""} stroke-linejoin="round" points="${pts.map((p) => `${x(p.annee).toFixed(1)},${y(p[k]).toFixed(1)}`).join(" ")}"/>`;
+  const acc = getComputedStyle(document.body).getPropertyValue("--accent").trim() || "#9d202e";
+  g += ligne("ir", "#7a7a7a", 1.5, true) + ligne("is", acc, 2.2);
+  const fin = pts[pts.length - 1];
+  let yIR = y(fin.ir) + 3, yIS = y(fin.is) + 3;
+  if (Math.abs(yIR - yIS) < 11) { if (yIR < yIS) { yIR -= 6; yIS += 6; } else { yIR += 6; yIS -= 6; } }
+  g += `<text x="${x(N) + 6}" y="${yIR}" font-size="9.5" font-weight="700" fill="#555">IR</text>`;
+  g += `<text x="${x(N) + 6}" y="${yIS}" font-size="9.5" font-weight="700" fill="${acc}">IS</text>`;
+  return `<svg viewBox="0 0 ${W} ${H}" font-family="Hanken Grotesk, Arial, sans-serif" role="img" aria-label="Impôts cumulés à l'IR et à l'IS">${g}</svg>`;
+}
+
+function rendre() {
+  document.body.classList.toggle("altho", etat.cabinet === "ALTHO");
+  document.querySelectorAll("[data-cab]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.cab === etat.cabinet)));
+  const p = parametres(), r = Moteur.simuler(p, tauxPerso()), T = r.T;
+  const S = r.synthese, N = r.N;
+  const client = esc(etat.client || "Client");
+  const ecart = r.ecart, seuil = Math.max(500, 0.01 * Math.abs(r.apport));
+  const gagnant = Math.abs(ecart) < seuil ? null : ecart > 0 ? "is" : "ir";
+  const nomReg = { ir: "l'impôt sur le revenu", is: "l'impôt sur les sociétés" };
+  const verdict = gagnant
+    ? `Sur ${N} an${N > 1 ? "s" : ""}, revente comprise, la SCI à ${nomReg[gagnant]} laisse ${eur(Math.abs(ecart))} de plus aux associés.`
+    : `Sur ${N} an${N > 1 ? "s" : ""}, revente comprise, les deux régimes donnent un résultat proche (écart de ${eur(Math.abs(ecart))}).`;
+  const triTxt = (t) => (t == null ? "n.c." : pct(t, 1));
+  const sous = `Prélèvements totaux : ${eur(S.ir.impotsTotal)} à l'IR, ${eur(S.is.impotsTotal + S.is.honoraires)} à l'IS${S.is.honoraires ? " (surcoût d'honoraires compris)" : ""}. Rendement annuel de l'apport après impôts : ${triTxt(S.ir.tri)} contre ${triTxt(S.is.tri)}.`;
+
+  const ligneCmp = (lib, a, b, mieuxBas, tot) => {
+    const best = Math.abs(a - b) < 1 ? "" : (mieuxBas ? a < b : a > b) ? "a" : "b";
+    return `<tr class="${tot ? "tot" : ""}"><td>${lib}</td><td class="${best === "a" ? "best" : ""}">${eur(a)}</td><td class="${best === "b" ? "best" : ""}">${eur(b)}</td><td class="ec">${b - a >= 0 ? "+" : "−"}${eur(Math.abs(b - a))}</td></tr>`;
+  };
+  const triRow = `<tr><td>Rendement annuel de l'apport (TRI après impôts)</td><td class="${(S.ir.tri ?? -9) > (S.is.tri ?? -9) ? "best" : ""}">${triTxt(S.ir.tri)}</td><td class="${(S.is.tri ?? -9) > (S.ir.tri ?? -9) ? "best" : ""}">${triTxt(S.is.tri)}</td><td class="ec"></td></tr>`;
+  const tableCmp = `<table class="cmp"><thead><tr><th>Sur ${N} ans</th><th>SCI à l'IR</th><th>SCI à l'IS</th><th>IS − IR</th></tr></thead><tbody>
+    ${ligneCmp("Impôts pendant la détention", S.ir.impotsDetention, S.is.impotsDetention, true)}
+    ${ligneCmp(p.liquidation ? "Impôts à la revente et à la sortie des fonds" : "Impôts à la revente", S.ir.impotsRevente, S.is.impotsRevente, true)}
+    ${S.is.honoraires ? ligneCmp("Surcoût d'honoraires", 0, S.is.honoraires, true) : ""}
+    ${ligneCmp("Total des prélèvements", S.ir.impotsTotal + S.ir.honoraires, S.is.impotsTotal + S.is.honoraires, true, true)}
+    ${ligneCmp("Enrichissement net des associés", S.ir.enrichissement, S.is.enrichissement, false, true)}
+    ${triRow}</tbody></table>`;
+
+  const pa = r.pvIS, pv = r.pvIR;
+  const distribTotal = r.is.reduce((s, x) => s + x.distribue, 0), pfuTotal = r.is.reduce((s, x) => s + x.pfu, 0);
+  const why = [];
+  why.push(`<b>Pendant la détention.</b> À l'IR, les loyers nets sont imposés chez les associés (tranche à ${pct(p.tmi, 0)} et ${pct(T.psFoncier)} de prélèvements sociaux) : ${eur(S.ir.impotsDetention)} sur ${N} ans. À l'IS, les amortissements (${eur(pa.cumulAmort)}) réduisent le résultat : ${eur(S.is.impotsDetention)}${p.tauxDistribution > 0 ? ", distributions comprises" : ""}.`);
+  why.push(`<b>À la revente.</b> À l'IS, la plus-value se calcule sur la valeur nette comptable (${eur(pa.vnc)}, amortissements déduits), sans abattement pour durée de détention : ${eur(Math.max(0, pa.pv))} taxés, ${eur(r.impotPVdansIS)} d'impôt. À l'IR, la plus-value brute de ${eur(pv.brute)}${N > 5 ? ` bénéficie d'un abattement de ${pct(pv.abIR, 1)} (IR) et ${pct(pv.abPS, 2)} (PS)` : ""} : ${eur(pv.total)} d'impôt.`);
+  if (distribTotal > 0) why.push(`<b>À la sortie des fonds.</b> Les bénéfices de la SCI à l'IS distribués aux associés (${eur(distribTotal)}) supportent le prélèvement forfaitaire de ${pct(T.pfu)}, soit ${eur(pfuTotal)}.`);
+  else if (!p.liquidation) why.push(`Aucune distribution n'est simulée : les réserves restent dans la SCI à l'IS, avec un impôt latent au PFU non compté ici.`);
+
+  const projet = [
+    ["Prix du bien", eur(p.prix)], ["Frais d'acquisition", eur(p.frais)], ["Travaux initiaux", eur(p.travaux)],
+    ["Emprunt", `${eur(p.emprunt)}`], ["Taux, durée", `${pct(p.tauxEmprunt, 2)}, ${p.dureeEmprunt} ans`], ["Mensualité (hors assurance)", eur(r.mensualite)],
+    ["Apport des associés", eur(r.apport)], ["Loyers, année 1", eur(p.loyers)], ["Charges, année 1", eur(p.charges)],
+    ["Revente estimée", `${eur(r.prixVente)}`], ["Associés", `${p.nbAssocies}, tranche à ${pct(p.tmi, 0)}`],
+  ];
+  const meta = `${client} · ${dateLongue(etat.date)}${etat.auteur ? " · " + esc(etat.auteur) : ""}`;
+  const alertes = r.alertes.map((a) => `<div class="alert">${esc(a)}</div>`).join("");
+
+  const page1 = `<div class="pg-body">${enTete()}
+    <p class="kick">Étude comparative</p>
+    <h2 class="doc-title">SCI à l'impôt sur le revenu ou à l'impôt sur les sociétés</h2>
+    <p class="doc-meta">${meta}</p>
+    <div class="verdict"><p>${verdict}</p><p class="sub">${sous}</p></div>
+    ${tableCmp}
+    <h3 class="sec">Impôts cumulés, année par année</h3>
+    <div class="chart">${graphique(r)}</div>
+    <h3 class="sec">Ce qui fait la différence</h3><ul class="why">${why.map((w) => `<li>${w}</li>`).join("")}</ul>${alertes}
+  </div>`;
+
+  const projetBloc = `<h3 class="sec">Le projet</h3><div class="kv">${projet.map(([a, b]) => `<div><span>${a}</span><b>${b}</b></div>`).join("")}</div>`;
+  const det = `<h3 class="sec">Détail année par année</h3><table class="det"><thead>
+    <tr><th></th><th></th><th class="grp sep" colspan="3">SCI à l'IR</th><th class="grp sep" colspan="5">SCI à l'IS</th></tr>
+    <tr><th>Année</th><th>Loyers</th><th class="sep">Résultat foncier</th><th>Imputé revenu global</th><th>IR + PS</th><th class="sep">Amortiss.</th><th>Résultat</th><th>IS</th><th>Distribué</th><th>PFU</th></tr></thead><tbody>
+    ${r.ir.map((a, i) => { const b = r.is[i]; return `<tr class="${i === N - 1 ? "last" : ""}"><td>${a.annee}${i === N - 1 ? " · revente" : ""}</td><td>${eur(a.loyers)}</td><td class="sep">${eur(a.resultat)}</td><td>${a.imputeRG ? eur(-a.imputeRG) : "–"}</td><td>${eur(a.impot + (i === N - 1 ? pv.total : 0))}</td><td class="sep">${eur(b.amort)}</td><td>${eur(b.resultat)}</td><td>${eur(b.impot)}</td><td>${b.distribue ? eur(b.distribue) : "–"}</td><td>${b.pfu ? eur(b.pfu) : "–"}</td></tr>`; }).join("")}
+    </tbody></table>`;
+  const pvBloc = `<div class="two" style="margin-bottom:5mm">
+    <div><h3 class="sec">Plus-value, SCI à l'IR</h3><table class="pv">
+      <tr><td>Prix de cession net</td><td>${eur(pv.prixCession)}</td></tr>
+      <tr><td>Prix d'acquisition</td><td>${eur(p.prix)}</td></tr>
+      <tr><td>Frais d'acquisition ${pv.fraisRetenus > p.frais ? "(forfait 7,5 %)" : "(réels)"}</td><td>${eur(pv.fraisRetenus)}</td></tr>
+      <tr><td>Travaux ${N > 5 && pv.travauxRetenus === p.prix * T.forfaitTravaux ? "(forfait 15 %)" : "(réels non déduits)"}</td><td>${eur(pv.travauxRetenus)}</td></tr>
+      <tr><td>Plus-value brute</td><td>${eur(pv.brute)}</td></tr>
+      <tr><td>Imposable à l'IR (abattement ${pct(pv.abIR, 1)})</td><td>${eur(pv.imposableIR)}</td></tr>
+      <tr><td>Imposable aux PS (abattement ${pct(pv.abPS, 2)})</td><td>${eur(pv.imposablePS)}</td></tr>
+      <tr><td>IR ${pct(T.irPV)} + PS ${pct(T.psFoncier)}${pv.surtaxe ? " + surtaxe" : ""}</td><td>${eur(pv.impotIR)} + ${eur(pv.ps)}${pv.surtaxe ? " + " + eur(pv.surtaxe) : ""}</td></tr>
+      <tr class="t"><td>Impôt sur la plus-value</td><td>${eur(pv.total)}</td></tr></table></div>
+    <div><h3 class="sec">Plus-value, SCI à l'IS</h3><table class="pv">
+      <tr><td>Prix de cession net</td><td>${eur(pa.prixCession)}</td></tr>
+      <tr><td>Coût d'origine (bien, travaux${p.fraisAuCout ? ", frais" : ""})</td><td>${eur(pa.vnc + pa.cumulAmort)}</td></tr>
+      <tr><td>Amortissements pratiqués</td><td>−${eur(pa.cumulAmort)}</td></tr>
+      <tr><td>Valeur nette comptable</td><td>${eur(pa.vnc)}</td></tr>
+      <tr><td>Plus-value professionnelle</td><td>${eur(pa.pv)}</td></tr>
+      <tr><td>Imposée avec le résultat de l'année, sans abattement</td><td></td></tr>
+      <tr class="t"><td>Part de l'IS liée à la plus-value</td><td>${eur(r.impotPVdansIS)}</td></tr></table></div></div>`;
+  const notes = `<h3 class="sec">Hypothèses et limites</h3><div class="notes">
+    <ul>
+      <li>Location nue. Revenus fonciers au régime réel (le micro-foncier est en principe fermé aux associés de SCI qui ne louent pas aussi un bien en direct). Déficit foncier hors intérêts imputé sur le revenu global dans la limite de ${eur(T.plafondDeficit)} par associé, le reste reporté dix ans sur les revenus fonciers. CSG déductible de ${pct(T.csgDeductible)} prise en compte. Impôts calculés l'année même des revenus.</li>
+      <li>Tranche marginale identique pour tous les associés et constante sur la période. Surtaxe sur les plus-values élevées appréciée par associé, à parts égales.</li>
+      <li>SCI à l'IS : amortissement linéaire, terrain non amorti, taux réduit ${p.tauxReduit ? "appliqué" : "non appliqué"} jusqu'à ${eur(T.isSeuil)} de bénéfice, déficits reportés sans limite de durée. Dividendes au PFU de ${pct(T.pfu)}, sans option pour le barème. Les sommes non distribuées reviennent aux associés en remboursement de leur apport ou de leur compte courant, sans impôt.</li>
+      <li>Enrichissement net : somme des flux de trésorerie des associés après impôts (loyers, charges, échéances du crédit, prix de revente moins capital restant dû), apport initial déduit, sans actualisation. Le rendement annuel (TRI) tient compte du calendrier de ces flux.</li>
+      <li>Ne sont pas simulés : CFE, frais de constitution de la société, option pour le barème des dividendes, changement de régime en cours de détention, droits de mutation sur les parts, évolution future de la législation.</li>
+    </ul>
+    <p><b>Références :</b> CGI art. 28 à 31 et 156 I 3° (revenus et déficits fonciers), 150 U à 150 VH et 1609 nonies G (plus-values des particuliers, BOI-RFPI-PVI-20-20), 219 I b (taux réduit d'IS), 39 B et 238 bis K (amortissements, plus-values à l'IS), 200 A (PFU). LFSS 2026 (loi n° 2025-1403 du 30 décembre 2025, art. 12) : CSG des revenus du capital portée à 10,6 %, revenus fonciers et plus-values immobilières maintenus à 9,2 % (CSS art. L136-8). Taux en vigueur au ${dateLongue(etat.date)}.</p>
+    <p>Simulation indicative établie à partir des hypothèses ci-dessus. Elle ne tient pas compte de la situation fiscale complète des associés et doit être confirmée avant toute décision.</p></div>`;
+
+  const pages = [page1];
+  pages.push(`<div class="pg-body">${projetBloc}${det}</div>`, `<div class="pg-body">${pvBloc}${notes}</div>`);
+  const run = `<div class="run"><span><b>${CABINETS[etat.cabinet].nom}</b> · Étude comparative SCI IR / IS</span><span>${client}</span></div>`;
+  document.getElementById("pages").innerHTML = pages.map((c, i) => `<section class="page">${i ? c.replace('<div class="pg-body">', '<div class="pg-body">' + run) : c}${pied(i + 1, pages.length)}</section>`).join("");
+  ajusterZoom();
+}
+function ajusterZoom() {
+  const desk = document.querySelector(".desk"), pages = document.getElementById("pages");
+  const dispo = desk.clientWidth - (window.innerWidth <= 900 ? 32 : 48), pleine = 210 * 96 / 25.4;
+  pages.style.zoom = Math.min(1, dispo / pleine);
+}
+window.addEventListener("resize", ajusterZoom);
+dessinerFormulaire();
+rendre();
+</script>
+</body>
+</html>
