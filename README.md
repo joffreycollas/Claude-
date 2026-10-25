@@ -35,3 +35,4 @@ Résultat : rapport de 3 pages aux couleurs d'**ALTHO EXPERTISE** ou d'**ALTHO**
 | `comparateur-sci/moteur.js` | Moteur de calcul (sans interface, testable avec Node) |
 | `comparateur-sci/index.src.html` | Interface et rapport |
 | `comparateur-sci/build.py` | Assemble `Comparateur_SCI_IR_IS.html` (moteur, polices et papier à en-tête embarqués) |
+| `comparateur-sci/generer_rapport.py` | Produit le PDF sans ouvrir l'interface, à partir d'un dossier JSON (utilisé par le skill `comparatif-sci-ir-is`) |
